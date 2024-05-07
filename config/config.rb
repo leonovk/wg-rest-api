@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 if ENV.fetch('ENVIRONMENT', 'development') == 'development'
-  require 'dotenv'
-  Dotenv.load
+  begin
+    require 'dotenv'
+    Dotenv.load
+  rescue LoadError # rubocop:disable Lint/SuppressedException
+  end
 end
