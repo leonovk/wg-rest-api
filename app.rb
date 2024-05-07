@@ -9,10 +9,21 @@ class Application < Sinatra::Base
 
   before do
     content_type :json
+
+    pass if request.path == '/healthz'
+
     halt 403 unless request.env['HTTP_AUTHORIZATION'] == AUTH_TOKEN
   end
 
   get '/clients' do
     { client: 'lol' }.to_json
+  end
+
+  post '/clients' do
+    { client: 'post' }.to_json
+  end
+
+  get '/healthz' do
+    { status: 'ok' }.to_json
   end
 end

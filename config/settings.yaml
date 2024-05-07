@@ -1,0 +1,4 @@
+wg_path: <%= ENV['WG_PATH'] || '/etc/wireguard' %>
+wg_device: <%= ENV['WG_DEVICE'] || '/eth0' %>
+wg_default_address: <%= ENV['WG_DEFAULT_ADDRESS'] || '10.8.0.x' %>
+wg_allowed_ips: <%= ENV['WG_ALLOWED_IPS'] || '0.0.0.0/0, ::/0' %>

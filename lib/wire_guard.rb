@@ -2,7 +2,9 @@
 
 # wg
 class WireGuard
-  WG_PATH = '/etc/wireguard'
+  WG_PATH = Settings.wg_path
+
+  def initialize; end
 
   def create
     filename = 'my_file.txt'

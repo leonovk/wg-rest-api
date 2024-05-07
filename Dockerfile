@@ -19,4 +19,6 @@ RUN bundle config set without 'development'
 
 RUN bundle install
 
+EXPOSE 51820/udp
+
 CMD ["puma", "-C", "config/puma.rb"]
