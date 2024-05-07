@@ -12,7 +12,7 @@ class Application < Sinatra::Base
     halt 403 unless request.env['HTTP_AUTHORIZATION'] == AUTH_TOKEN
   end
 
-  get '/healthz' do
-    { kek: 'lol' }.to_json
+  get '/clients' do
+    { client: 'lol' }.to_json
   end
 end
