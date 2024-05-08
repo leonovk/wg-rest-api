@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'clients_serializer'
+
 # controller
 class ClientsController
   def initialize
@@ -11,7 +13,7 @@ class ClientsController
   end
 
   def create(params)
-    wire_guard.new_config(params).to_json
+    ClientsSerializer.serialize(wire_guard.new_config(params), wire_guard.server_public_key)
   end
 
   def show(id)
@@ -19,10 +21,14 @@ class ClientsController
 
     raise Errors::ConfigNotFoundError if config.nil?
 
-    config.to_json
+    ClientsSerializer.serialize(config, wire_guard.server_public_key)
   end
 
-  def destroy(_id)
+  def destroy(id)
+    result = wire_guard.delete_config(id)
+
+    raise Errors::ConfigNotFoundError if result == false
+
     {}.to_json
   end
 

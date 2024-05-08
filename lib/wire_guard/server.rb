@@ -5,7 +5,7 @@ require_relative 'key_generator'
 require_relative 'confug_updater'
 
 module WireGuard
-  # wg server
+  # Main class for WireGuard server management
   class Server
     WG_JSON_PATH = "#{Settings.wg_path}/wg0.json".freeze
     WG_DEFAULT_ADDRESS = Settings.wg_default_address
@@ -36,6 +36,20 @@ module WireGuard
       return nil if configs_empty?
 
       @configs[id]
+    end
+
+    def delete_config(id)
+      return nil if configs_empty?
+
+      result = json_config['configs'].delete(id)
+
+      if result.nil?
+        false
+      else
+        dump_json_config(json_config)
+        dump_wireguard_config
+        true
+      end
     end
 
     private
@@ -76,7 +90,7 @@ module WireGuard
     end
 
     def dump_wireguard_config
-      # ConfigUpdater.update
+      ConfigUpdater.update
     end
 
     def update_json_config(config)
