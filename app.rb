@@ -37,6 +37,6 @@ class Application < Sinatra::Base
   end
 
   get '/healthz' do
-    { status: 'okdddsd' }.to_json
+    { status: 'ok' }.to_json
   end
 end
