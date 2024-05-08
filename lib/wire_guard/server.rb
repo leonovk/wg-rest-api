@@ -2,7 +2,7 @@
 
 require_relative 'config_builder'
 require_relative 'key_generator'
-require_relative 'confug_updater'
+require_relative 'config_updater'
 
 module WireGuard
   # Main class for WireGuard server management
@@ -57,16 +57,22 @@ module WireGuard
     attr_reader :json_config
 
     def initialize_json_config
+      FileUtils.mkdir_p(Settings.wg_path)
+
       if File.exist?(WG_JSON_PATH)
-        @json_config = JSON.parse(File.read(WG_JSON_PATH))
-        @server_private_key = @json_config['server']['private_key']
-        @server_public_key = @json_config['server']['public_key']
-        @configs = @json_config['configs']
+        initialize_data
       else
         generate_server_private_key
         generate_server_public_key
         create_json_server_config
       end
+    end
+
+    def initialize_data
+      @json_config = JSON.parse(File.read(WG_JSON_PATH))
+      @server_private_key = @json_config['server']['private_key']
+      @server_public_key = @json_config['server']['public_key']
+      @configs = @json_config['configs']
     end
 
     def create_json_server_config # rubocop:disable Metrics/MethodLength
