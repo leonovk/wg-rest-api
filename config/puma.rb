@@ -2,7 +2,7 @@
 
 require_relative 'config'
 
-threads_count = ENV.fetch('PUMA_THREADS', 5).to_i
+threads_count = ENV.fetch('PUMA_THREADS', 1).to_i
 
 threads threads_count, threads_count
 

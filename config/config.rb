@@ -12,3 +12,7 @@ if ENV.fetch('ENVIRONMENT', 'development') == 'development'
 end
 
 Config.load_and_set_settings('config/settings.yaml')
+
+require_relative '../lib/wire_guard/server'
+require_relative '../app/clients_controller'
+require_relative '../app/errors/config_not_found_error'

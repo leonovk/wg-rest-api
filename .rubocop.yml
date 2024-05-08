@@ -1,0 +1,5 @@
+AllCops:
+  NewCops: enable
+
+Style/AndOr:
+  Enabled: false

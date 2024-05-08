@@ -15,10 +15,11 @@ RUN apk add --no-cache \
     iptables-legacy \
     wireguard-tools
 
+# Use iptables-legacy
+RUN update-alternatives --install /sbin/iptables iptables /sbin/iptables-legacy 10 --slave /sbin/iptables-restore iptables-restore /sbin/iptables-legacy-restore --slave /sbin/iptables-save iptables-save /sbin/iptables-legacy-save
+
 RUN bundle config set without 'development'
 
 RUN bundle install
-
-EXPOSE 51820/udp
 
 CMD ["puma", "-C", "config/puma.rb"]
