@@ -44,7 +44,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.1)
-    rubocop (1.63.4)
+    rubocop (1.63.5)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -90,7 +90,7 @@ DEPENDENCIES
   ipaddr (~> 1.2, >= 1.2.6)
   puma (~> 6.4, >= 6.4.2)
   rspec (~> 3.13)
-  rubocop (~> 1.63, >= 1.63.4)
+  rubocop (~> 1.63)
   rubocop-rspec (~> 2.29, >= 2.29.2)
   sinatra (~> 4.0)
 
