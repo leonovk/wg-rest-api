@@ -37,6 +37,9 @@ class Application < Sinatra::Base
   end
 
   get '/healthz' do
-    { status: 'ok' }.to_json
+    {
+      status: 'ok',
+      version: File.read('VERSION')
+    }.to_json
   end
 end
