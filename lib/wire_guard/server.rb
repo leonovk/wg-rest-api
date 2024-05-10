@@ -6,6 +6,7 @@ require_relative 'config_updater'
 
 module WireGuard
   # Main class for WireGuard server management
+  # Allows you to manage configuration files on the server
   class Server
     WG_JSON_PATH = "#{Settings.wg_path}/wg0.json".freeze
     WG_DEFAULT_ADDRESS = Settings.wg_default_address

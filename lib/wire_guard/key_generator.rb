@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module WireGuard
-  # kg
+  # class for generating WireGuard keys
   class KeyGenerator
     class << self
       def wg_genkey

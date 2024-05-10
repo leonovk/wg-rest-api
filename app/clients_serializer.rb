@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# ss
+# serializer for config files
 class ClientsSerializer
   DNS = Settings.wg_default_dns
   WG_ALLOWED_IPS = Settings.wg_allowed_ips

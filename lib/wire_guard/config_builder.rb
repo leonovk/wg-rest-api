@@ -4,7 +4,7 @@ require_relative 'key_generator'
 require 'ipaddr'
 
 module WireGuard
-  # cb
+  # The class generates a config file for the client
   class ConfigBuilder
     attr_reader :config
 

@@ -2,7 +2,7 @@
 
 require_relative 'clients_serializer'
 
-# controller
+# Main controller for managing client config files
 class ClientsController
   def initialize
     @wire_guard = WireGuard::Server.new

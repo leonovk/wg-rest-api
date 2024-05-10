@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module WireGuard
-  # cu
+  # the class dumps the resulting configuration file
+  # and reboots the WireGuard server
   class ConfigUpdater
     WG_CONF_PATH = "#{Settings.wg_path}/wg0.conf".freeze
     WG_PORT = Settings.wg_port
