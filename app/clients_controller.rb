@@ -13,6 +13,9 @@ class ClientsController
   end
 
   def create(params)
+
+
+    
     ClientsSerializer.serialize(wire_guard.new_config(params), wire_guard.server_public_key)
   end
 

@@ -7,9 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-
   rubocop:
-     #needs: prepare
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +22,6 @@ jobs:
         run: bundle exec rubocop
 
   specs:
-    # needs: prepare
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
