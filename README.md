@@ -4,8 +4,6 @@
 
 The easiest way to run WireGuard VPN + REST API
 
-![image](https://github.com/leonovk/wg-rest-api/blob/master/baner.png)
-
 ## Features
 * REST API for manage WireGuard server
 * Easy installation, simple to use.
