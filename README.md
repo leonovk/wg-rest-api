@@ -28,6 +28,8 @@ clone this repository and build the image from the dockerfile
 
 To automatically run simply run:
 
+*Instead of 'wg-rest-api', substitute the name of the image that you specified during assembly*
+
 ```
   docker run -d \
   -e WG_HOST=<🚨YOUR_SERVER_IP> \
