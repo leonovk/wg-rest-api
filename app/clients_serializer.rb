@@ -16,6 +16,26 @@ class ClientsSerializer
     new(client_config, server_public_key).clients.to_json
   end
 
+  # NOTE: If an instance of a class is created through the each_serialize method,
+  # then the client_config variable will contain a hash with configs of the type:
+  # {
+  #  '1' => {
+  #    id: 1,
+  #    address: '10.8.0.2',
+  #    private_key: '1',
+  #    public_key: '2',
+  #    preshared_key: '3',
+  #    data: {}
+  #  },
+  #  '2' => {
+  #    id: 2,
+  #    address: '10.8.0.3',
+  #    private_key: '1',
+  #    public_key: '2',
+  #    preshared_key: '3',
+  #    data: {}
+  #  }
+  # }
   def initialize(client_config, server_public_key)
     @client_config = stringify_keys(client_config)
     @server_public_key = server_public_key
