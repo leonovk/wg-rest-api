@@ -23,6 +23,7 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
+      with: prepare
       - name: Run cops
         run: bundle exec rubocop
 
@@ -30,5 +31,6 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
+      with: prepare
       - name: Run specs
         run: bundle exec rspec
