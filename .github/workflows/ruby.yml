@@ -23,7 +23,13 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
-      with: prepare
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - name: Install dependencies
+        run: bundle install
       - name: Run cops
         run: bundle exec rubocop
 
@@ -31,6 +37,12 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
-      with: prepare
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - name: Install dependencies
+        run: bundle install
       - name: Run specs
         run: bundle exec rspec
