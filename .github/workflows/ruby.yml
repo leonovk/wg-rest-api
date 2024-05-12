@@ -15,22 +15,14 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
+          bundler-cache: true
       - name: Install dependencies
         run: bundle install
-      - name: Save dependencies
-        uses: actions/upload-artifact@v3
-        with:
-          name: dependencies
-          path: vendor/bundle
 
   rubocop:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
-      - name: Download dependencies
-        uses: actions/download-artifact@v3
-        with:
-          name: dependencies
       - name: Run cops
         run: bundle exec rubocop
 
@@ -38,10 +30,5 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
-      with:
-      - name: Download dependencies
-        uses: actions/download-artifact@v3
-        with:
-          name: dependencies
       - name: Run specs
         run: bundle exec rspec
