@@ -21,7 +21,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dependencies
-          path: ruby_gems
+          path: vendor/bundle
 
   rubocop:
     needs: prepare
