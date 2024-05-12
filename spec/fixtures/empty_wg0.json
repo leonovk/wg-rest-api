@@ -1,0 +1,11 @@
+{
+  "server": {
+    "private_key": "wg_genkey",
+    "public_key": "wg_pubkey",
+    "address": "10.8.0.1"
+  },
+  "configs": {
+    "last_id": 0,
+    "last_address": "10.8.0.1"
+  }
+}

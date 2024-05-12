@@ -9,7 +9,7 @@ class ClientsController
   end
 
   def index
-    wire_guard.all_configs.to_json
+    ClientsSerializer.each_serialize(wire_guard.all_configs, wire_guard.server_public_key)
   end
 
   def create(params)

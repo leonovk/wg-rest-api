@@ -3,9 +3,14 @@
 require 'json'
 require 'byebug'
 require 'config'
+require 'fileutils'
 Config.load_and_set_settings('config/settings/test.yaml')
 
 require_relative '../app/clients_serializer'
+require_relative '../app/clients_controller'
+require_relative '../lib/wire_guard/server'
+
+require 'super_diff/rspec'
 
 RSpec.configure do |config|
   config.example_status_persistence_file_path = '.rspec_status'

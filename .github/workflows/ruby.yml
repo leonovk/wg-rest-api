@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  test:
+  rubocop:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,9 +15,22 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
+          bundler-cache: true
       - name: Install dependencies
         run: bundle install
       - name: Run cops
         run: bundle exec rubocop
+
+  specs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - name: Install dependencies
+        run: bundle install
       - name: Run specs
         run: bundle exec rspec

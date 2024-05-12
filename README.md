@@ -52,17 +52,22 @@ Returns an array with all clients on the server
 Example response:
 
 ```json
-{
-  "6": {
-    "id": 6,
-    "address": "10.8.0.7",
+[
+  {
+    "id": 15,
+    "server_public_key": "server_public_key",
+    "address": "10.8.0.16/24",
     "private_key": "private_key",
-    "public_key": "public_key",
     "preshared_key": "preshared_key",
+    "allowed_ips": "0.0.0.0/0, ::/0",
+    "dns": "1.1.1.1",
+    "persistent_keepalive": 0,
+    "endpoint": "0.0.0.0:51820",
     "data": {
-      "params": "value"
+      "params1": "value1"
     }
-}
+  }
+]
 ```
 
 ### POST /clients
