@@ -12,9 +12,31 @@ class ClientsSerializer
     new(client_config, server_public_key).client.to_json
   end
 
+  def self.each_serialize(client_config, server_public_key)
+    new(client_config, server_public_key).clients.to_json
+  end
+
   def initialize(client_config, server_public_key)
     @client_config = stringify_keys(client_config)
     @server_public_key = server_public_key
+  end
+
+  def clients # rubocop:disable Metrics/MethodLength
+    client_config.map do |_config_id, config|
+      {
+        id: config['id'],
+        server_public_key:,
+        address: "#{config['address']}/24",
+        private_key: config['private_key'],
+        public_key: config['public_key'],
+        preshared_key: config['preshared_key'],
+        allowed_ips: WG_ALLOWED_IPS,
+        dns: DNS,
+        persistent_keepalive: WG_PERSISTENT_KEEPALIVE,
+        endpoint: "#{WG_HOST}:#{WG_PORT}",
+        data: config['data']
+      }
+    end
   end
 
   def client # rubocop:disable Metrics/MethodLength
@@ -23,6 +45,7 @@ class ClientsSerializer
       server_public_key:,
       address: "#{client_config['address']}/24",
       private_key: client_config['private_key'],
+      public_key: client_config['public_key'],
       preshared_key: client_config['preshared_key'],
       allowed_ips: WG_ALLOWED_IPS,
       dns: DNS,
