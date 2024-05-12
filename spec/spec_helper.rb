@@ -6,6 +6,7 @@ require 'config'
 Config.load_and_set_settings('config/settings/test.yaml')
 
 require_relative '../app/clients_serializer'
+require_relative '../app/clients_controller'
 
 require 'super_diff/rspec'
 
