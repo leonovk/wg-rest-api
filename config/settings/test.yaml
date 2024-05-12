@@ -1,4 +1,4 @@
-wg_path: 'etc'
+wg_path: 'tmp/etc'
 wg_device: 'eth0'
 wg_default_address: '10.8.0.x'
 wg_allowed_ips: '0.0.0.0/0, ::/0'

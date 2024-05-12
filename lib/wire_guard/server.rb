@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'fileutils'
 require_relative 'config_builder'
 require_relative 'key_generator'
 require_relative 'config_updater'

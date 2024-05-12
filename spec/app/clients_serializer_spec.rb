@@ -17,7 +17,7 @@ RSpec.describe ClientsSerializer do
       }
     end
 
-    let(:excepted_result) do
+    let(:expected_result) do
       {
         id: 1,
         server_public_key: '4',
@@ -33,8 +33,8 @@ RSpec.describe ClientsSerializer do
       }.to_json
     end
 
-    it do
-      expect(serialize).to eq(excepted_result)
+    it 'serializes one config' do
+      expect(serialize).to eq(expected_result)
     end
   end
 
@@ -62,7 +62,7 @@ RSpec.describe ClientsSerializer do
       }
     end
 
-    let(:excepted_result) do
+    let(:expected_result) do
       [
         {
           id: 1,
@@ -93,8 +93,8 @@ RSpec.describe ClientsSerializer do
       ]
     end
 
-    it do
-      expect(serialize).to eq(excepted_result.to_json)
+    it 'serializes multiple configs' do
+      expect(serialize).to eq(expected_result.to_json)
     end
   end
 end
