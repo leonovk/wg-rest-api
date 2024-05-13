@@ -151,6 +151,12 @@ RSpec.describe ClientsController do
     end
   end
 
+  describe '#create' do
+    
+
+  end
+
+
   private
 
   def create_conf_file(from)
