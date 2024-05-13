@@ -24,9 +24,12 @@ curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $(whoami)
 exit
 ```
+
+### 2. Build an image from a Dockerfile
+
 clone this repository and build the image from the dockerfile
 
-To automatically run simply run:
+To run just run the command:
 
 *Instead of 'wg-rest-api', substitute the name of the image that you specified during assembly*
 
@@ -38,8 +41,13 @@ To automatically run simply run:
   -p 51820:51820/udp \
   -p 3000:3000 \
   --cap-add=NET_ADMIN \
+  --restart unless-stopped \
   wg-rest-api
 ```
+
+### Also important
+
+By default, the application runs in single-threaded mode. This is not a solution for heavy loads. You can change this behavior by setting the appropriate environment variables "PUMA_THREADS" and "WORKERS". However, we do not recommend doing this. The application is not thread safe. If you need large loads, it is better to raise several application instances and set up load balancing between them.
 
 ## API
 
