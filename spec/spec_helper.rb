@@ -9,6 +9,7 @@ Config.load_and_set_settings('config/settings/test.yaml')
 require_relative '../app/clients_serializer'
 require_relative '../app/clients_controller'
 require_relative '../lib/wire_guard/server'
+require_relative '../app/errors/config_not_found_error'
 
 require 'super_diff/rspec'
 
