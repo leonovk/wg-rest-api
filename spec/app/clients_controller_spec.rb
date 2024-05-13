@@ -44,7 +44,7 @@ RSpec.describe ClientsController do
 
     context 'when there is already a configuration file without clients' do
       before do
-        FileUtils.cp('spec/fixtures/empty_wg0.json', wg_conf_path)
+        create_conf_file('spec/fixtures/empty_wg0.json')
       end
 
       it 'returns an empty array' do
@@ -54,7 +54,7 @@ RSpec.describe ClientsController do
 
     context 'when there is already a configuration file with clients' do
       before do
-        FileUtils.cp('spec/fixtures/wg0.json', wg_conf_path)
+        create_conf_file('spec/fixtures/wg0.json')
       end
 
       let(:expected_result) do
@@ -115,7 +115,7 @@ RSpec.describe ClientsController do
 
   describe '#show' do
     before do
-      FileUtils.cp('spec/fixtures/wg0.json', wg_conf_path)
+      create_conf_file('spec/fixtures/wg0.json')
     end
 
     context 'when the necessary config is available' do
@@ -149,5 +149,12 @@ RSpec.describe ClientsController do
         expect { controller.show('17') }.to raise_error(Errors::ConfigNotFoundError)
       end
     end
+  end
+
+  private
+
+  def create_conf_file(from)
+    FileUtils.mkdir_p(Settings.wg_path)
+    FileUtils.cp(from, wg_conf_path)
   end
 end
