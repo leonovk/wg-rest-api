@@ -112,4 +112,42 @@ RSpec.describe ClientsController do
       end
     end
   end
+
+  describe '#show' do
+    before do
+      FileUtils.cp('spec/fixtures/wg0.json', wg_conf_path)
+    end
+
+    context 'when the necessary config is available' do
+      let(:expected_result) do
+        {
+          id: 2,
+          server_public_key: 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
+          address: '10.8.0.3/24',
+          private_key: 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
+          public_key: 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
+          preshared_key: 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
+          allowed_ips: '0.0.0.0/0, ::/0',
+          dns: '1.1.1.1',
+          persistent_keepalive: 0,
+          endpoint: '2.2.2.2:51820',
+          data: {
+            cheburek: 'hah'
+          }
+        }
+      end
+
+      it 'returns the correct serialized config' do
+        result = controller.show('2')
+
+        expect(result).to eq(expected_result.to_json)
+      end
+    end
+
+    context 'when the required config is missing' do
+      it 'raises an error stating that this config is not on the server' do
+        expect { controller.show('17') }.to raise_error(Errors::ConfigNotFoundError)
+      end
+    end
+  end
 end
