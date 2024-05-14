@@ -110,6 +110,39 @@ Returns a specific client by his ID. The answer will be similar to the previous 
 
 Deletes a specific one client. If the client is not found, a 404 error will be returned.
 
+## Development
+
+### Requirements fo standalone app
+
+1. wireguard + wireguard-tools
+2. ruby 3.3.1
+
+```bash
+$ bundle install
+```
+
+Run app:
+
+```bash
+$ puma config.ru
+```
+
+### Run with docker
+
+Build image:
+
+```bash
+$ docker build . -t wg-rest-api
+```
+
+Run app:
+
+```bash
+$ docker run -d -v /your_app_path:/app wg-rest-api
+```
+
+**pre-set the necessary environment variables in the .env file**
+
 ## Contribution
 
 If you would like to contribute to the development, submit a pull request with your changes. We welcome any contributions that improve the service. You can also view the current project board here. You can also contribute by reporting bugs or suggesting new features. Please use the GitHub issues for that.
