@@ -22,3 +22,8 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+def create_conf_file(from)
+  FileUtils.mkdir_p(Settings.wg_path)
+  FileUtils.cp(from, wg_conf_path)
+end

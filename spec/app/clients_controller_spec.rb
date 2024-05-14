@@ -150,11 +150,4 @@ RSpec.describe ClientsController do
       end
     end
   end
-
-  private
-
-  def create_conf_file(from)
-    FileUtils.mkdir_p(Settings.wg_path)
-    FileUtils.cp(from, wg_conf_path)
-  end
 end
