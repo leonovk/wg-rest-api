@@ -10,8 +10,10 @@ gem 'sinatra', '~> 4.0'
 group :development do
   gem 'byebug', '~> 11.1', '>= 11.1.3'
   gem 'dotenv', '~> 3.1', '>= 3.1.2'
+  gem 'rake', '~> 13.2', '>= 13.2.1'
   gem 'rspec', '~> 3.13'
   gem 'rubocop', '~> 1.63'
+  gem 'rubocop-rake', '~> 0.6.0'
   gem 'rubocop-rspec', '~> 2.29', '>= 2.29.2'
   gem 'super_diff', '~> 0.12.1'
 end
