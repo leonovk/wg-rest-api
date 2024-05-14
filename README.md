@@ -37,6 +37,7 @@ To run just run the command:
   docker run -d \
   -e WG_HOST=<🚨YOUR_SERVER_IP> \
   -e AUTH_TOKEN=<🚨YOUR_ADMIN_API_TOKEN> \
+  -e ENVIRONMENT=production
   -v ~/.wg-rest:/etc/wireguard \
   -p 51820:51820/udp \
   -p 3000:3000 \
