@@ -31,12 +31,34 @@ RSpec.describe WireGuard::Server do
     end
 
     context 'when there is no config file' do
+      let(:expected_result) do
+        {
+          server: {
+            private_key: 'wg_genkey',
+            public_key: 'wg_pubkey',
+            address: '10.8.0.1'
+          },
+          configs: {
+            last_id: 0,
+            last_address: '10.8.0.1'
+          }
+        }
+      end
+
       it 'correctly initializes the servers private key' do
         expect(server.server_private_key).to eq('wg_genkey')
       end
 
       it 'correctly initializes the servers public key' do
         expect(server.server_public_key).to eq('wg_pubkey')
+      end
+
+      it 'initializes the configuration file' do
+        server
+
+        config = File.read(wg_conf_path)
+
+        expect(config).to eq(JSON.pretty_generate(expected_result))
       end
     end
   end
