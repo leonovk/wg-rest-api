@@ -156,11 +156,65 @@ RSpec.describe ClientsController do
 
   end
 
+  describe '#destroy' do
+    before do
+      create_conf_file('spec/fixtures/wg0.json')
+    end
 
-  private
+    context 'when the necessary config is available' do
+      let(:expected_result) do
+        {
+          server: {
+            private_key: '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
+            public_key: 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
+            address: '10.8.0.1'
+          },
+          configs: {
+            last_id: 3,
+            last_address: '10.8.0.4',
+            '1' => {
+              id: 1,
+              address: '10.8.0.2',
+              private_key: 'MJn6fwoyqG8S6wsrJzWrUow4leZuEM9O8s+G+kcXElU=',
+              public_key: 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
+              preshared_key: '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
+              data: {
+                lol: 'kek'
+              }
+            },
+            '3' => {
+              id: 3,
+              address: '10.8.0.4',
+              private_key: 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
+              public_key: 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
+              preshared_key: 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
+              data: {
+                key: 'value'
+              }
+            }
+          }
+        }
+      end
 
-  def create_conf_file(from)
-    FileUtils.mkdir_p(Settings.wg_path)
-    FileUtils.cp(from, wg_conf_path)
+      it 'returns an empty hash as result' do
+        result = controller.destroy('2')
+
+        expect(result).to eq({}.to_json)
+      end
+
+      it 'removes the required config from the configuration file' do
+        controller.destroy('2')
+
+        json_config = File.read(wg_conf_path)
+
+        expect(json_config).to eq(JSON.pretty_generate(expected_result))
+      end
+    end
+
+    context 'when the required config is missing' do
+      it 'raises an error stating that this config is not on the server' do
+        expect { controller.destroy('17') }.to raise_error(Errors::ConfigNotFoundError)
+      end
+    end
   end
 end

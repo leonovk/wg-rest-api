@@ -9,11 +9,14 @@ if ENV.fetch('ENVIRONMENT', 'development') == 'development'
     Dotenv.load
   rescue LoadError # rubocop:disable Lint/SuppressedException
   end
+  # NOTE: in development mode, settings should be loaded after loading environment variables
+  Config.load_and_set_settings('config/settings/development.yaml')
 end
 
-Config.load_and_set_settings('config/settings.yaml')
-
 if ENV.fetch('ENVIRONMENT', 'development') == 'production'
+  # NOTE: It is important that the settings are loaded at the beginning
+  Config.load_and_set_settings('config/settings/production.yaml')
+
   conf = "#{Settings.wg_path}/wg0.conf"
   system('wg-quick up wg0') if File.exist?(conf)
 end
