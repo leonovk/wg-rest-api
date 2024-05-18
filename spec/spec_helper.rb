@@ -10,6 +10,7 @@ require_relative '../app/clients_serializer'
 require_relative '../app/clients_controller'
 require_relative '../lib/wire_guard/server'
 require_relative '../lib/wire_guard/config_builder'
+require_relative '../lib/wire_guard/config_updater'
 require_relative '../app/errors/config_not_found_error'
 
 require 'super_diff/rspec'
@@ -24,7 +25,7 @@ RSpec.configure do |config|
   end
 end
 
-def create_conf_file(from)
+def create_conf_file(from, wg_conf_path = "#{Settings.wg_path}/wg0.json")
   FileUtils.mkdir_p(Settings.wg_path)
   FileUtils.cp(from, wg_conf_path)
 end
