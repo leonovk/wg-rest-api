@@ -78,7 +78,7 @@ module WireGuard
     end
 
     def create_json_server_config # rubocop:disable Metrics/MethodLength
-      @json_config = {
+      json_config = {
         server: {
           private_key: @server_private_key,
           public_key: @server_public_key,
@@ -90,7 +90,11 @@ module WireGuard
         }
       }
 
-      dump_json_config(@json_config)
+      dump_json_config(json_config)
+      # NOTE: Сreate their hash above a new Jason file
+      # and read the result and write it to an instant variable.
+      # So as not to turn all the keys into strings.
+      @json_config = JSON.parse(File.read(WG_JSON_PATH))
     end
 
     def dump_json_config(config)
