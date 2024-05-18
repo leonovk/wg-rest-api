@@ -150,6 +150,6 @@ If you would like to contribute to the development, submit a pull request with y
 ### TODO
 
 - [x] Make a fully functional rest api wireguard server
-- [ ] Test coverage
+- [x] Test coverage
 - [ ] Implementation of the ability to update clients
 - [ ] Make API points to get statistics on clients
