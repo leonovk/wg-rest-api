@@ -151,6 +151,32 @@ RSpec.describe ClientsController do
     end
   end
 
+  describe '#create' do
+    before do
+      create_conf_file('spec/fixtures/empty_wg0.json')
+    end
+
+    let(:expected_result) do
+      {
+        id: 1,
+        server_public_key: 'wg_pubkey',
+        address: '10.8.0.2/24',
+        private_key: 'wg_genkey',
+        public_key: 'wg_pubkey',
+        preshared_key: 'wg_genpsk',
+        allowed_ips: '0.0.0.0/0, ::/0',
+        dns: '1.1.1.1',
+        persistent_keepalive: 0,
+        endpoint: '2.2.2.2:51820',
+        data: nil
+      }
+    end
+
+    it 'return new config' do
+      expect(controller.create(nil)).to eq(expected_result.to_json)
+    end
+  end
+
   describe '#destroy' do
     before do
       create_conf_file('spec/fixtures/wg0.json')
