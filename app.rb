@@ -13,33 +13,39 @@ class Application < Sinatra::Base
     pass if request.path == '/healthz'
 
     halt 403 unless request.env['HTTP_AUTHORIZATION'] == AUTH_TOKEN
+
+    @controller = ClientsController.new
   end
 
   get '/clients' do
-    ClientsController.new.index
+    controller.index
   end
 
   get '/clients/:id' do
-    ClientsController.new.show(params['id'])
+    controller.show(params['id'])
   rescue Errors::ConfigNotFoundError
     halt 404
   end
 
   delete '/clients/:id' do
-    ClientsController.new.destroy(params['id'])
+    controller.destroy(params['id'])
   rescue Errors::ConfigNotFoundError
     halt 404
   end
 
   post '/clients' do
     status 201
-    ClientsController.new.create(params)
+    controller.create(params)
   end
 
   get '/healthz' do
     {
       status: 'ok',
-      version: File.read('VERSION')
+      version: File.read('VERSION').gsub('v', '')
     }.to_json
   end
+
+  private
+
+  attr_reader :controller
 end
