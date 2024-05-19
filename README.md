@@ -5,10 +5,10 @@
 The easiest way to run WireGuard VPN + REST API
 
 ## Features
+
 * REST API for manage WireGuard server
 * Easy installation, simple to use.
-* List, create, delete, clients.
-
+* List, create, edit, delete, enable & disable clients.
 
 ## Requirements
 
