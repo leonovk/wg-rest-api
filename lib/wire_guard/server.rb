@@ -54,6 +54,21 @@ module WireGuard
       end
     end
 
+    def update_config(id, config_params)
+      return nil if configs_empty?
+
+      updated_config = json_config['configs'][id]
+
+      return nil if updated_config.nil?
+
+      json_config['configs'][id] = updated_config.merge(config_params)
+
+      dump_json_config(json_config)
+      dump_wireguard_config
+
+      json_config['configs'][id]
+    end
+
     private
 
     attr_reader :json_config

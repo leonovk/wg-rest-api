@@ -28,6 +28,7 @@ RSpec.describe WireGuard::ConfigBuilder do
       private_key: 'wg_genkey',
       public_key: 'wg_pubkey',
       preshared_key: 'wg_genpsk',
+      enable: true,
       data: {
         lol: 'kek'
       }

@@ -110,6 +110,24 @@ Returns a specific client by his ID. The answer will be similar to the previous 
 
 Deletes a specific one client. If the client is not found, a 404 error will be returned.
 
+### PATCH /clients/:id
+
+Allows you to update specific clients by assigning them new fields. Returns the updated client in response.
+
+Example request:
+
+```json
+{
+  "address": "string",
+  "private_key": "string",
+  "public_key": "string",
+  "preshared_key": "string",
+  "enable": false, // bool
+  "data": {} // object
+}
+
+The enable parameter allows you to enable or disable the client without removing it from the server.
+
 ## Development
 
 ### Requirements fo standalone app
@@ -141,8 +159,6 @@ Run app:
 $ docker run -d -v /your_app_path:/app wg-rest-api
 ```
 
-**pre-set the necessary environment variables in the .env file**
-
 ## Contribution
 
 If you would like to contribute to the development, submit a pull request with your changes. We welcome any contributions that improve the service. You can also view the current project board here. You can also contribute by reporting bugs or suggesting new features. Please use the GitHub issues for that.
@@ -151,5 +167,5 @@ If you would like to contribute to the development, submit a pull request with y
 
 - [x] Make a fully functional rest api wireguard server
 - [x] Test coverage
-- [ ] Implementation of the ability to update clients
-- [ ] Make API points to get statistics on clients
+- [x] Implementation of the ability to update clients
+- [ ] Make it possible to view client statistics

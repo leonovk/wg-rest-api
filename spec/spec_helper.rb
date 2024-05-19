@@ -8,6 +8,7 @@ Config.load_and_set_settings('config/settings/test.yaml')
 
 require_relative '../app/clients_serializer'
 require_relative '../app/clients_controller'
+require_relative '../app/clients_validator'
 require_relative '../lib/wire_guard/server'
 require_relative '../lib/wire_guard/config_builder'
 require_relative '../lib/wire_guard/config_updater'

@@ -66,6 +66,7 @@ RSpec.describe ClientsController do
             private_key: 'MJn6fwoyqG8S6wsrJzWrUow4leZuEM9O8s+G+kcXElU=',
             public_key: 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
             preshared_key: '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
+            enable: true,
             allowed_ips: '0.0.0.0/0, ::/0',
             dns: '1.1.1.1',
             persistent_keepalive: 0,
@@ -81,6 +82,7 @@ RSpec.describe ClientsController do
             private_key: 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
             public_key: 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
             preshared_key: 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
+            enable: false,
             allowed_ips: '0.0.0.0/0, ::/0',
             dns: '1.1.1.1',
             persistent_keepalive: 0,
@@ -96,6 +98,7 @@ RSpec.describe ClientsController do
             private_key: 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
             public_key: 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
             preshared_key: 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
+            enable: true,
             allowed_ips: '0.0.0.0/0, ::/0',
             dns: '1.1.1.1',
             persistent_keepalive: 0,
@@ -127,6 +130,7 @@ RSpec.describe ClientsController do
           private_key: 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
           public_key: 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
           preshared_key: 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
+          enable: false,
           allowed_ips: '0.0.0.0/0, ::/0',
           dns: '1.1.1.1',
           persistent_keepalive: 0,
@@ -160,6 +164,7 @@ RSpec.describe ClientsController do
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
+        enable: true,
         allowed_ips: '0.0.0.0/0, ::/0',
         dns: '1.1.1.1',
         persistent_keepalive: 0,
@@ -184,6 +189,7 @@ RSpec.describe ClientsController do
             private_key: 'wg_genkey',
             public_key: 'wg_pubkey',
             preshared_key: 'wg_genpsk',
+            enable: true,
             data: nil
           }
         }
@@ -225,6 +231,7 @@ RSpec.describe ClientsController do
               private_key: 'MJn6fwoyqG8S6wsrJzWrUow4leZuEM9O8s+G+kcXElU=',
               public_key: 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
               preshared_key: '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
+              enable: true,
               data: {
                 lol: 'kek'
               }
@@ -235,6 +242,7 @@ RSpec.describe ClientsController do
               private_key: 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
               public_key: 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
               preshared_key: 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
+              enable: true,
               data: {
                 key: 'value'
               }
@@ -263,5 +271,8 @@ RSpec.describe ClientsController do
         expect { controller.destroy('17') }.to raise_error(Errors::ConfigNotFoundError)
       end
     end
+  end
+
+  describe '#update' do
   end
 end

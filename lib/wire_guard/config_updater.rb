@@ -25,6 +25,8 @@ module WireGuard
       new_config_build << base_config
 
       json_config['configs'].except('last_id', 'last_address').each_value do |config|
+        next if config['enable'] == false
+
         new_config_build << build_client(config)
       end
 
