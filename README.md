@@ -125,6 +125,7 @@ Example request:
   "enable": false, // bool
   "data": {} // object
 }
+```
 
 The enable parameter allows you to enable or disable the client without removing it from the server.
 

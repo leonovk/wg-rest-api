@@ -15,7 +15,8 @@ class ClientsValidator
       'preshared_key' => { 'type' => 'string' },
       'enable' => { 'type' => 'boolean' },
       'data' => { 'type' => 'object' }
-    }
+    },
+    'additionalProperties' => false
   }.freeze
 
   def initialize(params)
