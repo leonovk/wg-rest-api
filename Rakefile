@@ -21,6 +21,11 @@ task :bump_minor do
   File.write('VERSION', new_version)
 end
 
+desc 'print the current version'
+task :version do
+  puts File.read('VERSION')
+end
+
 desc 'rubocop and rspec check'
 task :check do
   system 'rspec'

@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gem 'config', '~> 5.4'
 gem 'ipaddr', '~> 1.2', '>= 1.2.6'
+gem 'json-schema', '~> 4.3'
 gem 'puma', '~> 6.4', '>= 6.4.2'
 gem 'sinatra', '~> 4.0'
 

@@ -13,6 +13,7 @@ RSpec.describe ClientsSerializer do
         private_key: '1',
         public_key: '2',
         preshared_key: '3',
+        enable: true,
         data: {}
       }
     end
@@ -25,6 +26,7 @@ RSpec.describe ClientsSerializer do
         private_key: '1',
         public_key: '2',
         preshared_key: '3',
+        enable: true,
         allowed_ips: '0.0.0.0/0, ::/0',
         dns: '1.1.1.1',
         persistent_keepalive: 0,
@@ -49,6 +51,7 @@ RSpec.describe ClientsSerializer do
           private_key: '1',
           public_key: '2',
           preshared_key: '3',
+          enable: true,
           data: {}
         },
         '2' => {
@@ -57,6 +60,7 @@ RSpec.describe ClientsSerializer do
           private_key: '1',
           public_key: '2',
           preshared_key: '3',
+          enable: false,
           data: {}
         }
       }
@@ -71,6 +75,7 @@ RSpec.describe ClientsSerializer do
           private_key: '1',
           public_key: '2',
           preshared_key: '3',
+          enable: true,
           allowed_ips: '0.0.0.0/0, ::/0',
           dns: '1.1.1.1',
           persistent_keepalive: 0,
@@ -84,6 +89,7 @@ RSpec.describe ClientsSerializer do
           private_key: '1',
           public_key: '2',
           preshared_key: '3',
+          enable: false,
           allowed_ips: '0.0.0.0/0, ::/0',
           dns: '1.1.1.1',
           persistent_keepalive: 0,

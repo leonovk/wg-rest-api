@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'clients_serializer'
+require_relative 'clients_validator'
 
 # Main controller for managing client config files
 class ClientsController
@@ -18,6 +19,16 @@ class ClientsController
 
   def show(id)
     config = wire_guard.config(id)
+
+    raise Errors::ConfigNotFoundError if config.nil?
+
+    ClientsSerializer.serialize(config, wire_guard.server_public_key)
+  end
+
+  def update(id, body)
+    ClientsValidator.new(body).validate!
+
+    config = wire_guard.update_config(id, body)
 
     raise Errors::ConfigNotFoundError if config.nil?
 

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'sinatra'
-require 'json'
 
 # Main app class
 class Application < Sinatra::Base
@@ -33,6 +32,14 @@ class Application < Sinatra::Base
     halt 404
   end
 
+  patch '/clients/:id' do
+    controller.update(params['id'], request_body)
+  rescue Errors::ConfigNotFoundError
+    halt 404
+  rescue JSON::Schema::ValidationError => e
+    halt 400, { error: e }.to_json
+  end
+
   post '/clients' do
     status 201
     controller.create(params)
@@ -48,4 +55,10 @@ class Application < Sinatra::Base
   private
 
   attr_reader :controller
+
+  def request_body
+    JSON.parse(request.body.read)
+  rescue JSON::ParserError
+    {}
+  end
 end

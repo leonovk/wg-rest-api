@@ -83,6 +83,7 @@ RSpec.describe WireGuard::Server do
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
+        enable: true,
         data: {
           lol: 'kek'
         }
@@ -105,6 +106,7 @@ RSpec.describe WireGuard::Server do
             private_key: 'wg_genkey',
             public_key: 'wg_pubkey',
             preshared_key: 'wg_genpsk',
+            enable: true,
             data: {
               lol: 'kek'
             }
@@ -158,6 +160,7 @@ RSpec.describe WireGuard::Server do
             'private_key' => 'MJn6fwoyqG8S6wsrJzWrUow4leZuEM9O8s+G+kcXElU=',
             'public_key' => 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
             'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
+            'enable' => true,
             'data' => {
               'lol' => 'kek'
             }
@@ -168,6 +171,7 @@ RSpec.describe WireGuard::Server do
             'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
             'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
             'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
+            'enable' => false,
             'data' => {
               'cheburek' => 'hah'
             }
@@ -178,6 +182,7 @@ RSpec.describe WireGuard::Server do
             'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
             'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
             'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
+            'enable' => true,
             'data' => {
               'key' => 'value'
             }
@@ -216,6 +221,7 @@ RSpec.describe WireGuard::Server do
           'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
           'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
           'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
+          'enable' => false,
           'data' => {
             'cheburek' => 'hah'
           }
@@ -253,6 +259,7 @@ RSpec.describe WireGuard::Server do
               'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
               'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
               'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
+              'enable' => false,
               'data' => {
                 'cheburek' => 'hah'
               }
@@ -263,6 +270,7 @@ RSpec.describe WireGuard::Server do
               'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
               'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
               'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
+              'enable' => true,
               'data' => {
                 'key' => 'value'
               }
@@ -299,6 +307,123 @@ RSpec.describe WireGuard::Server do
 
       it 'no calls the configuration file update service WireGuard' do
         delete_config
+
+        expect(WireGuard::ConfigUpdater).not_to have_received(:update)
+      end
+    end
+  end
+
+  describe '#update_config' do
+    subject(:update_config) { described_class.new.update_config(id, config_params) }
+
+    before do
+      create_conf_file('spec/fixtures/wg0.json')
+    end
+
+    context 'when the config to be updated is on the server' do
+      let(:id) { '1' }
+      let(:config_params) do
+        {
+          'address' => '10.8.0.200',
+          'private_key' => 'a',
+          'public_key' => 'b',
+          'enable' => false,
+          'data' => {}
+        }
+      end
+      let(:expected_config) do
+        {
+          'id' => 1,
+          'address' => '10.8.0.200',
+          'private_key' => 'a',
+          'public_key' => 'b',
+          'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
+          'enable' => false,
+          'data' => {}
+        }
+      end
+      let(:expected_result) do
+        {
+          'server' => {
+            'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
+            'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
+            'address' => '10.8.0.1'
+          },
+          'configs' => {
+            'last_id' => 3,
+            'last_address' => '10.8.0.4',
+            '1' => {
+              'id' => 1,
+              'address' => '10.8.0.200',
+              'private_key' => 'a',
+              'public_key' => 'b',
+              'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
+              'enable' => false,
+              'data' => {}
+            },
+            '2' => {
+              'id' => 2,
+              'address' => '10.8.0.3',
+              'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
+              'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
+              'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
+              'enable' => false,
+              'data' => {
+                'cheburek' => 'hah'
+              }
+            },
+            '3' => {
+              'id' => 3,
+              'address' => '10.8.0.4',
+              'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
+              'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
+              'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
+              'enable' => true,
+              'data' => {
+                'key' => 'value'
+              }
+            }
+          }
+        }
+      end
+
+      it 'updates the config from the server' do
+        update_config
+
+        config = File.read(wg_conf_path)
+
+        expect(config).to eq(JSON.pretty_generate(expected_result))
+      end
+
+      it 'returns updated config' do
+        expect(update_config).to eq(expected_config)
+      end
+
+      it 'calls the configuration file update service WireGuard' do
+        update_config
+
+        expect(WireGuard::ConfigUpdater).to have_received(:update)
+      end
+    end
+
+    context 'when the config to be updated is not on the server' do
+      let(:id) { '4' }
+      let(:config_params) do
+        {
+          'address' => '10.8.0.200',
+          'private_key' => 'a',
+          'public_key' => 'b',
+          'enable' => false,
+          'data' => {}
+        }
+      end
+
+      it 'return nil' do
+        expect(update_config).to be_nil
+      end
+
+      it 'no calls the configuration file update service WireGuard' do
+        update_config
 
         expect(WireGuard::ConfigUpdater).not_to have_received(:update)
       end

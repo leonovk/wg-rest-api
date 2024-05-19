@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'config'
+require 'json'
 
 if ENV.fetch('ENVIRONMENT', 'development') == 'development'
   begin

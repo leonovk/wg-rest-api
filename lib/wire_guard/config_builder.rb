@@ -27,6 +27,7 @@ module WireGuard
         private_key: wg_genkey,
         public_key: wg_pubkey,
         preshared_key: wg_genpsk,
+        enable: true,
         data: params
       }
     end
