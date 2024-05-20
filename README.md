@@ -104,7 +104,35 @@ Example response:
 
 ### GET /clients/:id
 
-Returns a specific client by his ID. The answer will be similar to the previous one. If the client is not found, a 404 error will be returned.
+Returns a specific client by his ID. The answer will be similar to the previous one. If the client is not found, a 404 error will be returned. You can also request a QR code or a user-ready config in the form of text
+
+`GET /clients/:id?format=qr`
+
+The QR code will be returned as a PNG image.
+
+content_type => image/png
+
+`GET /clients/:id?format=conf`
+
+A text with the config for the client will be returned. This config can already be written to a file and used in wireguard.
+
+For example:
+
+```conf
+[Interface]
+PrivateKey = private_key
+Address = address
+DNS = dns
+
+[Peer]
+PublicKey = server_public_key
+PresharedKey = preshared_key
+AllowedIPs = allowed_ips
+PersistentKeepalive = persistent_keepalive
+Endpoint = endpoint
+```
+
+content_type => text/plain
 
 ### DELETE /clients/:id
 

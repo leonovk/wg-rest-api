@@ -6,7 +6,7 @@ require 'chunky_png'
 require 'tempfile'
 
 module Utils
-  # qcb
+  # class for generating QR codes
   class QrCodeBuilder
     def self.build(config)
       new(config).build
