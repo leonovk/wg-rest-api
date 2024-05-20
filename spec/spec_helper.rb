@@ -13,8 +13,10 @@ require_relative '../lib/wire_guard/server'
 require_relative '../lib/wire_guard/config_builder'
 require_relative '../lib/wire_guard/config_updater'
 require_relative '../app/errors/config_not_found_error'
+require_relative '../app'
 
 require 'super_diff/rspec'
+require 'rack/test'
 
 RSpec.configure do |config|
   config.example_status_persistence_file_path = '.rspec_status'
