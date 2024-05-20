@@ -25,3 +25,5 @@ end
 require_relative '../lib/wire_guard/server'
 require_relative '../app/clients_controller'
 require_relative '../app/errors/config_not_found_error'
+require_relative '../lib/utils/config_file_builder'
+require_relative '../lib/utils/qr_code_builder'

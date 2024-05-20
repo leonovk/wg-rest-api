@@ -21,7 +21,19 @@ class Application < Sinatra::Base
   end
 
   get '/clients/:id' do
-    controller.show(params['id'])
+    config = controller.show(params['id'])
+    case params['format']
+    when 'qr'
+      content_type 'image/png'
+
+      send_file Utils::QrCodeBuilder.build(config)
+    when 'conf'
+      content_type 'text/plain'
+
+      Utils::ConfigFileBuilder.build(config)
+    else
+      config
+    end
   rescue Errors::ConfigNotFoundError
     halt 404
   end
