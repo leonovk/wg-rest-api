@@ -2,7 +2,7 @@
 
 ![Build Status](https://github.com/leonovk/wg-rest-api/actions/workflows/ruby.yml/badge.svg)
 
-The easiest way to run WireGuard VPN + REST API
+![image](https://raw.githubusercontent.com/leonovk/wg-rest-api/master/public/baner.webp)
 
 ## Features
 
