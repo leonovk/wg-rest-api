@@ -2,7 +2,7 @@
 
 ![Build Status](https://github.com/leonovk/wg-rest-api/actions/workflows/ruby.yml/badge.svg)
 
-![image](https://raw.githubusercontent.com/leonovk/wg-rest-api/master/public/baner.webp)
+![image](https://github.com/leonovk/wg-rest-api/blob/master/public/baner.webp?raw=true)
 
 ## Features
 
