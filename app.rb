@@ -8,7 +8,6 @@ class Application < Sinatra::Base
   register Sinatra::Namespace
 
   AUTH_TOKEN = "Bearer #{ENV.fetch('AUTH_TOKEN', nil)}".freeze
-  ADMIN_PASSWORD = '123'
 
   namespace '/api' do # rubocop:disable Metrics/BlockLength
     before do
