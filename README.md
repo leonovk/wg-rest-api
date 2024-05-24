@@ -54,7 +54,7 @@ By default, the application runs in single-threaded mode. This is not a solution
 
 All requests are authorized using the bearer token that you specified in variable AUTH_TOKEN!
 
-### GET /clients
+### GET /api/clients
 
 Returns an array with all clients on the server
 
@@ -79,7 +79,7 @@ Example response:
 ]
 ```
 
-### POST /clients
+### POST /api/clients
 
 Creates a new client. The response will be the new client created. You can pass your parameters in the request parameters. They will be in the data field.
 
@@ -102,17 +102,17 @@ Example response:
 }
 ```
 
-### GET /clients/:id
+### GET /api/clients/:id
 
 Returns a specific client by his ID. The answer will be similar to the previous one. If the client is not found, a 404 error will be returned. You can also request a QR code or a user-ready config in the form of text
 
-`GET /clients/:id?format=qr`
+`GET /api/clients/:id?format=qr`
 
 The QR code will be returned as a PNG image.
 
 content_type => image/png
 
-`GET /clients/:id?format=conf`
+`GET /api/clients/:id?format=conf`
 
 A text with the config for the client will be returned. This config can already be written to a file and used in wireguard.
 
@@ -134,11 +134,11 @@ Endpoint = endpoint
 
 content_type => text/plain
 
-### DELETE /clients/:id
+### DELETE /api/clients/:id
 
 Deletes a specific one client. If the client is not found, a 404 error will be returned.
 
-### PATCH /clients/:id
+### PATCH /api/clients/:id
 
 Allows you to update specific clients by assigning them new fields. Returns the updated client in response.
 
