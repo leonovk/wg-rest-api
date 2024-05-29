@@ -23,6 +23,7 @@ if ENV.fetch('ENVIRONMENT', 'development') == 'production'
 end
 
 require_relative '../lib/wire_guard/server'
+require_relative '../lib/wire_guard/server_stat'
 require_relative '../app/clients_controller'
 require_relative '../app/errors/config_not_found_error'
 require_relative '../lib/utils/config_file_builder'
