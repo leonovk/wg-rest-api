@@ -39,6 +39,7 @@ class ClientsSerializer
   def initialize(client_config, server_public_key)
     @client_config = stringify_keys(client_config)
     @server_public_key = server_public_key
+    @server_stat = WireGuard::ServerStat.new
   end
 
   def clients
@@ -60,13 +61,19 @@ class ClientsSerializer
       dns: DNS,
       persistent_keepalive: WG_PERSISTENT_KEEPALIVE,
       endpoint: "#{WG_HOST}:#{WG_PORT}",
+      last_online: find_stat_data(config['public_key'])[:last_online],
+      trafik: find_stat_data(config['public_key'])[:trafik],
       data: config['data']
     }
   end
 
   private
 
-  attr_reader :client_config, :server_public_key
+  attr_reader :client_config, :server_public_key, :server_stat
+
+  def find_stat_data(public_key)
+    server_stat.wg_stat[public_key] || {}
+  end
 
   def stringify_keys(data)
     data.is_a?(Hash) ? data.to_h { |k, v| [k.to_s, stringify_keys(v)] } : data

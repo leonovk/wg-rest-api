@@ -7,6 +7,7 @@ RSpec.describe ClientsController do
 
   before do
     allow(WireGuard::ConfigUpdater).to receive(:update)
+    allow(WireGuard::Show).to receive_messages(show: '')
     allow(WireGuard::KeyGenerator).to receive_messages(wg_genkey: 'wg_genkey', wg_pubkey: 'wg_pubkey',
                                                        wg_genpsk: 'wg_genpsk')
   end
@@ -71,6 +72,8 @@ RSpec.describe ClientsController do
             dns: '1.1.1.1',
             persistent_keepalive: 0,
             endpoint: '2.2.2.2:51820',
+            last_online: nil,
+            trafik: nil,
             data: {
               lol: 'kek'
             }
@@ -87,6 +90,8 @@ RSpec.describe ClientsController do
             dns: '1.1.1.1',
             persistent_keepalive: 0,
             endpoint: '2.2.2.2:51820',
+            last_online: nil,
+            trafik: nil,
             data: {
               cheburek: 'hah'
             }
@@ -103,6 +108,8 @@ RSpec.describe ClientsController do
             dns: '1.1.1.1',
             persistent_keepalive: 0,
             endpoint: '2.2.2.2:51820',
+            last_online: nil,
+            trafik: nil,
             data: {
               key: 'value'
             }
@@ -135,6 +142,8 @@ RSpec.describe ClientsController do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
+          last_online: nil,
+          trafik: nil,
           data: {
             cheburek: 'hah'
           }
@@ -169,6 +178,8 @@ RSpec.describe ClientsController do
         dns: '1.1.1.1',
         persistent_keepalive: 0,
         endpoint: '2.2.2.2:51820',
+        last_online: nil,
+        trafik: nil,
         data: nil
       }
     end
@@ -347,6 +358,8 @@ RSpec.describe ClientsController do
             dns: '1.1.1.1',
             persistent_keepalive: 0,
             endpoint: '2.2.2.2:51820',
+            last_online: nil,
+            trafik: nil,
             data: {}
           }
         end
