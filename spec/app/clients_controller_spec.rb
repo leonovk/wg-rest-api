@@ -7,6 +7,7 @@ RSpec.describe ClientsController do
 
   before do
     allow(WireGuard::ConfigUpdater).to receive(:update)
+    allow(WireGuard::Show).to receive_messages(show: '')
     allow(WireGuard::KeyGenerator).to receive_messages(wg_genkey: 'wg_genkey', wg_pubkey: 'wg_pubkey',
                                                        wg_genpsk: 'wg_genpsk')
   end

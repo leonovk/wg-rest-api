@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe ClientsSerializer do
+  before do
+    allow(WireGuard::Show).to receive_messages(show: '')
+  end
+
   let(:key) { '4' }
 
   describe '#serialize' do
