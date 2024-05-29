@@ -71,6 +71,8 @@ RSpec.describe ClientsController do
             dns: '1.1.1.1',
             persistent_keepalive: 0,
             endpoint: '2.2.2.2:51820',
+            last_online: nil,
+            trafik: nil,
             data: {
               lol: 'kek'
             }
@@ -87,6 +89,8 @@ RSpec.describe ClientsController do
             dns: '1.1.1.1',
             persistent_keepalive: 0,
             endpoint: '2.2.2.2:51820',
+            last_online: nil,
+            trafik: nil,
             data: {
               cheburek: 'hah'
             }
@@ -103,6 +107,8 @@ RSpec.describe ClientsController do
             dns: '1.1.1.1',
             persistent_keepalive: 0,
             endpoint: '2.2.2.2:51820',
+            last_online: nil,
+            trafik: nil,
             data: {
               key: 'value'
             }
@@ -135,6 +141,8 @@ RSpec.describe ClientsController do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
+          last_online: nil,
+          trafik: nil,
           data: {
             cheburek: 'hah'
           }
@@ -169,6 +177,8 @@ RSpec.describe ClientsController do
         dns: '1.1.1.1',
         persistent_keepalive: 0,
         endpoint: '2.2.2.2:51820',
+        last_online: nil,
+        trafik: nil,
         data: nil
       }
     end
@@ -347,6 +357,8 @@ RSpec.describe ClientsController do
             dns: '1.1.1.1',
             persistent_keepalive: 0,
             endpoint: '2.2.2.2:51820',
+            last_online: nil,
+            trafik: nil,
             data: {}
           }
         end

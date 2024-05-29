@@ -31,6 +31,8 @@ RSpec.describe ClientsSerializer do
         dns: '1.1.1.1',
         persistent_keepalive: 0,
         endpoint: '2.2.2.2:51820',
+        last_online: nil,
+        trafik: nil,
         data: {}
       }.to_json
     end
@@ -80,6 +82,8 @@ RSpec.describe ClientsSerializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
+          last_online: nil,
+          trafik: nil,
           data: {}
         },
         {
@@ -94,6 +98,8 @@ RSpec.describe ClientsSerializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
+          last_online: nil,
+          trafik: nil,
           data: {}
         }
       ]
