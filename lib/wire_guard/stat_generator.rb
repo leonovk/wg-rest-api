@@ -2,7 +2,7 @@
 
 module WireGuard
   # wg show
-  class Show
+  class StatGenerator
     def self.show
       `wg show`
     end
