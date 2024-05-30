@@ -2,7 +2,7 @@
 
 RSpec.describe ClientsSerializer do
   before do
-    allow(WireGuard::Show).to receive_messages(show: '')
+    allow(WireGuard::StatGenerator).to receive_messages(show: '')
   end
 
   let(:key) { '4' }

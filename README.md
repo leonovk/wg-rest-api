@@ -9,6 +9,7 @@
 * REST API for manage WireGuard server
 * Easy installation, simple to use.
 * List, create, edit, delete, enable & disable clients.
+* Statistics for which clients are connected
 
 ## Requirements
 
@@ -72,6 +73,11 @@ Example response:
     "dns": "1.1.1.1",
     "persistent_keepalive": 0,
     "endpoint": "0.0.0.0:51820",
+    "last_online": "58 seconds ago",
+    "trafik": {
+      "received": "90.26 MiB",
+      "sent": "1000.53 MiB"
+    },
     "data": {
       "params1": "value1"
     }
@@ -96,6 +102,11 @@ Example response:
   "dns": "1.1.1.1",
   "persistent_keepalive": 0,
   "endpoint": "0.0.0.0:51820",
+  "last_online": "58 seconds ago",
+  "trafik": {
+    "received": "90.26 MiB",
+    "sent": "1000.53 MiB"
+  },
   "data": {
     "params1": "value1"
   }
@@ -191,10 +202,3 @@ $ docker run -d -v /your_app_path:/app wg-rest-api
 ## Contribution
 
 If you would like to contribute to the development, submit a pull request with your changes. We welcome any contributions that improve the service. You can also view the current project board here. You can also contribute by reporting bugs or suggesting new features. Please use the GitHub issues for that.
-
-### TODO
-
-- [x] Make a fully functional rest api wireguard server
-- [x] Test coverage
-- [x] Implementation of the ability to update clients
-- [ ] Make it possible to view client statistics
