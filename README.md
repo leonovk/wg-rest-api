@@ -28,23 +28,52 @@ exit
 
 ### 2. Build an image from a Dockerfile
 
-clone this repository and build the image from the dockerfile
+clone this repository and build the image from the dockerfile:
+
+```bash
+git clone https://github.com/leonovk/wg-rest-api.git
+```
+
+```bash
+cd wg-rest-api
+```
+
+```bash
+docker build . -t wg-rest-api
+```
 
 To run just run the command:
 
-*Instead of 'wg-rest-api', substitute the name of the image that you specified during assembly*
-
 ```
-  docker run -d \
-  -e WG_HOST=<🚨YOUR_SERVER_IP> \
-  -e AUTH_TOKEN=<🚨YOUR_ADMIN_API_TOKEN> \
-  -e ENVIRONMENT=production
-  -v ~/.wg-rest:/etc/wireguard \
-  -p 51820:51820/udp \
-  -p 3000:3000 \
-  --cap-add=NET_ADMIN \
-  --restart unless-stopped \
-  wg-rest-api
+docker run -d \
+-e WG_HOST=<🚨YOUR_SERVER_IP> \
+-e AUTH_TOKEN=<🚨YOUR_ADMIN_API_TOKEN> \
+-e ENVIRONMENT=production
+-v ~/.wg-rest:/etc/wireguard \
+-p 51820:51820/udp \
+-p 3000:3000 \
+--cap-add=NET_ADMIN \
+--restart unless-stopped \
+wg-rest-api
+```
+
+**If you can't start the container, try entering the command in one line**
+
+### 3. Functionality check
+
+Make a request to the `healthz` care api point in any way convenient for you. For example:
+
+```bash
+curl http://YOUR_SERVER_IP:3000/healthz
+```
+
+If you received something similar in response, then everything is fine.
+
+```json
+{
+  "status": "ok",
+  "version": "1.4.11"
+}
 ```
 
 ### Also important
