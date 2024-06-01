@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'chunky_png', '~> 1.3', '>= 1.3.5'
-gem 'config', '~> 5.4'
+gem 'config', '~> 5.5'
 gem 'ipaddr', '~> 1.2', '>= 1.2.6'
 gem 'json-schema', '~> 4.3'
 gem 'puma', '~> 6.4', '>= 6.4.2'
