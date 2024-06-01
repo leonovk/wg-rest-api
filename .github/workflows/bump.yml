@@ -29,13 +29,5 @@ jobs:
           add: .
           committer_name: "GitHub Actions"
           committer_email: "actions@github.com"
-
-      - name: Push changes to master
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: "Merge script changes into master"
-          add: .
-          committer_name: "GitHub Actions"
-          committer_email: "actions@github.com"
           push: true
           branch: master
