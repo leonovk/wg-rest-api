@@ -56,6 +56,7 @@ class Application < Sinatra::Base
 
     post '/clients' do
       status 201
+
       controller.create(params)
     end
   end

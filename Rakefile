@@ -31,3 +31,5 @@ task :check do
   system 'rspec'
   system 'rubocop'
 end
+
+task default: :check
