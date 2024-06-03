@@ -1,4 +1,4 @@
-FROM huecker.io/library/ruby:3.3.1-alpine
+FROM ruby:3.3.1-alpine
 
 WORKDIR /app
 
