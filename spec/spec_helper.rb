@@ -33,3 +33,7 @@ def create_conf_file(from, wg_conf_path = "#{Settings.wg_path}/wg0.json")
   FileUtils.mkdir_p(Settings.wg_path)
   FileUtils.cp(from, wg_conf_path)
 end
+
+def stringify_keys(data)
+  data.is_a?(Hash) ? data.to_h { |k, v| [k.to_s, stringify_keys(v)] } : data
+end

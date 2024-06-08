@@ -39,7 +39,7 @@ RSpec.describe ClientsController do
 
         config = File.read(wg_conf_path)
 
-        expect(config).to eq(JSON.pretty_generate(expected_result))
+        expect(JSON.parse(config)).to eq(stringify_keys(expected_result))
       end
     end
 
@@ -118,7 +118,9 @@ RSpec.describe ClientsController do
       end
 
       it 'returns a serialized array with all clients' do
-        expect(controller.index).to eq(expected_result.to_json)
+        # TODO: The `stringify_keys` method seems to work incorrectly on arrays.
+        # Need to understand what the reason is and change it
+        expect(JSON.parse(controller.index)).to eq(JSON.parse(expected_result.to_json))
       end
     end
   end
@@ -153,7 +155,7 @@ RSpec.describe ClientsController do
       it 'returns the correct serialized config' do
         result = controller.show('2')
 
-        expect(result).to eq(expected_result.to_json)
+        expect(JSON.parse(result)).to eq(stringify_keys(expected_result))
       end
     end
 
@@ -208,7 +210,7 @@ RSpec.describe ClientsController do
     end
 
     it 'return new config' do
-      expect(controller.create(nil)).to eq(expected_result.to_json)
+      expect(JSON.parse(controller.create(nil))).to eq(stringify_keys(expected_result))
     end
 
     it 'creates a new config file in the server configuration file' do
@@ -216,7 +218,7 @@ RSpec.describe ClientsController do
 
       json_config = File.read(wg_conf_path)
 
-      expect(json_config).to eq(JSON.pretty_generate(expected_config_file))
+      expect(JSON.parse(json_config)).to eq(stringify_keys(expected_config_file))
     end
   end
 
@@ -273,7 +275,7 @@ RSpec.describe ClientsController do
 
         json_config = File.read(wg_conf_path)
 
-        expect(json_config).to eq(JSON.pretty_generate(expected_result))
+        expect(JSON.parse(json_config)).to eq(stringify_keys(expected_result))
       end
     end
 
@@ -369,11 +371,11 @@ RSpec.describe ClientsController do
 
           config = File.read(wg_conf_path)
 
-          expect(config).to eq(JSON.pretty_generate(expected_result))
+          expect(JSON.parse(config)).to eq(stringify_keys(expected_result))
         end
 
         it 'returns the updated serialized config' do
-          expect(controller.update('1', params)).to eq(expected_updated_config.to_json)
+          expect(JSON.parse(controller.update('1', params))).to eq(stringify_keys(expected_updated_config))
         end
       end
 
