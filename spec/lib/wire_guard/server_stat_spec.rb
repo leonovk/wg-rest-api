@@ -5,6 +5,12 @@ RSpec.describe WireGuard::ServerStat do
     allow(WireGuard::StatGenerator).to receive_messages(show: File.read('spec/fixtures/stat.txt'))
   end
 
+  after do
+    FileUtils.rm_rf(wg_stat_path)
+  end
+
+  let(:wg_stat_path) { "#{Settings.wg_path}/wg0_stat.json" }
+
   describe '#wg_stat' do
     subject(:wg_stat) { described_class.new.wg_stat }
 

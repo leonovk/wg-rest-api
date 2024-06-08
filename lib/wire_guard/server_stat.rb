@@ -1,16 +1,20 @@
 # frozen_string_literal: true
 
 require_relative 'stat_generator'
+require 'fileutils'
 
 module WireGuard
   # class return server stat
   class ServerStat
+    WG_STAT_PATH = "#{Settings.wg_path}/wg0_stat.json".freeze
+
     attr_reader :wg_stat
 
     def initialize
       @result = {}
       @last_peer = nil
       @wg_stat = parse(StatGenerator.show)
+      dump_stat(wg_stat)
     end
 
     def show(peer)
@@ -22,6 +26,20 @@ module WireGuard
     private
 
     attr_reader :result, :last_peer
+
+    def dump_stat(wg_stat)
+      FileUtils.mkdir_p(Settings.wg_path)
+
+      if File.exist?(WG_STAT_PATH)
+        json_stat = JSON.parse(File.read(WG_STAT_PATH))
+        wg_stat.each do |peer, data|
+          json_stat[peer] = data
+        end
+        File.write(WG_STAT_PATH, JSON.pretty_generate(json_stat))
+      else
+        File.write(WG_STAT_PATH, JSON.pretty_generate(wg_stat))
+      end
+    end
 
     def parse(wg_stat)
       return {} if wg_stat.empty?
