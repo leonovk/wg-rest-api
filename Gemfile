@@ -26,3 +26,8 @@ group :development do
   gem 'rubocop-rspec', '~> 2.29', '>= 2.29.2'
   gem 'super_diff', '~> 0.12.1'
 end
+
+group :production do
+  gem 'sentry-ruby', '~> 5.17', '>= 5.17.3'
+  gem 'stackprof', '~> 0.2.26'
+end
