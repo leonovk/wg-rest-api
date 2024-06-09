@@ -32,4 +32,12 @@ task :check do
   system 'rubocop'
 end
 
+# rubocop:disable Rake/Desc
+desc 'console'
+task c: :console
+task :console do
+  sh 'bundle exec pry -I . -r ./app.rb'
+end
+# rubocop:enable Rake/Desc
+
 task default: :check

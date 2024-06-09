@@ -10,6 +10,7 @@
 * Easy installation, simple to use.
 * List, create, edit, delete, enable & disable clients.
 * Statistics for which clients are connected
+* Good test coverage
 
 ## Requirements
 
