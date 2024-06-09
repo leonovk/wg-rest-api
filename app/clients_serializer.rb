@@ -72,7 +72,7 @@ class ClientsSerializer
   attr_reader :client_config, :server_public_key, :server_stat
 
   def find_stat_data(public_key)
-    stringify_keys(server_stat.wg_stat[public_key]) || {}
+    stringify_keys(server_stat.wg_stat[public_key]) or {}
   end
 
   def stringify_keys(data)
