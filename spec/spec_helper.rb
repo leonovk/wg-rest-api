@@ -14,6 +14,11 @@ require_relative '../lib/wire_guard/server_stat'
 require_relative '../lib/wire_guard/config_builder'
 require_relative '../lib/wire_guard/config_updater'
 require_relative '../app/errors/config_not_found_error'
+
+def sentry?
+  false
+end
+
 require_relative '../app'
 
 require 'super_diff/rspec'
