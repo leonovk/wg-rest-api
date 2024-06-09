@@ -7,7 +7,6 @@ class ClientsSerializer
   WG_PERSISTENT_KEEPALIVE = Settings.wg_persistent_keepalive
   WG_HOST = Settings.wg_host
   WG_PORT = Settings.wg_port
-  WG_STAT_PATH = "#{Settings.wg_path}/wg0_stat.json".freeze
 
   def self.serialize(client_config, server_public_key)
     new(client_config, server_public_key).client.to_json
@@ -73,15 +72,7 @@ class ClientsSerializer
   attr_reader :client_config, :server_public_key, :server_stat
 
   def find_stat_data(public_key)
-    stringify_keys(server_stat.wg_stat[public_key]) || stat_from_data(public_key) || {}
-  end
-
-  def stat_from_data(public_key)
-    return unless File.exist?(WG_STAT_PATH)
-
-    json_stat = JSON.parse(File.read(WG_STAT_PATH))
-
-    json_stat[public_key]
+    stringify_keys(server_stat.wg_stat[public_key]) || {}
   end
 
   def stringify_keys(data)

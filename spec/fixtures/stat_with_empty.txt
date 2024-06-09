@@ -1,0 +1,21 @@
+interface: wg0
+public key: uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=
+private key: (hidden)
+listening port: 51820
+
+peer: LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=
+preshared key: (hidden)
+endpoint: 109.252.46.192:1382
+allowed ips: 10.8.0.26/32
+
+peer: hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=
+preshared key: (hidden)
+endpoint: 217.66.152.172:10703
+allowed ips: 10.8.0.29/32
+
+peer: bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=
+preshared key: (hidden)
+endpoint: 212.13.11.203:60163
+allowed ips: 10.8.0.6/32
+latest handshake: 1 minute, 13 seconds ago
+transfer: 62.44 MiB received, 3.21 GiB sent

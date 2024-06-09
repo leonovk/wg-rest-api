@@ -292,7 +292,7 @@ RSpec.describe ClientsController do
     end
 
     context 'when the necessary config is available' do
-      context 'when the parameters are valid' do # rubocop:disable RSpec/NestedGroups
+      context 'when the parameters are valid' do
         let(:params) do
           {
             'address' => '10.8.0.200',
@@ -379,7 +379,7 @@ RSpec.describe ClientsController do
         end
       end
 
-      context 'when the parameters are not valid' do # rubocop:disable RSpec/NestedGroups
+      context 'when the parameters are not valid' do
         let(:params) do
           {
             'address' => '10.8.0.200',
