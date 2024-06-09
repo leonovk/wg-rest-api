@@ -22,6 +22,12 @@ if ENV.fetch('ENVIRONMENT', 'development') == 'production'
   system('wg-quick up wg0') if File.exist?(conf)
 end
 
+def sentry?
+  ENV.fetch('SENTRY_DSN', nil) && ENV.fetch('ENVIRONMENT', 'development') == 'production'
+end
+
+require_relative 'sentry' if sentry?
+
 require_relative '../lib/wire_guard/server'
 require_relative '../lib/wire_guard/server_stat'
 require_relative '../app/clients_controller'

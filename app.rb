@@ -5,6 +5,7 @@ require 'sinatra/contrib'
 
 # Main app class
 class Application < Sinatra::Base
+  use Sentry::Rack::CaptureExceptions if sentry?
   register Sinatra::Namespace
 
   AUTH_TOKEN = "Bearer #{ENV.fetch('AUTH_TOKEN', nil)}".freeze
