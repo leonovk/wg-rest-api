@@ -42,7 +42,7 @@ module WireGuard
       new_stat_data.each do |peer, data|
         last_data = last_stat_data[peer]
 
-        if last_data.nil? || last_data.empty?
+        if last_data.nil? or last_data.empty?
           last_stat_data[peer] = data
         else
           # NOTE: Because of this, the final result may contain character keys and string keys.

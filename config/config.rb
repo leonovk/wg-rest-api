@@ -23,7 +23,7 @@ if ENV.fetch('ENVIRONMENT', 'development') == 'production'
 end
 
 def sentry?
-  ENV.fetch('SENTRY_DSN', nil) && ENV.fetch('ENVIRONMENT', 'development') == 'production'
+  ENV.fetch('SENTRY_DSN', nil) and ENV.fetch('ENVIRONMENT', 'development') == 'production'
 end
 
 require_relative 'sentry' if sentry?
