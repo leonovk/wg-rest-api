@@ -33,7 +33,7 @@ RSpec.describe Application do
 
   describe 'GET /api/clients' do
     before do
-      allow(WireGuard::StatGenerator).to receive_messages(show: '')
+      allow(WireGuard::StatGenerator).to receive_messages(show: nil)
     end
 
     context 'when the request is authorized' do
