@@ -38,6 +38,11 @@ task c: :console
 task :console do
   sh 'bundle exec pry -I . -r ./app.rb'
 end
+
+desc 'start'
+task :start do
+  sh 'rerun puma config.ru --no-notify'
+end
 # rubocop:enable Rake/Desc
 
 task default: :check

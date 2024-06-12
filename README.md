@@ -217,6 +217,12 @@ Run app:
 $ puma config.ru
 ```
 
+Or:
+
+```bash
+$ rake start
+```
+
 ### Run with docker
 
 Build image:
