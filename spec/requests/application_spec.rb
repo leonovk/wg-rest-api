@@ -49,6 +49,7 @@ RSpec.describe Application do
         get '/api/clients'
       end
 
+
       it 'returns an unsuccessful response' do
         expect(last_response.successful?).to be(false)
       end
