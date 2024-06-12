@@ -9,5 +9,5 @@ Sentry.init do |config|
   config.traces_sampler = ->(_context) { true }
   config.profiles_sample_rate = 1.0
   config.environment = 'production'
-  config.release = File.read('VERSION').gsub('v', '')
+  config.release = "wg-rest-api@#{File.read('VERSION').gsub('v', '')}"
 end

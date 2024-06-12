@@ -5,16 +5,17 @@ require 'sinatra/contrib'
 
 # Main app class
 class Application < Sinatra::Base
+  # NOTE: Сonnect sentry only if there is a special setting
   use Sentry::Rack::CaptureExceptions if sentry?
   register Sinatra::Namespace
 
-  AUTH_TOKEN = "Bearer #{ENV.fetch('AUTH_TOKEN', nil)}".freeze
+  AUTH_TOKEN = "Bearer #{Settings.auth_token}".freeze
 
   namespace '/api' do # rubocop:disable Metrics/BlockLength
     before do
       content_type :json
 
-      halt 403 unless request.env['HTTP_AUTHORIZATION'] == AUTH_TOKEN
+      authorize_resource
 
       @controller = ClientsController.new
     end
@@ -64,14 +65,22 @@ class Application < Sinatra::Base
 
   get '/healthz' do
     {
-      status: 'ok',
-      version: File.read('VERSION').gsub('v', '')
+      status: :ok,
+      version: instance_versions
     }.to_json
   end
 
   private
 
   attr_reader :controller
+
+  def authorize_resource
+    halt 403 unless request.env['HTTP_AUTHORIZATION'] == AUTH_TOKEN
+  end
+
+  def instance_versions
+    File.read('VERSION').gsub('v', '')
+  end
 
   def request_body
     JSON.parse(request.body.read)
