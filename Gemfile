@@ -20,12 +20,17 @@ gem 'pry-byebug', '~> 3.10', '>= 3.10.1'
 group :development do
   gem 'dotenv', '~> 3.1', '>= 3.1.2'
   gem 'rack-test', '~> 2.1'
-  gem 'rerun', '~> 0.14.0'
   gem 'rspec', '~> 3.13'
   gem 'rubocop', '~> 1.64'
   gem 'rubocop-rake', '~> 0.6.0'
   gem 'rubocop-rspec', '~> 2.29', '>= 2.29.2'
   gem 'super_diff', '~> 0.12.1'
+end
+
+# NOTE: An extremely platform-dependent gem that is needed only for development.
+# So I put it in a separate group.
+group :rerun do
+  gem 'rerun', '~> 0.14.0'
 end
 
 # NOTE: These 2 gems are essentially needed exclusively for debugging in real use.
