@@ -5,6 +5,8 @@ module WireGuard
   class StatGenerator
     def self.show
       `wg show`
+    rescue Errno::ENOENT
+      puts 'lol kek'
     end
   end
 end
