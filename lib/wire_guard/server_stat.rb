@@ -79,7 +79,7 @@ module WireGuard
     end
 
     def parse(wg_stat)
-      return {} if wg_stat.empty?
+      return {} if wg_stat.nil? or wg_stat.empty?
 
       parse_data(wg_stat.split("\n"))
 
