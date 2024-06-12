@@ -39,6 +39,7 @@ RSpec.describe Application do
       end
 
       it 'returns a successful response' do
+        puts last_response.inspect
         expect(last_response.successful?).to be(true)
       end
     end
