@@ -9,7 +9,7 @@ class Application < Sinatra::Base
   use Sentry::Rack::CaptureExceptions if sentry?
   register Sinatra::Namespace
 
-  AUTH_TOKEN = "Bearer #{ENV.fetch('AUTH_TOKEN', nil)}".freeze
+  AUTH_TOKEN = "Bearer #{Settings.auth_token}".freeze
 
   namespace '/api' do # rubocop:disable Metrics/BlockLength
     before do
