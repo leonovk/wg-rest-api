@@ -24,6 +24,8 @@ RUN update-alternatives --install \
     /sbin/iptables-save iptables-save \
     /sbin/iptables-legacy-save
 
-RUN bundle install --without development rerun
+RUN bundle config set without 'development rerun'
+
+RUN bundle install
 
 CMD ["puma", "-C", "config/puma.rb"]
