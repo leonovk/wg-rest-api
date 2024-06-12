@@ -32,6 +32,10 @@ RSpec.describe Application do
   end
 
   describe 'GET /api/clients' do
+    before do
+      allow(WireGuard::StatGenerator).to receive_messages(show: '')
+    end
+
     context 'when the request is authorized' do
       before do
         header('Authorization', 'Bearer 123-Ab')
@@ -39,7 +43,6 @@ RSpec.describe Application do
       end
 
       it 'returns a successful response' do
-        puts last_response.inspect
         expect(last_response.successful?).to be(true)
       end
     end
