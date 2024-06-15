@@ -2,7 +2,7 @@
 
 ![Build Status](https://github.com/leonovk/wg-rest-api/actions/workflows/ruby.yml/badge.svg)
 
-![image](public/wg-rest-api.jpg)
+![wg-rest-api](https://github.com/leonovk/wg-rest-api/assets/71232234/f727aacf-a989-40f6-a156-db7e7a1283b6)
 
 ## Features
 
