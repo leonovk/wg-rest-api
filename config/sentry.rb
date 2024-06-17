@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+def sentry?
+  ENV.fetch('SENTRY_DSN', nil) and ENV.fetch('ENVIRONMENT', 'development') == 'production'
+end
+
+return unless sentry?
+
 require 'sentry-ruby'
 require 'stackprof'
 

@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'stat_generator'
-require 'fileutils'
-require 'ruby_units/namespaced'
-
 module WireGuard
   # Class for obtaining statistics on traffic and last online clients
   class ServerStat
@@ -44,19 +40,11 @@ module WireGuard
 
         if last_data.nil? or last_data.empty?
           last_stat_data[peer] = data
-        else
-          # NOTE: Because of this, the final result may contain character keys and string keys.
-          # If the data is taken from a file.
-          # TODO: To fix this. We need to come up with a concise solution.
-          next if data.empty?
-
+        elsif !data.empty?
           last_stat_data[peer] = increment_data(data, last_data)
         end
       end
 
-      # NOTO: It may not be the best solution to enrich a hash with old data with new data.
-      # It might be worth changing it to generate a new hash.
-      # This will probably solve the problem from TODO above
       last_stat_data
     end
 
@@ -69,8 +57,8 @@ module WireGuard
 
     def increment_trafik(new_trafik, last_trafik)
       {
-        received: sum_trafic(new_trafik[:received], last_trafik['received']),
-        sent: sum_trafic(new_trafik[:sent], last_trafik['sent'])
+        received: calculate_trafic(new_trafik[:received], last_trafik['received']),
+        sent: calculate_trafic(new_trafik[:sent], last_trafik['sent'])
       }
     end
 
@@ -118,8 +106,8 @@ module WireGuard
       }
     end
 
-    def sum_trafic(first, second)
-      result = first.to_unit + second.to_unit
+    def calculate_trafic(new_t, old_t)
+      result = new_t.to_unit + old_t.to_unit
       result.convert_to('GiB').round(2).to_s
     end
   end
