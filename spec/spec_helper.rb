@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
-require 'json'
-require 'byebug'
 require 'config'
+require 'json'
+require 'rqrcode'
+require 'chunky_png'
+require 'tempfile'
+require 'ipaddr'
 require 'fileutils'
+require 'ruby_units/namespaced'
+
 Config.load_and_set_settings('config/settings/test.yaml')
 
-require_relative '../app/clients_serializer'
-require_relative '../app/clients_controller'
-require_relative '../app/clients_validator'
-require_relative '../lib/wire_guard/server'
-require_relative '../lib/wire_guard/server_stat'
-require_relative '../lib/wire_guard/config_builder'
-require_relative '../lib/wire_guard/config_updater'
-require_relative '../app/errors/config_not_found_error'
+require_relative '../config/application'
 
 def sentry?
   false
