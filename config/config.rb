@@ -10,6 +10,7 @@ require 'fileutils'
 require 'ruby_units/namespaced'
 
 env = ENV.fetch('ENVIRONMENT', 'development')
+Config.load_and_set_settings("config/settings/#{env}.yaml")
 
 if env == 'development'
   begin
@@ -22,7 +23,5 @@ elsif env == 'production'
   conf = "#{Settings.wg_path}/wg0.conf"
   system('wg-quick up wg0') if File.exist?(conf)
 end
-
-Config.load_and_set_settings("config/settings/#{env}.yaml")
 
 require_relative 'application'
