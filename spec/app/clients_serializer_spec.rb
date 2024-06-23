@@ -43,7 +43,7 @@ RSpec.describe ClientsSerializer do
         persistent_keepalive: 0,
         endpoint: '2.2.2.2:51820',
         last_online: '45 seconds ago',
-        trafik: {
+        traffic: {
           received: '56.28 MiB',
           sent: '1.35 GiB'
         },
@@ -106,7 +106,7 @@ RSpec.describe ClientsSerializer do
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
           last_online: '45 seconds ago',
-          trafik: {
+          traffic: {
             received: '56.28 MiB',
             sent: '1.35 GiB'
           },
@@ -125,7 +125,7 @@ RSpec.describe ClientsSerializer do
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
           last_online: '50 seconds ago',
-          trafik: {
+          traffic: {
             received: '199.29 MiB',
             sent: '722.39 MiB'
           },
@@ -144,7 +144,7 @@ RSpec.describe ClientsSerializer do
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
           last_online: '13 seconds ago',
-          trafik: {
+          traffic: {
             received: '0.12 GiB',
             sent: '6.42 GiB'
           },

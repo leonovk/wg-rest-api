@@ -105,7 +105,7 @@ Example response:
     "persistent_keepalive": 0,
     "endpoint": "0.0.0.0:51820",
     "last_online": "58 seconds ago",
-    "trafik": {
+    "traffic": {
       "received": "90.26 MiB",
       "sent": "1000.53 MiB"
     },
@@ -135,7 +135,7 @@ Example response:
   "persistent_keepalive": 0,
   "endpoint": "0.0.0.0:51820",
   "last_online": "58 seconds ago",
-  "trafik": {
+  "traffic": {
     "received": "90.26 MiB",
     "sent": "1000.53 MiB"
   },

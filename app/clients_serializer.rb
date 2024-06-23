@@ -62,7 +62,7 @@ class ClientsSerializer
       persistent_keepalive: WG_PERSISTENT_KEEPALIVE,
       endpoint: "#{WG_HOST}:#{WG_PORT}",
       last_online: find_stat_data(config['public_key'])['last_online'],
-      trafik: find_stat_data(config['public_key'])['trafik'],
+      traffic: find_stat_data(config['public_key'])['traffic'],
       data: config['data']
     }
   end

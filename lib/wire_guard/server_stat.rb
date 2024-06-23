@@ -51,14 +51,14 @@ module WireGuard
     def increment_data(new_data, last_data)
       {
         last_online: new_data[:last_online],
-        trafik: increment_trafik(new_data[:trafik], last_data['trafik'])
+        traffic: increment_traffic(new_data[:traffic], last_data['traffic'])
       }
     end
 
-    def increment_trafik(new_trafik, last_trafik)
+    def increment_traffic(new_traffic, last_traffic)
       {
-        received: calculate_trafic(new_trafik[:received], last_trafik['received']),
-        sent: calculate_trafic(new_trafik[:sent], last_trafik['sent'])
+        received: calculate_traffic(new_traffic[:received], last_traffic['received']),
+        sent: calculate_traffic(new_traffic[:sent], last_traffic['sent'])
       }
     end
 
@@ -91,7 +91,7 @@ module WireGuard
       when 'latest'
         @result[last_peer][:last_online] = build_latest_data(peer_data)
       when 'transfer:'
-        @result[last_peer][:trafik] = build_trafic_data(peer_data)
+        @result[last_peer][:traffic] = build_traffic_data(peer_data)
       end
     end
 
@@ -99,14 +99,14 @@ module WireGuard
       data[-3..]&.join(' ')
     end
 
-    def build_trafic_data(data)
+    def build_traffic_data(data)
       {
         received: data[-6..-5]&.join(' '),
         sent: data[-3..-2]&.join(' ')
       }
     end
 
-    def calculate_trafic(new_t, old_t)
+    def calculate_traffic(new_t, old_t)
       result = new_t.to_unit + old_t.to_unit
       result.convert_to('GiB').round(2).to_s
     end
