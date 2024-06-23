@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'config_file_builder'
-require 'rqrcode'
-require 'chunky_png'
-require 'tempfile'
-
 module Utils
   # class for generating QR codes
   class QrCodeBuilder

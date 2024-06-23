@@ -2,6 +2,7 @@
 
 require 'sinatra'
 require 'sinatra/contrib'
+require_relative 'config/sentry'
 
 # Main app class
 class Application < Sinatra::Base

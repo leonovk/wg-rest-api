@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'stat_generator'
-require 'fileutils'
-require 'ruby_units/namespaced'
-
 module WireGuard
   # Class for obtaining statistics on traffic and last online clients
   class ServerStat
@@ -44,33 +40,25 @@ module WireGuard
 
         if last_data.nil? or last_data.empty?
           last_stat_data[peer] = data
-        else
-          # NOTE: Because of this, the final result may contain character keys and string keys.
-          # If the data is taken from a file.
-          # TODO: To fix this. We need to come up with a concise solution.
-          next if data.empty?
-
+        elsif !data.empty?
           last_stat_data[peer] = increment_data(data, last_data)
         end
       end
 
-      # NOTO: It may not be the best solution to enrich a hash with old data with new data.
-      # It might be worth changing it to generate a new hash.
-      # This will probably solve the problem from TODO above
       last_stat_data
     end
 
     def increment_data(new_data, last_data)
       {
         last_online: new_data[:last_online],
-        trafik: increment_trafik(new_data[:trafik], last_data['trafik'])
+        traffic: increment_traffic(new_data[:traffic], last_data['traffic'])
       }
     end
 
-    def increment_trafik(new_trafik, last_trafik)
+    def increment_traffic(new_traffic, last_traffic)
       {
-        received: sum_trafic(new_trafik[:received], last_trafik['received']),
-        sent: sum_trafic(new_trafik[:sent], last_trafik['sent'])
+        received: calculate_traffic(new_traffic[:received], last_traffic['received']),
+        sent: calculate_traffic(new_traffic[:sent], last_traffic['sent'])
       }
     end
 
@@ -103,7 +91,7 @@ module WireGuard
       when 'latest'
         @result[last_peer][:last_online] = build_latest_data(peer_data)
       when 'transfer:'
-        @result[last_peer][:trafik] = build_trafic_data(peer_data)
+        @result[last_peer][:traffic] = build_traffic_data(peer_data)
       end
     end
 
@@ -111,15 +99,15 @@ module WireGuard
       data[-3..]&.join(' ')
     end
 
-    def build_trafic_data(data)
+    def build_traffic_data(data)
       {
         received: data[-6..-5]&.join(' '),
         sent: data[-3..-2]&.join(' ')
       }
     end
 
-    def sum_trafic(first, second)
-      result = first.to_unit + second.to_unit
+    def calculate_traffic(new_t, old_t)
+      result = new_t.to_unit + old_t.to_unit
       result.convert_to('GiB').round(2).to_s
     end
   end

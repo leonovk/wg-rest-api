@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-require 'fileutils'
-require_relative 'config_builder'
-require_relative 'key_generator'
-require_relative 'config_updater'
-
 module WireGuard
   # Main class for WireGuard server management
   # Allows you to manage configuration files on the server

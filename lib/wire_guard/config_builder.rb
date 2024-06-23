@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'key_generator'
-require 'ipaddr'
-
 module WireGuard
   # The class generates a config file for the client
   class ConfigBuilder

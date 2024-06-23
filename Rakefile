@@ -30,7 +30,7 @@ end
 desc 'console'
 task c: :console
 task :console do
-  sh 'bundle exec pry -I . -r ./app.rb'
+  sh 'bundle exec pry -I . -r ./config/config.rb'
 end
 
 desc 'start'
