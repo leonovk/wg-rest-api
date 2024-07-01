@@ -112,7 +112,7 @@ GEM
     ruby-progressbar (1.13.0)
     ruby-units (4.0.3)
     ruby2_keywords (0.0.5)
-    sentry-ruby (5.17.3)
+    sentry-ruby (5.18.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     sinatra (4.0.0)
@@ -158,7 +158,7 @@ DEPENDENCIES
   rubocop-rake (~> 0.6.0)
   rubocop-rspec (~> 2.29, >= 2.29.2)
   ruby-units (~> 4.0, >= 4.0.3)
-  sentry-ruby (~> 5.17, >= 5.17.3)
+  sentry-ruby (~> 5.18)
   sinatra (~> 4.0)
   sinatra-contrib (~> 4.0)
   stackprof (~> 0.2.26)
