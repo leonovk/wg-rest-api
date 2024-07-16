@@ -9,7 +9,7 @@ module WireGuard
 
     def initialize
       @last_stat_data = initialize_last_stat_data
-      @new_stat_data = parse(StatGenerator.show)
+      @new_stat_data = StatParser.new.parse
       @wg_stat = aggregate_data
       dump_stat(@wg_stat)
     end
@@ -64,46 +64,6 @@ module WireGuard
 
     def dump_stat(wg_stat)
       File.write(WG_STAT_PATH, JSON.pretty_generate(wg_stat))
-    end
-
-    def parse(wg_stat)
-      return {} if wg_stat.nil? or wg_stat.empty?
-
-      parse_data(wg_stat.split("\n"))
-
-      @result
-    end
-
-    def parse_data(data)
-      @result = {}
-
-      data.each do |line|
-        peer_data = line.strip.split
-        parse_wg_line(peer_data)
-      end
-    end
-
-    def parse_wg_line(peer_data)
-      case peer_data.first
-      when 'peer:'
-        @result[peer_data.last] = {}
-        @last_peer = peer_data.last
-      when 'latest'
-        @result[last_peer][:last_online] = build_latest_data(peer_data)
-      when 'transfer:'
-        @result[last_peer][:traffic] = build_traffic_data(peer_data)
-      end
-    end
-
-    def build_latest_data(data)
-      data[-3..]&.join(' ')
-    end
-
-    def build_traffic_data(data)
-      {
-        received: data[-6..-5]&.join(' '),
-        sent: data[-3..-2]&.join(' ')
-      }
     end
 
     def calculate_traffic(new_t, old_t)
