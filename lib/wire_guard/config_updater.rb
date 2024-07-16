@@ -3,6 +3,8 @@
 module WireGuard
   # the class dumps the resulting configuration file
   # and reboots the WireGuard server
+  # This class updates the config file of the server itself and not the clients.
+  # And it is needed mainly to reboot the server after adding new clients (or deleting them)
   class ConfigUpdater
     WG_CONF_PATH = "#{Settings.wg_path}/wg0.conf".freeze
     WG_PORT = Settings.wg_port
@@ -13,6 +15,7 @@ module WireGuard
 
     def initialize
       @json_config = JSON.parse(File.read(WireGuard::Server::WG_JSON_PATH))
+      # NOTE: The check is essentially needed exclusively for the first launch of this class.
       Kernel.system('wg-quick down wg0') if File.exist?(WG_CONF_PATH)
     end
 
@@ -25,6 +28,8 @@ module WireGuard
       new_config_build << base_config
 
       json_config['configs'].except('last_id', 'last_address').each_value do |config|
+        # NOTE: We simply skip the config and do not add it to the initial configuration,
+        # if the 'enable == false'
         next if config['enable'] == false
 
         new_config_build << build_client(config)

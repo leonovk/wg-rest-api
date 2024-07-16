@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Utils
-  # class that from Jason's config creates a ready-made config for the end user
+  # class that from JSON config creates a ready-made config for the end user
   class ConfigFileBuilder
     def self.build(config)
       new(config).build

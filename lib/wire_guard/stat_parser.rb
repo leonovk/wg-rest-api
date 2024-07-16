@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module WireGuard
-  # new stat parser class
+  # This class returns current data on WG server statistics
   class StatParser
     def initialize
       @raw_data = StatGenerator.show
