@@ -12,12 +12,23 @@ module Utils
     end
 
     def build
-      <<~TEXT
+      "#{interface}\n#{peer}"
+    end
+
+    private
+
+    def interface
+      result = <<~TEXT
         [Interface]
         PrivateKey = #{key['private_key']}
         Address = #{key['address']}
-        DNS = #{key['dns']}
+      TEXT
+      result << "DNS = #{key['dns']}\n" if key['dns']
+      result
+    end
 
+    def peer
+      <<~TEXT
         [Peer]
         PublicKey = #{key['server_public_key']}
         PresharedKey = #{key['preshared_key']}
@@ -26,8 +37,6 @@ module Utils
         Endpoint = #{key['endpoint']}
       TEXT
     end
-
-    private
 
     attr_reader :key
   end
