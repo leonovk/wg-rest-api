@@ -15,8 +15,6 @@ module WireGuard
 
     def initialize
       @json_config = JSON.parse(File.read(WireGuard::Server::WG_JSON_PATH))
-      # NOTE: The check is essentially needed exclusively for the first launch of this class.
-      Kernel.system('wg-quick down wg0') if File.exist?(WG_CONF_PATH)
     end
 
     def self.update
@@ -37,7 +35,7 @@ module WireGuard
 
       dump_wireguard_config(new_config_build)
 
-      Kernel.system('wg-quick up wg0')
+      Kernel.system('wg syncconf wg0 <(wg-quick strip wg0)')
     end
 
     private

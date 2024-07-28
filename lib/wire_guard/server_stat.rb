@@ -50,27 +50,22 @@ module WireGuard
       last_stat_data
     end
 
-    def increment_data(new_data, last_data)
+    def increment_data(new_data, _last_data)
       {
         last_online: new_data[:last_online],
-        traffic: increment_traffic(new_data[:traffic], last_data['traffic'])
+        traffic: increment_traffic(new_data[:traffic])
       }
     end
 
-    def increment_traffic(new_traffic, last_traffic)
+    def increment_traffic(new_traffic)
       {
-        received: calculate_traffic(new_traffic[:received], last_traffic['received']),
-        sent: calculate_traffic(new_traffic[:sent], last_traffic['sent'])
+        received: new_traffic[:received],
+        sent: new_traffic[:sent]
       }
     end
 
     def dump_stat(wg_stat)
       File.write(WG_STAT_PATH, JSON.pretty_generate(wg_stat))
-    end
-
-    def calculate_traffic(new_t, old_t)
-      result = new_t.to_unit + old_t.to_unit
-      result.convert_to('GiB').round(2).to_s
     end
   end
 end
