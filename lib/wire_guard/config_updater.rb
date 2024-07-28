@@ -15,6 +15,7 @@ module WireGuard
 
     def initialize
       @json_config = JSON.parse(File.read(WireGuard::Server::WG_JSON_PATH))
+      @first_start = !File.exist?(WG_CONF_PATH)
     end
 
     def self.update
@@ -34,13 +35,20 @@ module WireGuard
       end
 
       dump_wireguard_config(new_config_build)
-
-      Kernel.system('wg syncconf wg0 <(wg-quick strip wg0)')
+      start_server
     end
 
     private
 
-    attr_reader :json_config
+    attr_reader :json_config, :first_start
+
+    def start_server
+      if first_start
+        Kernel.system('wg-quick up wg0')
+      else
+        Kernel.system('wg syncconf wg0 <(wg-quick strip wg0)')
+      end
+    end
 
     def dump_wireguard_config(new_config_build)
       File.write(WG_CONF_PATH, new_config_build.join("\n"))
