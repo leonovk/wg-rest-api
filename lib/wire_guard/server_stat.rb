@@ -38,8 +38,6 @@ module WireGuard
       new_stat_data.each do |peer, data|
         last_data = last_stat_data[peer]
 
-        # NOTE: If there is no latest data, then we write down new ones in any case,
-        # even if they are not there.
         if last_data.nil? or last_data.empty?
           last_stat_data[peer] = data
         elsif !data.empty?
