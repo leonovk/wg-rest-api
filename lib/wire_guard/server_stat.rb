@@ -9,7 +9,7 @@ module WireGuard
 
     def initialize
       @last_stat_data = initialize_last_stat_data
-      @new_stat_data = parse(StatGenerator.show)
+      @new_stat_data = StatParser.new.parse
       @wg_stat = aggregate_data
       dump_stat(@wg_stat)
     end
@@ -48,67 +48,22 @@ module WireGuard
       last_stat_data
     end
 
-    def increment_data(new_data, last_data)
+    def increment_data(new_data, _last_data)
       {
         last_online: new_data[:last_online],
-        traffic: increment_traffic(new_data[:traffic], last_data['traffic'])
+        traffic: increment_traffic(new_data[:traffic])
       }
     end
 
-    def increment_traffic(new_traffic, last_traffic)
+    def increment_traffic(new_traffic)
       {
-        received: calculate_traffic(new_traffic[:received], last_traffic['received']),
-        sent: calculate_traffic(new_traffic[:sent], last_traffic['sent'])
+        received: new_traffic[:received],
+        sent: new_traffic[:sent]
       }
     end
 
     def dump_stat(wg_stat)
       File.write(WG_STAT_PATH, JSON.pretty_generate(wg_stat))
-    end
-
-    def parse(wg_stat)
-      return {} if wg_stat.nil? or wg_stat.empty?
-
-      parse_data(wg_stat.split("\n"))
-
-      @result
-    end
-
-    def parse_data(data)
-      @result = {}
-
-      data.each do |line|
-        peer_data = line.strip.split
-        parse_wg_line(peer_data)
-      end
-    end
-
-    def parse_wg_line(peer_data)
-      case peer_data.first
-      when 'peer:'
-        @result[peer_data.last] = {}
-        @last_peer = peer_data.last
-      when 'latest'
-        @result[last_peer][:last_online] = build_latest_data(peer_data)
-      when 'transfer:'
-        @result[last_peer][:traffic] = build_traffic_data(peer_data)
-      end
-    end
-
-    def build_latest_data(data)
-      data[-3..]&.join(' ')
-    end
-
-    def build_traffic_data(data)
-      {
-        received: data[-6..-5]&.join(' '),
-        sent: data[-3..-2]&.join(' ')
-      }
-    end
-
-    def calculate_traffic(new_t, old_t)
-      result = new_t.to_unit + old_t.to_unit
-      result.convert_to('GiB').round(2).to_s
     end
   end
 end

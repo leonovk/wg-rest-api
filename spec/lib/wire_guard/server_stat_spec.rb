@@ -65,22 +65,22 @@ RSpec.describe WireGuard::ServerStat do
           'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
             last_online: '25 seconds ago',
             traffic: {
-              received: '0.11 GiB',
-              sent: '2.7 GiB'
+              received: '56.28 MiB',
+              sent: '1.35 GiB'
             }
           },
           'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {
             last_online: '30 seconds ago',
             traffic: {
-              received: '0.39 GiB',
-              sent: '1.41 GiB'
+              received: '199.29 MiB',
+              sent: '722.39 MiB'
             }
           },
           'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
             last_online: '13 seconds ago',
             traffic: {
-              received: '0.12 GiB',
-              sent: '6.42 GiB'
+              received: '62.44 MiB',
+              sent: '3.21 GiB'
             }
           }
         }
@@ -156,8 +156,8 @@ RSpec.describe WireGuard::ServerStat do
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
               last_online: '13 seconds ago',
               traffic: {
-                received: '0.12 GiB',
-                sent: '6.42 GiB'
+                received: '62.44 MiB',
+                sent: '3.21 GiB'
               }
             }
           }
@@ -188,8 +188,8 @@ RSpec.describe WireGuard::ServerStat do
             'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
               last_online: '25 seconds ago',
               traffic: {
-                received: '0.11 GiB',
-                sent: '2.7 GiB'
+                received: '56.28 MiB',
+                sent: '1.35 GiB'
               }
             },
             'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {
@@ -202,8 +202,8 @@ RSpec.describe WireGuard::ServerStat do
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
               last_online: '13 seconds ago',
               traffic: {
-                received: '0.12 GiB',
-                sent: '6.42 GiB'
+                received: '62.44 MiB',
+                sent: '3.21 GiB'
               }
             }
           }
@@ -238,8 +238,8 @@ RSpec.describe WireGuard::ServerStat do
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
               last_online: '13 seconds ago',
               traffic: {
-                received: '0.12 GiB',
-                sent: '6.42 GiB'
+                received: '62.44 MiB',
+                sent: '3.21 GiB'
               }
             }
           }

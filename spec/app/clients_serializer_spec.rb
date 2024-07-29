@@ -145,8 +145,8 @@ RSpec.describe ClientsSerializer do
           endpoint: '2.2.2.2:51820',
           last_online: '13 seconds ago',
           traffic: {
-            received: '0.12 GiB',
-            sent: '6.42 GiB'
+            received: '62.44 MiB',
+            sent: '3.21 GiB'
           },
           data: {}
         }
