@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'json-schema'
-
 # class for validating input data from the user
 class ClientsValidator
   attr_accessor :params

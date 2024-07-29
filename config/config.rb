@@ -8,6 +8,7 @@ require 'tempfile'
 require 'ipaddr'
 require 'fileutils'
 require 'ruby_units/namespaced'
+require 'json-schema'
 
 env = ENV.fetch('ENVIRONMENT', 'development')
 Config.load_and_set_settings("config/settings/#{env}.yaml")
