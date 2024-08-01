@@ -103,7 +103,7 @@ GEM
     ruby-progressbar (1.13.0)
     ruby-units (4.0.3)
     ruby2_keywords (0.0.5)
-    sentry-ruby (5.18.0)
+    sentry-ruby (5.18.2)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     sinatra (4.0.0)
