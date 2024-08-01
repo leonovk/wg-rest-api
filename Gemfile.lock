@@ -64,7 +64,7 @@ GEM
     regexp_parser (2.9.2)
     rerun (0.14.0)
       listen (~> 3.0)
-    rexml (3.3.2)
+    rexml (3.3.4)
       strscan
     rqrcode (2.2.0)
       chunky_png (~> 1.0)
@@ -98,7 +98,7 @@ GEM
       parser (>= 3.3.1.0)
     rubocop-rake (0.6.0)
       rubocop (~> 1.0)
-    rubocop-rspec (3.0.1)
+    rubocop-rspec (3.0.3)
       rubocop (~> 1.61)
     ruby-progressbar (1.13.0)
     ruby-units (4.0.3)
