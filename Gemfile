@@ -11,7 +11,7 @@ gem 'puma', '~> 6.4', '>= 6.4.2'
 gem 'rake', '~> 13.2', '>= 13.2.1'
 gem 'rqrcode', '~> 2.0'
 gem 'ruby-units', '~> 4.0', '>= 4.0.3'
-gem 'simple_monads', '~> 0.1'
+gem 'simple_monads', '~> 1.0'
 gem 'sinatra', '~> 4.0'
 gem 'sinatra-contrib', '~> 4.0'
 
