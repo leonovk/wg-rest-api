@@ -1,17 +1,7 @@
 # frozen_string_literal: true
 
-require 'config'
-require 'json'
-require 'rqrcode'
-require 'chunky_png'
-require 'tempfile'
-require 'ipaddr'
-require 'fileutils'
-require 'faraday'
-require 'ruby_units/namespaced'
+require_relative '../config/dependencies'
 require 'byebug'
-require 'json-schema'
-require 'simple_monads'
 
 Config.load_and_set_settings('config/settings/test.yaml')
 

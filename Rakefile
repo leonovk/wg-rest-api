@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require 'rake/tasklib'
-require 'config'
 require 'byebug'
+
+require_relative 'config/dependencies'
 
 env = ENV.fetch('ENVIRONMENT', 'development')
 
@@ -15,6 +16,8 @@ if env == 'development'
 end
 
 Config.load_and_set_settings("config/settings/#{env}.yaml")
+
+require_relative 'config/application'
 
 Dir.glob('tasks/*.rake').each do |file|
   load file
