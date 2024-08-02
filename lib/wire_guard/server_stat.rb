@@ -35,31 +35,15 @@ module WireGuard
     end
 
     def aggregate_data
-      new_stat_data.each do |peer, data|
+      new_stat_data.each do |peer, new_data|
         last_data = last_stat_data[peer]
 
-        if last_data.nil? or last_data.empty?
-          last_stat_data[peer] = data
-        elsif !data.empty?
-          last_stat_data[peer] = increment_data(data, last_data)
-        end
+        # NOTE: Write only if there is no latest data or if there is new data.
+        # New data will always have at least an empty hash.
+        last_stat_data[peer] = new_data if (last_data.nil? || last_data.empty?) || !new_data.empty?
       end
 
       last_stat_data
-    end
-
-    def increment_data(new_data, _last_data)
-      {
-        last_online: new_data[:last_online],
-        traffic: increment_traffic(new_data[:traffic])
-      }
-    end
-
-    def increment_traffic(new_traffic)
-      {
-        received: new_traffic[:received],
-        sent: new_traffic[:sent]
-      }
     end
 
     def dump_stat(wg_stat)
