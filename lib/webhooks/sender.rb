@@ -36,7 +36,8 @@ module Webhooks
       result = {}
 
       events.compact.each do |event|
-        arr = result[i] || []
+        arr = result[i]
+        arr = [] if arr.nil?
         arr << event
         result[i] = arr
         if i >= 5
