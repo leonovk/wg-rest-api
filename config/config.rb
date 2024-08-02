@@ -10,6 +10,7 @@ require 'fileutils'
 require 'faraday'
 require 'ruby_units/namespaced'
 require 'json-schema'
+require 'simple_monads'
 
 env = ENV.fetch('ENVIRONMENT', 'development')
 Config.load_and_set_settings("config/settings/#{env}.yaml")

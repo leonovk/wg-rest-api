@@ -11,6 +11,7 @@ require 'faraday'
 require 'ruby_units/namespaced'
 require 'byebug'
 require 'json-schema'
+require 'simple_monads'
 
 Config.load_and_set_settings('config/settings/test.yaml')
 
