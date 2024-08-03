@@ -27,6 +27,7 @@ group :development do
   gem 'rubocop-rake', '~> 0.6.0'
   gem 'rubocop-rspec', '~> 3.0'
   gem 'super_diff', '~> 0.12.1'
+  gem 'webmock', '~> 3.23', '>= 3.23.1'
 end
 
 # NOTE: An extremely platform-dependent gem that is needed only for development.

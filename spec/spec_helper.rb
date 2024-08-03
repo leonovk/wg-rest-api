@@ -15,6 +15,7 @@ require_relative '../app'
 
 require 'super_diff/rspec'
 require 'rack/test'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   config.example_status_persistence_file_path = '.rspec_status'

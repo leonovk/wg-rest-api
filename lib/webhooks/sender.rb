@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
 module Webhooks
-  # Sender +_+
+  # The class sends events in multi-threaded mode
   class Sender
+    MAX_THREADS = 8
+    URL = Settings.webhooks_url
+
     def initialize(events)
       @events = events
+      @threads = []
     end
 
-    def send_events # rubocop:disable Metrics/MethodLength
-      url = Settings.webhooks_url
-      return unless url
+    def send_events
+      return unless URL
 
-      sorted_events = sort_events
-      threads = []
-
-      sorted_events.each_value do |events|
+      sort_events.each_value do |events|
         thread = Thread.new do
           events.each do |event|
-            Client.new(url).send_payload(event)
+            Client.new(URL).send_payload(event)
           end
         end
 
@@ -29,9 +29,9 @@ module Webhooks
 
     private
 
-    attr_reader :events
+    attr_reader :events, :threads
 
-    def sort_events # rubocop:disable Metrics/MethodLength
+    def sort_events
       i = 1
       result = {}
 
@@ -40,11 +40,7 @@ module Webhooks
         arr = [] if arr.nil?
         arr << event
         result[i] = arr
-        if i >= 5
-          i = 1
-        else
-          i += 1
-        end
+        i >= MAX_THREADS ? i = 1 : i += 1
       end
 
       result
