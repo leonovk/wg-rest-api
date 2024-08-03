@@ -7,7 +7,7 @@ peer: LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=
 preshared key: (hidden)
 endpoint: 109.252.46.192:1382
 allowed ips: 10.8.0.26/32
-latest handshake: 25 seconds ago
+latest handshake: 2 hours, 10 minutes, 20 seconds ago
 transfer: 56.28 MiB received, 1.35 GiB sent
 
 peer: hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=
