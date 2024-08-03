@@ -19,7 +19,7 @@ RSpec.describe WireGuard::ServerStat do
       let(:expected_result) do
         {
           'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
-            last_online: '25 seconds ago',
+            last_online: '2 hours, 10 minutes, 20 seconds ago',
             traffic: {
               received: '56.28 MiB',
               sent: '1.35 GiB'
@@ -33,7 +33,7 @@ RSpec.describe WireGuard::ServerStat do
             }
           },
           'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-            last_online: '13 seconds ago',
+            last_online: '1 minute, 13 seconds ago',
             traffic: {
               received: '62.44 MiB',
               sent: '3.21 GiB'
@@ -63,7 +63,7 @@ RSpec.describe WireGuard::ServerStat do
       let(:expected_result) do
         {
           'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
-            last_online: '25 seconds ago',
+            last_online: '2 hours, 10 minutes, 20 seconds ago',
             traffic: {
               received: '56.28 MiB',
               sent: '1.35 GiB'
@@ -77,7 +77,7 @@ RSpec.describe WireGuard::ServerStat do
             }
           },
           'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-            last_online: '13 seconds ago',
+            last_online: '1 minute, 13 seconds ago',
             traffic: {
               received: '62.44 MiB',
               sent: '3.21 GiB'
@@ -108,7 +108,7 @@ RSpec.describe WireGuard::ServerStat do
             'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {},
             'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {},
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-              last_online: '13 seconds ago',
+              last_online: '1 minute, 13 seconds ago',
               traffic: {
                 received: '62.44 MiB',
                 sent: '3.21 GiB'
@@ -154,7 +154,7 @@ RSpec.describe WireGuard::ServerStat do
               }
             },
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-              last_online: '13 seconds ago',
+              last_online: '1 minute, 13 seconds ago',
               traffic: {
                 received: '62.44 MiB',
                 sent: '3.21 GiB'
@@ -186,7 +186,7 @@ RSpec.describe WireGuard::ServerStat do
         let(:expected_result) do
           {
             'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
-              last_online: '25 seconds ago',
+              last_online: '2 hours, 10 minutes, 20 seconds ago',
               traffic: {
                 received: '56.28 MiB',
                 sent: '1.35 GiB'
@@ -200,7 +200,7 @@ RSpec.describe WireGuard::ServerStat do
               }
             },
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-              last_online: '13 seconds ago',
+              last_online: '1 minute, 13 seconds ago',
               traffic: {
                 received: '62.44 MiB',
                 sent: '3.21 GiB'
@@ -236,7 +236,7 @@ RSpec.describe WireGuard::ServerStat do
             },
             'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {},
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-              last_online: '13 seconds ago',
+              last_online: '1 minute, 13 seconds ago',
               traffic: {
                 received: '62.44 MiB',
                 sent: '3.21 GiB'

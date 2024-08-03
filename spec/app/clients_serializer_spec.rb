@@ -143,7 +143,7 @@ RSpec.describe ClientsSerializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_online: '13 seconds ago',
+          last_online: '1 minute, 13 seconds ago',
           traffic: {
             received: '62.44 MiB',
             sent: '3.21 GiB'

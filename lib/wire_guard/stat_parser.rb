@@ -40,7 +40,7 @@ module WireGuard
     end
 
     def build_latest_data(data)
-      data[-3..]&.join(' ')
+      data[2..]&.join(' ')
     end
 
     def build_traffic_data(data)
