@@ -7,4 +7,4 @@ wg_port: '51820'
 wg_default_dns: '1.1.1.1'
 wg_persistent_keepalive: 0
 auth_token: '123-Ab'
-webhooks_url: 'https://test.webhooks.com'
+webhooks_url: 'https://test.webhooks.com/event'
