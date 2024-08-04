@@ -28,4 +28,16 @@ RUN bundle config set without 'development rerun'
 
 RUN bundle install
 
+# Copy events_cron file to the cron.d directory
+COPY events_cron /etc/cron.d/events_cron
+ 
+# Give execution rights on the cron job
+RUN chmod 0644 /etc/cron.d/events_cron
+
+# Apply cron job
+RUN crontab /etc/cron.d/events_cron
+ 
+# Create the log file to be able to run tail
+RUN touch /var/log/cron.log
+
 CMD ["puma", "-C", "config/puma.rb"]
