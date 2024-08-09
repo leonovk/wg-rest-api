@@ -50,7 +50,7 @@ To run just run the command:
 docker run -d \
 -e WG_HOST=<🚨YOUR_SERVER_IP> \
 -e AUTH_TOKEN=<🚨YOUR_ADMIN_API_TOKEN> \
--e ENVIRONMENT=production
+-e ENVIRONMENT=production \
 -v ~/.wg-rest:/etc/wireguard \
 -p 51820:51820/udp \
 -p 3000:3000 \
@@ -60,6 +60,27 @@ wg-rest-api
 ```
 
 **If you can't start the container, try entering the command in one line**
+
+### Settings you can set
+
+By setting environment variables when starting a container, you can configure application settings. Here is a list of environment variables that you can set. It is important to note that you can override the values ​​of these variables as they already have default values.
+
+| Environment variable    | Description                                                                      | Note                                                                                  |
+|-------------------------|----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| WG_PATH                 | directory where the main configuration for your wireguard server will be located | I strongly advise you not to change it                                                |
+| WG_DEVICE               | name for network interface for wireguard                                         | I strongly advise you not to change it                                                |
+| WG_DEFAULT_ADDRESS      | default address for your clients                                                 | It should be specified in the format -> `10.8.0.x`                                    |
+| WG_ALLOWED_IPS          | allowed ip address                                                               |                                                                                       |
+| WG_HOST                 | IP address of your server                                                        | This environment variable must be specified when starting the application             |
+| WG_PORT                 | udp port for wireguard                                                           |                                                                                       |
+| WG_DEFAULT_DNS          | dns server                                                                       |                                                                                       |
+| WG_PRE_UP               | special setting is triggered before starting the wireguard server                |                                                                                       |
+| WG_PRE_DOWN             | special setting is triggered before stopping the wireguard server                |                                                                                       |
+| WG_POST_UP              | special setting is triggered after starting the wireguard server                 |                                                                                       |
+| WG_POST_DOWN            | special setting is triggered after stopping the wireguard server                 |                                                                                       |
+| WG_PERSISTENT_KEEPALIVE | node keepalive parameter                                                         |                                                                                       |
+| AUTH_TOKEN              | authorization token for API                                                      | You can specify absolutely any string that will be used to authenticate your requests |
+| WEBHOOKS_URL            | url for webhooks                                                                 |                                                                                       |
 
 ### 3. Functionality check
 
