@@ -28,21 +28,7 @@ sudo usermod -aG docker $(whoami)
 exit
 ```
 
-### 2. Build an image from a Dockerfile
-
-clone this repository and build the image from the dockerfile:
-
-```bash
-git clone https://github.com/leonovk/wg-rest-api.git
-```
-
-```bash
-cd wg-rest-api
-```
-
-```bash
-docker build . -t wg-rest-api
-```
+### 2. Run WireGuard REST API
 
 To run just run the command:
 
@@ -56,7 +42,7 @@ docker run -d \
 -p 3000:3000 \
 --cap-add=NET_ADMIN \
 --restart unless-stopped \
-wg-rest-api
+leonovk/wg-rest-api
 ```
 
 **If you can't start the container, try entering the command in one line**
