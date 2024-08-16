@@ -7,3 +7,5 @@ README.md
 SECURITY.md
 .rubocop.yml
 .rspec
+.git
+.gitignore
