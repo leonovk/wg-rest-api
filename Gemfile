@@ -21,7 +21,6 @@ gem 'pry-byebug', '~> 3.10', '>= 3.10.1'
 
 group :development do
   gem 'dotenv', '~> 3.1', '>= 3.1.2'
-  gem 'git', '~> 2.1', '>= 2.1.1'
   gem 'rack-test', '~> 2.1'
   gem 'rspec', '~> 3.13'
   gem 'rubocop', '~> 1.65'
