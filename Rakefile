@@ -19,7 +19,7 @@ Config.load_and_set_settings("config/settings/#{env}.yaml")
 
 require_relative 'config/application'
 
-Dir.glob('tasks/**/*.rake').each do |file|
+Dir.glob('tasks/*.rake').each do |file|
   load file
 end
 
