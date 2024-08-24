@@ -23,7 +23,7 @@ jobs:
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          message: "bump new version"
+          message: "bump new minor version"
           add: .
           committer_name: "GitHub Actions"
           committer_email: "actions@github.com"
