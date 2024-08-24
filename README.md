@@ -81,7 +81,7 @@ If you received something similar in response, then everything is fine.
 ```json
 {
   "status": "ok",
-  "version": "1.4.11"
+  "version": "1.8.11"
 }
 ```
 
