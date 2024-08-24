@@ -1,0 +1,31 @@
+name: Bump minor version
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - name: Install dependencies
+        run: bundle install
+
+      - name: bump
+        run: bundle exec rake bump_minor
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "bump new version"
+          add: .
+          committer_name: "GitHub Actions"
+          committer_email: "actions@github.com"
+          push: true
+          branch: master
