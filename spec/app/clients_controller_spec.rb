@@ -32,7 +32,7 @@ RSpec.describe ClientsController do
         }
       end
 
-      it 'creates a configuration file and returns an empty array' do # rubocop:disable RSpec/MultipleExpectations
+      it 'creates a configuration file and returns an empty array' do
         result = controller.index
 
         expect(result).to eq([].to_json)

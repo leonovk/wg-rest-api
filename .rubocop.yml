@@ -10,3 +10,6 @@ Style/AndOr:
 
 RSpec/NestedGroups:
   Max: 4
+
+RSpec/MultipleExpectations:
+  Max: 2

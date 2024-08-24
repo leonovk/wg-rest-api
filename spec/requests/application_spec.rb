@@ -47,6 +47,30 @@ RSpec.describe Application do
       end
     end
 
+    context 'when the request is authorized but an encrypted token is set' do
+      before do
+        allow(Settings).to receive(:auth_digest_token)
+          .and_return('8c24220738721bb1a0ad0607527293c16d0d44f2a645980efc271a0a03006d4c')
+        header('Authorization', 'Bearer 123-Ab')
+        get '/api/clients'
+      end
+
+      it 'returns a successful response' do
+        expect(last_response.successful?).to be(true)
+      end
+    end
+
+    context 'when no authorization header was passed at all' do
+      before do
+        get '/api/clients'
+      end
+
+      it 'returns an unsuccessful response' do
+        expect(last_response.successful?).to be(false)
+        expect(last_response.status).to be(403)
+      end
+    end
+
     context 'when the request is not authorized' do
       before do
         header('Authorization', 'Bearer 123-ab')
@@ -55,6 +79,7 @@ RSpec.describe Application do
 
       it 'returns an unsuccessful response' do
         expect(last_response.successful?).to be(false)
+        expect(last_response.status).to be(403)
       end
     end
   end
