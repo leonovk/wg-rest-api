@@ -10,7 +10,8 @@ class Application < Sinatra::Base
   use Sentry::Rack::CaptureExceptions if sentry?
   register Sinatra::Namespace
 
-  AUTH_TOKEN = "Bearer #{Settings.auth_token}".freeze
+  AUTH_TOKEN = Settings.auth_token
+  AUTH_DIGEST_TOKEN = Settings.auth_digest_token
 
   namespace '/api' do # rubocop:disable Metrics/BlockLength
     before do
@@ -76,7 +77,14 @@ class Application < Sinatra::Base
   attr_reader :controller
 
   def authorize_resource
-    halt 403 unless request.env['HTTP_AUTHORIZATION'] == AUTH_TOKEN
+    token = request.env['HTTP_AUTHORIZATION']
+    halt 403 unless token
+
+    if AUTH_DIGEST_TOKEN
+      halt 403 unless Digest::SHA256.hexdigest(token[7..]) == AUTH_DIGEST_TOKEN
+    else
+      halt 403 unless token[7..] == AUTH_TOKEN
+    end
   end
 
   def instance_versions
