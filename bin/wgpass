@@ -2,5 +2,8 @@
 # frozen_string_literal: true
 
 require 'digest'
+require 'rainbow/refinement'
+using Rainbow
 
-puts Digest::SHA256.hexdigest(ARGV.first)
+print 'Your hash: '
+puts Digest::SHA256.hexdigest(ARGV.first).green
