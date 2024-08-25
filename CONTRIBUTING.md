@@ -2,12 +2,11 @@
 
 In the spirit of [free software](http://www.fsf.org/licensing/essays/free-sw.html), **everyone** is encouraged to help improve this project. Here are some ways *you* can contribute:
 
-* Use alpha, beta, and pre-release versions.
 * Report bugs.
 * Suggest new features.
 * Write or edit documentation.
 * Write specifications.
-* Write code (**no patch is too small**: fix typos, add comments, clean up inconsistent whitespace).
+* Write code.
 * Refactor code.
 * Fix [issues][].
 * Review patches.
