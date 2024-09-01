@@ -7,7 +7,7 @@ gem 'config', '~> 5.5'
 gem 'digest', '~> 3.1', '>= 3.1.1'
 gem 'faraday', '~> 2.11'
 gem 'ipaddr', '~> 1.2', '>= 1.2.6'
-gem 'json-schema', '~> 4.3'
+gem 'json-schema', '~> 5.0'
 gem 'puma', '~> 6.4', '>= 6.4.2'
 gem 'rainbow', '~> 3.1', '>= 3.1.1'
 gem 'rake', '~> 13.2', '>= 13.2.1'
@@ -42,6 +42,6 @@ end
 # The average user does not need them.
 # And they start working only if there is a special setting
 group :production do
-  gem 'sentry-ruby', '~> 5.18'
+  gem 'sentry-ruby', '~> 5.19'
   gem 'stackprof', '~> 0.2.26'
 end
