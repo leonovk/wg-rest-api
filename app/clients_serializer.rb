@@ -7,6 +7,7 @@ class ClientsSerializer
   WG_PERSISTENT_KEEPALIVE = Settings.wg_persistent_keepalive
   WG_HOST = Settings.wg_host
   WG_PORT = Settings.wg_port
+  CONNECTING_CLIENT_LIMIT = Settings.connecting_client_limit
 
   def self.serialize(client_config, server_public_key)
     new(client_config, server_public_key).client.to_json
@@ -52,7 +53,7 @@ class ClientsSerializer
     {
       id: config['id'],
       server_public_key:,
-      address: "#{config['address']}/24",
+      address: "#{config['address']}/#{CONNECTING_CLIENT_LIMIT}",
       private_key: config['private_key'],
       public_key: config['public_key'],
       preshared_key: config['preshared_key'],

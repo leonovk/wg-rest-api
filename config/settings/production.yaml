@@ -13,3 +13,4 @@ wg_persistent_keepalive: <%= ENV['WG_PERSISTENT_KEEPALIVE'] || 0 %>
 auth_token: <%= ENV['AUTH_TOKEN'] %>
 auth_digest_token: <%= ENV['AUTH_DIGEST_TOKEN'] %>
 webhooks_url: <%= ENV['WEBHOOKS_URL'] %>
+connecting_client_limit: <%= ENV['CONNECTING_CLIENT_LIMIT'] || '24' %>

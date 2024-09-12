@@ -12,6 +12,7 @@ module WireGuard
     WG_PRE_DOWN = Settings.wg_pre_down
     WG_DEFAULT_ADDRESS = Settings.wg_default_address
     WG_DEVICE = Settings.wg_device
+    CONNECTING_CLIENT_LIMIT = Settings.connecting_client_limit
 
     def initialize
       @json_config = JSON.parse(File.read(WireGuard::Server::WG_JSON_PATH))
@@ -67,7 +68,7 @@ module WireGuard
     def wg_post_up
       return Settings.wg_post_up unless Settings.wg_post_up.nil?
 
-      "iptables -t nat -A POSTROUTING -s #{WG_DEFAULT_ADDRESS.gsub('x', '0')}/24 " \
+      "iptables -t nat -A POSTROUTING -s #{WG_DEFAULT_ADDRESS.gsub('x', '0')}/#{CONNECTING_CLIENT_LIMIT} " \
         "-o #{WG_DEVICE} -j MASQUERADE; " \
         "iptables -A INPUT -p udp -m udp --dport #{WG_PORT} -j ACCEPT; " \
         'iptables -A FORWARD -i wg0 -j ACCEPT; ' \
@@ -77,7 +78,7 @@ module WireGuard
     def wg_post_down
       return Settings.wg_post_down unless Settings.wg_post_down.nil?
 
-      "iptables -t nat -D POSTROUTING -s #{WG_DEFAULT_ADDRESS.gsub('x', '0')}/24 " \
+      "iptables -t nat -D POSTROUTING -s #{WG_DEFAULT_ADDRESS.gsub('x', '0')}/#{CONNECTING_CLIENT_LIMIT} " \
         "-o #{WG_DEVICE} -j MASQUERADE; " \
         "iptables -D INPUT -p udp -m udp --dport #{WG_PORT} -j ACCEPT; " \
         'iptables -D FORWARD -i wg0 -j ACCEPT; ' \
@@ -92,7 +93,7 @@ module WireGuard
         # Server
         [Interface]
         PrivateKey = #{json_config['server']['private_key']}
-        Address = #{json_config['server']['address']}/24
+        Address = #{json_config['server']['address']}/#{CONNECTING_CLIENT_LIMIT}
         ListenPort = #{WG_PORT}
         PreUp = #{WG_PRE_UP}
         PostUp = #{wg_post_up}
