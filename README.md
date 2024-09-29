@@ -269,7 +269,7 @@ example body:
 ### Requirements fo standalone app
 
 1. wireguard + wireguard-tools
-2. ruby 3.3.1
+2. ruby 3.3.5
 
 ```bash
 $ bundle install
