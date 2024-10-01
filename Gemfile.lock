@@ -133,7 +133,7 @@ GEM
       tilt (~> 2.0)
     stackprof (0.2.26)
     strscan (3.1.0)
-    super_diff (0.12.1)
+    super_diff (0.13.0)
       attr_extras (>= 6.2.4)
       diff-lcs
       patience_diff
@@ -175,7 +175,7 @@ DEPENDENCIES
   sinatra (~> 4.0)
   sinatra-contrib (~> 4.0)
   stackprof (~> 0.2.26)
-  super_diff (~> 0.12.1)
+  super_diff (~> 0.13.0)
   webmock (~> 3.23, >= 3.23.1)
 
 BUNDLED WITH
