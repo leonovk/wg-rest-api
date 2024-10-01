@@ -28,7 +28,7 @@ group :development do
   gem 'rubocop', '~> 1.66'
   gem 'rubocop-rake', '~> 0.6.0'
   gem 'rubocop-rspec', '~> 3.0'
-  gem 'super_diff', '~> 0.12.1'
+  gem 'super_diff', '~> 0.13.0'
   gem 'webmock', '~> 3.23', '>= 3.23.1'
 end
 
