@@ -33,7 +33,7 @@ group :test do
   gem 'rack-test', '~> 2.1'
   gem 'rspec', '~> 3.13'
   gem 'simplecov', require: false
-  gem 'webmock', '~> 3.23', '>= 3.23.1'
+  gem 'webmock', '~> 3.24'
 end
 
 # NOTE: An extremely platform-dependent gem that is needed only for development.

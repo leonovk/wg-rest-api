@@ -78,8 +78,7 @@ GEM
     regexp_parser (2.9.2)
     rerun (0.14.0)
       listen (~> 3.0)
-    rexml (3.3.6)
-      strscan
+    rexml (3.3.8)
     rqrcode (2.2.0)
       chunky_png (~> 1.0)
       rqrcode_core (~> 1.0)
@@ -139,7 +138,6 @@ GEM
       sinatra (= 4.0.0)
       tilt (~> 2.0)
     stackprof (0.2.26)
-    strscan (3.1.0)
     super_diff (0.13.0)
       attr_extras (>= 6.2.4)
       diff-lcs
@@ -147,7 +145,7 @@ GEM
     tilt (2.3.0)
     unicode-display_width (2.6.0)
     uri (0.13.1)
-    webmock (3.23.1)
+    webmock (3.24.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -184,7 +182,7 @@ DEPENDENCIES
   sinatra-contrib (~> 4.0)
   stackprof (~> 0.2.26)
   super_diff (~> 0.13.0)
-  webmock (~> 3.23, >= 3.23.1)
+  webmock (~> 3.24)
 
 BUNDLED WITH
    2.5.9
