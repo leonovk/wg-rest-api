@@ -32,6 +32,10 @@ group :development do
   gem 'webmock', '~> 3.23', '>= 3.23.1'
 end
 
+group :test do
+  gem 'simplecov', require: false
+end
+
 # NOTE: An extremely platform-dependent gem that is needed only for development.
 # So I put it in a separate group.
 group :rerun do

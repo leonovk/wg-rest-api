@@ -5,6 +5,10 @@ require 'byebug'
 
 Config.load_and_set_settings('config/settings/test.yaml')
 
+require 'simplecov'
+
+SimpleCov.start
+
 require_relative '../config/application'
 
 def sentry?
