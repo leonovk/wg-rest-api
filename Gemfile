@@ -23,17 +23,17 @@ gem 'pry-byebug', '~> 3.10', '>= 3.10.1'
 
 group :development do
   gem 'dotenv', '~> 3.1'
-  gem 'rack-test', '~> 2.1'
-  gem 'rspec', '~> 3.13'
   gem 'rubocop', '~> 1.66'
   gem 'rubocop-rake', '~> 0.6.0'
   gem 'rubocop-rspec', '~> 3.0'
   gem 'super_diff', '~> 0.13.0'
-  gem 'webmock', '~> 3.23', '>= 3.23.1'
 end
 
 group :test do
+  gem 'rack-test', '~> 2.1'
+  gem 'rspec', '~> 3.13'
   gem 'simplecov', require: false
+  gem 'webmock', '~> 3.23', '>= 3.23.1'
 end
 
 # NOTE: An extremely platform-dependent gem that is needed only for development.
