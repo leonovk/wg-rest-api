@@ -19,6 +19,7 @@ GEM
     deep_merge (1.2.2)
     diff-lcs (1.5.1)
     digest (3.1.1)
+    docile (1.4.1)
     dotenv (3.1.4)
     faraday (2.11.0)
       faraday-net_http (>= 2.0, < 3.4)
@@ -119,6 +120,12 @@ GEM
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simple_monads (1.0.1)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.13.1)
+    simplecov_json_formatter (0.1.4)
     sinatra (4.0.0)
       mustermann (~> 3.0)
       rack (>= 3.0.0, < 4)
@@ -172,6 +179,7 @@ DEPENDENCIES
   ruby-units (~> 4.0, >= 4.0.3)
   sentry-ruby (~> 5.20)
   simple_monads (~> 1.0)
+  simplecov
   sinatra (~> 4.0)
   sinatra-contrib (~> 4.0)
   stackprof (~> 0.2.26)
