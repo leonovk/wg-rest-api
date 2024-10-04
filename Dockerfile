@@ -24,7 +24,7 @@ RUN update-alternatives --install \
     /sbin/iptables-save iptables-save \
     /sbin/iptables-legacy-save
 
-RUN bundle config set without 'development rerun'
+RUN bundle config set without 'development rerun test'
 
 RUN bundle install
 
