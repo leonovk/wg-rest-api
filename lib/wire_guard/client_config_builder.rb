@@ -2,7 +2,7 @@
 
 module WireGuard
   # The class generates a config file for the client
-  class ConfigBuilder
+  class ClientConfigBuilder
     attr_reader :config
 
     def initialize(configs, params)

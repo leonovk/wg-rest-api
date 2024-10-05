@@ -6,7 +6,7 @@ RSpec.describe ClientsController do
   let(:wg_conf_path) { "#{Settings.wg_path}/wg0.json" }
 
   before do
-    allow(WireGuard::ConfigUpdater).to receive(:update)
+    allow(WireGuard::ServerConfigUpdater).to receive(:update)
     allow(WireGuard::StatGenerator).to receive_messages(show: '')
     allow(WireGuard::KeyGenerator).to receive_messages(wg_genkey: 'wg_genkey', wg_pubkey: 'wg_pubkey',
                                                        wg_genpsk: 'wg_genpsk')
