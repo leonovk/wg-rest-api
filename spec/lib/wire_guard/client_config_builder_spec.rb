@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe WireGuard::ConfigBuilder do
+RSpec.describe WireGuard::ClientConfigBuilder do
   subject(:build) { described_class.new(configs, params).config }
 
   before do

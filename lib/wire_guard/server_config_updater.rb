@@ -5,7 +5,7 @@ module WireGuard
   # and reboots the WireGuard server
   # This class updates the config file of the server itself and not the clients.
   # And it is needed mainly to reboot the server after adding new clients (or deleting them)
-  class ConfigUpdater
+  class ServerConfigUpdater
     WG_CONF_PATH = "#{Settings.wg_path}/wg0.conf".freeze
     WG_PORT = Settings.wg_port
     WG_PRE_UP = Settings.wg_pre_up

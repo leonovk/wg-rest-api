@@ -2,7 +2,7 @@
 
 RSpec.describe WireGuard::Server do
   before do
-    allow(WireGuard::ConfigUpdater).to receive(:update)
+    allow(WireGuard::ServerConfigUpdater).to receive(:update)
     allow(WireGuard::KeyGenerator).to receive_messages(wg_genkey: 'wg_genkey', wg_pubkey: 'wg_pubkey',
                                                        wg_genpsk: 'wg_genpsk')
   end
@@ -130,7 +130,7 @@ RSpec.describe WireGuard::Server do
     it 'calls the configuration file update service WireGuard' do
       new_config
 
-      expect(WireGuard::ConfigUpdater).to have_received(:update)
+      expect(WireGuard::ServerConfigUpdater).to have_received(:update)
     end
   end
 
@@ -294,7 +294,7 @@ RSpec.describe WireGuard::Server do
       it 'calls the configuration file update service WireGuard' do
         delete_config
 
-        expect(WireGuard::ConfigUpdater).to have_received(:update)
+        expect(WireGuard::ServerConfigUpdater).to have_received(:update)
       end
     end
 
@@ -308,7 +308,7 @@ RSpec.describe WireGuard::Server do
       it 'no calls the configuration file update service WireGuard' do
         delete_config
 
-        expect(WireGuard::ConfigUpdater).not_to have_received(:update)
+        expect(WireGuard::ServerConfigUpdater).not_to have_received(:update)
       end
     end
   end
@@ -402,7 +402,7 @@ RSpec.describe WireGuard::Server do
       it 'calls the configuration file update service WireGuard' do
         update_config
 
-        expect(WireGuard::ConfigUpdater).to have_received(:update)
+        expect(WireGuard::ServerConfigUpdater).to have_received(:update)
       end
     end
 
@@ -425,7 +425,7 @@ RSpec.describe WireGuard::Server do
       it 'no calls the configuration file update service WireGuard' do
         update_config
 
-        expect(WireGuard::ConfigUpdater).not_to have_received(:update)
+        expect(WireGuard::ServerConfigUpdater).not_to have_received(:update)
       end
     end
   end

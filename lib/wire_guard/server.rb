@@ -112,7 +112,7 @@ module WireGuard
     end
 
     def dump_wireguard_config
-      ConfigUpdater.update
+      ServerConfigUpdater.update
     end
 
     def update_json_config(config)
@@ -134,7 +134,7 @@ module WireGuard
     end
 
     def build_new_config(configs, params)
-      ConfigBuilder.new(configs, params).config
+      ClientConfigBuilder.new(configs, params).config
     end
   end
 end

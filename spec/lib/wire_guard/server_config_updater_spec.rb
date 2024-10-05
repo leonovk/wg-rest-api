@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe WireGuard::ConfigUpdater do
+RSpec.describe WireGuard::ServerConfigUpdater do
   subject(:update) { described_class.update }
 
   before do
