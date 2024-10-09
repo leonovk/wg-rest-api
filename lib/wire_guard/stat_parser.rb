@@ -45,8 +45,8 @@ module WireGuard
 
     def build_traffic_data(data)
       {
-        received: data[-6..-5]&.join(' '),
-        sent: data[-3..-2]&.join(' ')
+        received: data[-6..-5]&.join(' ')&.to_unit&.base_scalar.to_i,
+        sent: data[-3..-2]&.join(' ')&.to_unit&.base_scalar.to_i
       }
     end
   end

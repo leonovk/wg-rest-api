@@ -2,5 +2,5 @@
 
 desc 'print the current version'
 task :version do
-  puts File.read('VERSION')
+  puts File.read('VERSION').gsub("\n", '')
 end

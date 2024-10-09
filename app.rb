@@ -88,7 +88,7 @@ class Application < Sinatra::Base
   end
 
   def instance_versions
-    File.read('VERSION').gsub('v', '')
+    File.read('VERSION').gsub('v', '').gsub("\n", '')
   end
 
   def request_body

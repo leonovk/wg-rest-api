@@ -44,8 +44,8 @@ RSpec.describe ClientsSerializer do
         endpoint: '2.2.2.2:51820',
         last_online: '45 seconds ago',
         traffic: {
-          received: '56.28 MiB',
-          sent: '1.35 GiB'
+          received: 59_013_857,
+          sent: 1_449_551_462
         },
         data: {}
       }
@@ -107,8 +107,8 @@ RSpec.describe ClientsSerializer do
           endpoint: '2.2.2.2:51820',
           last_online: '45 seconds ago',
           traffic: {
-            received: '56.28 MiB',
-            sent: '1.35 GiB'
+            received: 59_013_857,
+            sent: 1_449_551_462
           },
           data: {}
         },
@@ -126,8 +126,8 @@ RSpec.describe ClientsSerializer do
           endpoint: '2.2.2.2:51820',
           last_online: '50 seconds ago',
           traffic: {
-            received: '199.29 MiB',
-            sent: '722.39 MiB'
+            received: 208_970_711,
+            sent: 757_480_816
           },
           data: {}
         },
@@ -145,8 +145,8 @@ RSpec.describe ClientsSerializer do
           endpoint: '2.2.2.2:51820',
           last_online: '1 minute, 13 seconds ago',
           traffic: {
-            received: '62.44 MiB',
-            sent: '3.21 GiB'
+            received: 65_473_085,
+            sent: 3_446_711_255
           },
           data: {}
         }
