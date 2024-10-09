@@ -22,7 +22,7 @@ RSpec.describe Application do
     let(:expected_body) do
       {
         status: 'ok',
-        version: File.read('VERSION').gsub('v', '')
+        version: File.read('VERSION').gsub('v', '').gsub("\n", '')
       }
     end
 
