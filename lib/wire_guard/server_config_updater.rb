@@ -13,6 +13,8 @@ module WireGuard
     WG_DEFAULT_ADDRESS = Settings.wg_default_address
     WG_DEVICE = Settings.wg_device
     CONNECTING_CLIENT_LIMIT = Settings.connecting_client_limit
+    WG_POST_UP = Settings.wg_post_up
+    WG_POST_DOWN = Settings.wg_post_down
 
     def initialize
       @json_config = JSON.parse(File.read(WireGuard::Server::WG_JSON_PATH))
@@ -66,7 +68,7 @@ module WireGuard
     end
 
     def wg_post_up
-      return Settings.wg_post_up unless Settings.wg_post_up.nil?
+      return WG_POST_UP unless WG_POST_UP.nil?
 
       "iptables -t nat -A POSTROUTING -s #{WG_DEFAULT_ADDRESS.gsub('x', '0')}/#{CONNECTING_CLIENT_LIMIT} " \
         "-o #{WG_DEVICE} -j MASQUERADE; " \
@@ -76,7 +78,7 @@ module WireGuard
     end
 
     def wg_post_down
-      return Settings.wg_post_down unless Settings.wg_post_down.nil?
+      return WG_POST_DOWN unless WG_POST_DOWN.nil?
 
       "iptables -t nat -D POSTROUTING -s #{WG_DEFAULT_ADDRESS.gsub('x', '0')}/#{CONNECTING_CLIENT_LIMIT} " \
         "-o #{WG_DEVICE} -j MASQUERADE; " \
