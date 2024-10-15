@@ -146,6 +146,7 @@ GEM
       diff-lcs
       patience_diff
     tilt (2.3.0)
+    timecop (0.9.10)
     unicode-display_width (2.6.0)
     uri (0.13.1)
     webmock (3.24.0)
@@ -185,6 +186,7 @@ DEPENDENCIES
   sinatra-contrib (~> 4.0)
   stackprof (~> 0.2.26)
   super_diff (~> 0.13.0)
+  timecop (~> 0.9.10)
   webmock (~> 3.24)
 
 BUNDLED WITH

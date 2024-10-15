@@ -33,6 +33,7 @@ group :test do
   gem 'rack-test', '~> 2.1'
   gem 'rspec', '~> 3.13'
   gem 'simplecov', require: false
+  gem 'timecop', '~> 0.9.10'
   gem 'webmock', '~> 3.24'
 end
 

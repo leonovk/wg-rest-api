@@ -3,6 +3,13 @@
 module WireGuard
   # This class returns current data on WG server statistics
   class StatParser
+    TIME_UNITS = {
+      'day' => 86_400,
+      'hour' => 3600,
+      'minute' => 60,
+      'second' => 1
+    }.freeze
+
     def initialize
       @raw_data = StatGenerator.show
       @result = {}
@@ -40,7 +47,7 @@ module WireGuard
     end
 
     def build_latest_data(data)
-      data[2..]&.join(' ')
+      parse_time_ago(data[2..]&.join(' ')).to_s
     end
 
     def build_traffic_data(data)
@@ -48,6 +55,16 @@ module WireGuard
         received: data[-6..-5]&.join(' ')&.to_unit&.base_scalar.to_i,
         sent: data[-3..-2]&.join(' ')&.to_unit&.base_scalar.to_i
       }
+    end
+
+    def parse_time_ago(time_string)
+      total_seconds = 0
+
+      time_string.scan(/(\d+)\s+(day?|hour?|minute?|second?)/) do |value, unit|
+        total_seconds += (value.to_i * TIME_UNITS[unit])
+      end
+
+      Time.now - total_seconds
     end
   end
 end

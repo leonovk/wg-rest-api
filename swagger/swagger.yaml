@@ -159,15 +159,15 @@ components:
           example: 0.0.0.0:51820
         last_online:
           type: string
-          example: 58 seconds ago
+          example: 2024-10-15 19:16:50 +0300
         traffic:
           type: object
           properties:
             received:
-              type: string
-              example: 90.26 MiB
+              type: integer
+              example: 11111
             sent:
-              type: string
-              example: 1000.53 MiB
+              type: integer
+              example: 22222
         data:
           type: object

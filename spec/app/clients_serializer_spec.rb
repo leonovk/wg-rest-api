@@ -4,10 +4,12 @@ RSpec.describe ClientsSerializer do
   before do
     allow(WireGuard::StatGenerator).to receive_messages(show: wg_show_stub)
     create_conf_file('spec/fixtures/wg0_stat.json', wg_stat_path)
+    Timecop.freeze(Date.new(2024, 10, 10))
   end
 
   after do
     FileUtils.rm_rf(wg_stat_path)
+    Timecop.return
   end
 
   let(:key) { '4' }
@@ -42,7 +44,7 @@ RSpec.describe ClientsSerializer do
         dns: '1.1.1.1',
         persistent_keepalive: 0,
         endpoint: '2.2.2.2:51820',
-        last_online: '45 seconds ago',
+        last_online: '2024-10-15 19:34:41 +0300',
         traffic: {
           received: 59_013_857,
           sent: 1_449_551_462
@@ -105,7 +107,7 @@ RSpec.describe ClientsSerializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_online: '45 seconds ago',
+          last_online: '2024-10-15 19:34:41 +0300',
           traffic: {
             received: 59_013_857,
             sent: 1_449_551_462
@@ -124,7 +126,7 @@ RSpec.describe ClientsSerializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_online: '50 seconds ago',
+          last_online: '2024-10-15 18:34:41 +0300',
           traffic: {
             received: 208_970_711,
             sent: 757_480_816
@@ -143,7 +145,7 @@ RSpec.describe ClientsSerializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_online: '1 minute, 13 seconds ago',
+          last_online: '2024-10-09 23:58:47 +0300',
           traffic: {
             received: 65_473_085,
             sent: 3_446_711_255
