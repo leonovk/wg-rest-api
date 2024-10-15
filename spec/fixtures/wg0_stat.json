@@ -1,23 +1,23 @@
 {
   "LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=": {
-    "last_online": "45 seconds ago",
+    "last_online": "2024-10-15 19:34:41 +0000",
     "traffic": {
-      "received": "56.28 MiB",
-      "sent": "1.35 GiB"
+      "received": 59013857,
+      "sent": 1449551462
     }
   },
   "hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=": {
-    "last_online": "50 seconds ago",
+    "last_online": "2024-10-15 18:34:41 +0000",
     "traffic": {
-      "received": "199.29 MiB",
-      "sent": "722.39 MiB"
+      "received": 208970711,
+      "sent": 757480816
     }
   },
   "bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=": {
-    "last_online": "43 seconds ago",
+    "last_online": "2024-10-15 17:34:41 +0000",
     "traffic": {
-      "received": "62.44 MiB",
-      "sent": "3.21 GiB"
+      "received": 65473085,
+      "sent": 3446711255
     }
   }
 }

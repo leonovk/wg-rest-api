@@ -39,8 +39,8 @@ module Webhooks
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     def calculate_event(last_data, new_data, last_event)
-      new_data_sum = new_data[:traffic][:received].to_unit + new_data[:traffic][:sent].to_unit
-      last_data_sum = last_data['traffic']['received'].to_unit + last_data['traffic']['sent'].to_unit
+      new_data_sum = new_data[:traffic][:received] + new_data[:traffic][:sent]
+      last_data_sum = last_data['traffic']['received'] + last_data['traffic']['sent']
 
       if new_data_sum > last_data_sum
         last_event == Events::CONNECTED ? nil : Events::CONNECTED

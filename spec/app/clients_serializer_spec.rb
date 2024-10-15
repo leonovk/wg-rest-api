@@ -4,10 +4,12 @@ RSpec.describe ClientsSerializer do
   before do
     allow(WireGuard::StatGenerator).to receive_messages(show: wg_show_stub)
     create_conf_file('spec/fixtures/wg0_stat.json', wg_stat_path)
+    Timecop.freeze(Date.new(2024, 10, 10))
   end
 
   after do
     FileUtils.rm_rf(wg_stat_path)
+    Timecop.return
   end
 
   let(:key) { '4' }
@@ -42,10 +44,10 @@ RSpec.describe ClientsSerializer do
         dns: '1.1.1.1',
         persistent_keepalive: 0,
         endpoint: '2.2.2.2:51820',
-        last_online: '45 seconds ago',
+        last_online: '2024-10-15 19:34:41 +0000',
         traffic: {
-          received: '56.28 MiB',
-          sent: '1.35 GiB'
+          received: 59_013_857,
+          sent: 1_449_551_462
         },
         data: {}
       }
@@ -105,10 +107,10 @@ RSpec.describe ClientsSerializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_online: '45 seconds ago',
+          last_online: '2024-10-15 19:34:41 +0000',
           traffic: {
-            received: '56.28 MiB',
-            sent: '1.35 GiB'
+            received: 59_013_857,
+            sent: 1_449_551_462
           },
           data: {}
         },
@@ -124,10 +126,10 @@ RSpec.describe ClientsSerializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_online: '50 seconds ago',
+          last_online: '2024-10-15 18:34:41 +0000',
           traffic: {
-            received: '199.29 MiB',
-            sent: '722.39 MiB'
+            received: 208_970_711,
+            sent: 757_480_816
           },
           data: {}
         },
@@ -143,10 +145,10 @@ RSpec.describe ClientsSerializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_online: '1 minute, 13 seconds ago',
+          last_online: '2024-10-09 23:58:47 +0000',
           traffic: {
-            received: '62.44 MiB',
-            sent: '3.21 GiB'
+            received: 65_473_085,
+            sent: 3_446_711_255
           },
           data: {}
         }
