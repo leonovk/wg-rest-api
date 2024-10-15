@@ -10,3 +10,7 @@ SECURITY.md
 .git
 .gitignore
 .vscode
+coverage
+tmp
+.byebug_history
+.rspec_status
