@@ -1,0 +1,173 @@
+openapi: 3.0.3
+info:
+  title: WireGuard REST API
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit
+  version: 1.0.11
+servers:
+  - url: https://your_domain.com/api
+tags:
+  - name: client
+    description: all operations with clients of your server
+paths:
+  /clients:
+    get:
+      tags:
+        - client
+      summary: get all clients of your server
+      description: get all clients of your server
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Client'
+        '403':
+          description: authorization error
+
+    post:
+      tags:
+        - client
+      summary: Create new client
+      description: Create new client
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '403':
+          description: authorization error
+ 
+  /clients/{id}:
+    get:
+      tags:
+        - client
+      summary: get client
+      description: get client
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '403':
+          description: authorization error
+        '404':
+          description: client not found
+
+    put:
+      tags:
+        - client
+      summary: update client
+      description: update client
+      requestBody:
+        description: update client
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/ClientUpdate'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '403':
+          description: authorization error
+        '404':
+          description: client not found
+
+    delete:
+      tags:
+        - client
+      summary: delete lient
+      description: delete client
+      responses:
+        '201':
+          description: Successful operation
+        '403':
+          description: authorization error
+        '404':
+          description: client not found
+
+components:
+  schemas:
+    ClientUpdate:
+      type: object
+      properties:
+          address:
+            type: string
+            example: 10.8.0.16/24
+          private_key:
+            type: string
+            example: private_key
+          preshared_key:
+            type: string
+            example: preshared_key
+          public_key:
+            type: string
+            example: public_key
+          enable:
+            type: boolean
+            example: true
+          data:
+            type: object
+
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        server_public_key:
+          type: string
+          example: server_public_key
+        address:
+          type: string
+          example: 10.8.0.16/24
+        private_key:
+          type: string
+          example: private_key
+        preshared_key:
+          type: string
+          example: preshared_key
+        enable:
+          type: boolean
+          example: true
+        allowed_ips:
+          type: string
+          example: 0.0.0.0/0, ::/0
+        dns:
+          type: string
+          example: 1.1.1.1
+        persistent_keepalive:
+          type: integer
+          format: int64
+          example: 0
+        endpoint:
+          type: string
+          example: 0.0.0.0:51820
+        last_online:
+          type: string
+          example: 58 seconds ago
+        traffic:
+          type: object
+          properties:
+            received:
+              type: string
+              example: 90.26 MiB
+            sent:
+              type: string
+              example: 1000.53 MiB
+        data:
+          type: object
