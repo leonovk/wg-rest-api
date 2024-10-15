@@ -9,3 +9,9 @@ SECURITY.md
 .rspec
 .git
 .gitignore
+.vscode
+coverage
+tmp
+.byebug_history
+.rspec_status
+swagger
