@@ -21,21 +21,21 @@ RSpec.describe WireGuard::ServerStat do
       let(:expected_result) do
         {
           'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
-            last_online: '2024-10-09 21:49:40 +0300',
+            last_online: '2024-10-09 21:49:40 +0000',
             traffic: {
               received: 59_013_857,
               sent: 1_449_551_462
             }
           },
           'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {
-            last_online: '2024-10-09 23:59:30 +0300',
+            last_online: '2024-10-09 23:59:30 +0000',
             traffic: {
               received: 208_970_711,
               sent: 757_480_816
             }
           },
           'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-            last_online: '2024-10-09 23:58:47 +0300',
+            last_online: '2024-10-09 23:58:47 +0000',
             traffic: {
               received: 65_473_085,
               sent: 3_446_711_255
@@ -65,21 +65,21 @@ RSpec.describe WireGuard::ServerStat do
       let(:expected_result) do
         {
           'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
-            last_online: '2024-10-09 21:49:40 +0300',
+            last_online: '2024-10-09 21:49:40 +0000',
             traffic: {
               received: 59_013_857,
               sent: 1_449_551_462
             }
           },
           'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {
-            last_online: '2024-10-09 23:59:30 +0300',
+            last_online: '2024-10-09 23:59:30 +0000',
             traffic: {
               received: 208_970_711,
               sent: 757_480_816
             }
           },
           'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-            last_online: '2024-10-09 23:58:47 +0300',
+            last_online: '2024-10-09 23:58:47 +0000',
             traffic: {
               received: 65_473_085,
               sent: 3_446_711_255
@@ -110,7 +110,7 @@ RSpec.describe WireGuard::ServerStat do
             'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {},
             'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {},
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-              last_online: '2024-10-09 23:58:47 +0300',
+              last_online: '2024-10-09 23:58:47 +0000',
               traffic: {
                 received: 65_473_085,
                 sent: 3_446_711_255
@@ -142,21 +142,21 @@ RSpec.describe WireGuard::ServerStat do
         let(:expected_result) do
           {
             'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
-              'last_online' => '2024-10-15 19:34:41 +0300',
+              'last_online' => '2024-10-15 19:34:41 +0000',
               'traffic' => {
                 'received' => 59_013_857,
                 'sent' => 1_449_551_462
               }
             },
             'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {
-              'last_online' => '2024-10-15 18:34:41 +0300',
+              'last_online' => '2024-10-15 18:34:41 +0000',
               'traffic' => {
                 'received' => 208_970_711,
                 'sent' => 757_480_816
               }
             },
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-              last_online: '2024-10-09 23:58:47 +0300',
+              last_online: '2024-10-09 23:58:47 +0000',
               traffic: {
                 received: 65_473_085,
                 sent: 3_446_711_255
@@ -188,21 +188,21 @@ RSpec.describe WireGuard::ServerStat do
         let(:expected_result) do
           {
             'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
-              last_online: '2024-10-09 21:49:40 +0300',
+              last_online: '2024-10-09 21:49:40 +0000',
               traffic: {
                 received: 59_013_857,
                 sent: 1_449_551_462
               }
             },
             'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {
-              last_online: '2024-10-09 23:59:30 +0300',
+              last_online: '2024-10-09 23:59:30 +0000',
               traffic: {
                 received: 208_970_711,
                 sent: 757_480_816
               }
             },
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-              last_online: '2024-10-09 23:58:47 +0300',
+              last_online: '2024-10-09 23:58:47 +0000',
               traffic: {
                 received: 65_473_085,
                 sent: 3_446_711_255
@@ -230,7 +230,7 @@ RSpec.describe WireGuard::ServerStat do
         let(:expected_result) do
           {
             'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
-              'last_online' => '2024-10-15 19:34:41 +0300',
+              'last_online' => '2024-10-15 19:34:41 +0000',
               'traffic' => {
                 'received' => 59_013_857,
                 'sent' => 1_449_551_462
@@ -238,7 +238,7 @@ RSpec.describe WireGuard::ServerStat do
             },
             'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {},
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-              last_online: '2024-10-09 23:58:47 +0300',
+              last_online: '2024-10-09 23:58:47 +0000',
               traffic: {
                 received: 65_473_085,
                 sent: 3_446_711_255
@@ -270,7 +270,7 @@ RSpec.describe WireGuard::ServerStat do
 
       let(:expected_result) do
         {
-          last_online: '2024-10-09 23:59:30 +0300',
+          last_online: '2024-10-09 23:59:30 +0000',
           traffic: {
             received: 208_970_711,
             sent: 757_480_816
