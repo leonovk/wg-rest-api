@@ -47,6 +47,6 @@ end
 # The average user does not need them.
 # And they start working only if there is a special setting
 group :production do
-  gem 'sentry-ruby', '~> 5.20'
+  gem 'sentry-ruby', '~> 5.21'
   gem 'stackprof', '~> 0.2.26'
 end
