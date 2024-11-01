@@ -52,8 +52,11 @@ module WireGuard
 
     def build_traffic_data(data)
       {
+        # rubocop:disable Style/SafeNavigationChainLength
+        # TODO: Perhaps in the future it would be worthwhile to redesign this place.
         received: data[-6..-5]&.join(' ')&.to_unit&.base_scalar.to_i,
         sent: data[-3..-2]&.join(' ')&.to_unit&.base_scalar.to_i
+        # rubocop:enable Style/SafeNavigationChainLength
       }
     end
 
