@@ -11,7 +11,7 @@ task :create_backup do
   folder = Settings.wg_path
   input_filenames = ['wg0.json', 'wg0_stat.json', 'wg0.conf']
   FileUtils.mkdir_p("#{folder}/backups")
-  zipfile_name = "#{folder}/backups/backup-#{Time.now}.zip"
+  zipfile_name = "#{folder}/backups/backup-#{Time.now.iso8601}.zip"
 
   Zip::File.open(zipfile_name, create: true) do |zipfile|
     input_filenames.each do |filename|
