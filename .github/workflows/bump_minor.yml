@@ -18,7 +18,7 @@ jobs:
         run: bundle install
 
       - name: bump
-        run: bundle exec rake bump_minor
+        run: bundle exec rake dev:bump_minor
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
