@@ -15,7 +15,7 @@ gem 'rqrcode', '~> 2.0'
 gem 'ruby-units', '~> 4.1'
 gem 'rubyzip', '~> 2.3', '>= 2.3.2'
 gem 'simple_monads', '~> 1.0'
-gem 'sinatra', '~> 4.0'
+gem 'sinatra', '~> 4.1'
 gem 'sinatra-contrib', '~> 4.0'
 
 # NOTE: These gems are here and not in dev mode, for access to the console
