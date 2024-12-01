@@ -9,6 +9,7 @@ class Application < Sinatra::Base
   # NOTE: Сonnect sentry only if there is a special setting
   use Sentry::Rack::CaptureExceptions if sentry?
   register Sinatra::Namespace
+  set :host_authorization, { permitted_hosts: [] }
 
   AUTH_TOKEN = Settings.auth_token
   AUTH_DIGEST_TOKEN = Settings.auth_digest_token
