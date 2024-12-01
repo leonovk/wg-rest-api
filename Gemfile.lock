@@ -122,7 +122,7 @@ GEM
     sentry-ruby (5.21.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    simple_monads (1.0.1)
+    simple_monads (1.0.2)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
