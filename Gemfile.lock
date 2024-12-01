@@ -189,7 +189,7 @@ DEPENDENCIES
   simple_monads (~> 1.0)
   simplecov
   sinatra (~> 4.1)
-  sinatra-contrib (~> 4.0)
+  sinatra-contrib (~> 4.1)
   stackprof (~> 0.2.26)
   super_diff (~> 0.13.0)
   timecop (~> 0.9.10)
