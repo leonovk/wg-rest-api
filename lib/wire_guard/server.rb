@@ -56,7 +56,7 @@ module WireGuard
 
       return nil if updated_config.nil?
 
-      json_config['configs'][id] = updated_config.merge(config_params)
+      json_config['configs'][id] = merge_config(updated_config, config_params)
 
       dump_json_config(json_config)
       dump_wireguard_config
@@ -135,6 +135,15 @@ module WireGuard
 
     def build_new_config(configs, params)
       ClientConfigBuilder.new(configs, params).config
+    end
+
+    def merge_config(updated_config, config_params)
+      config = updated_config.merge(config_params)
+      if !config_params['data'].nil? && config_params['data'].any?
+        config['data'] = updated_config['data'].merge(config_params['data'])
+      end
+
+      config
     end
   end
 end

@@ -13,3 +13,6 @@ RSpec/NestedGroups:
 
 RSpec/MultipleExpectations:
   Max: 2
+
+Metrics/ClassLength:
+  Max: 120
