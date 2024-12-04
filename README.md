@@ -137,10 +137,10 @@ Example response:
     "dns": "1.1.1.1",
     "persistent_keepalive": 0,
     "endpoint": "0.0.0.0:51820",
-    "last_online": "58 seconds ago",
+    "last_online": "2024-12-04 11:01:52 +0000",
     "traffic": {
-      "received": "90.26 MiB",
-      "sent": "1000.53 MiB"
+      "received": 123, // bytes
+      "sent": 1234 // bytes
     },
     "data": {
       "params1": "value1"
@@ -167,10 +167,10 @@ Example response:
   "dns": "1.1.1.1",
   "persistent_keepalive": 0,
   "endpoint": "0.0.0.0:51820",
-  "last_online": "58 seconds ago",
+  "last_online": "2024-12-04 11:01:52 +0000",
   "traffic": {
-    "received": "90.26 MiB",
-    "sent": "1000.53 MiB"
+    "received": 123, // bytes
+    "sent": 1234 // bytes
   },
   "data": {
     "params1": "value1"
@@ -233,37 +233,7 @@ Example request:
 
 The enable parameter allows you to enable or disable the client without removing it from the server.
 
-## Webhooks (beta)
-
-You can set up webhooks to receive notifications when your clients connect to the VPN and when they disconnect from it. In order to set up webhooks you need to set up a cron task scheduler on your server. The cron task scheduler should run the following command:
-
-```bash
-docker exec -it <YOUR_CONTAINER_NAME> rake send_events
-```
-
-This command will launch a task to send events. The more often it is triggered, the more accurate the events will be, but I do not recommend doing it more often than once a minute.
-
-Also, in order for everything to work, when launching a container with an application, you need to specify an additional environment variable -> `WEBHOOKS_URL`
-
-```
-docker run -d \
-...
--e WEBHOOKS_URL=https://your_url.api/event \
-...
-```
-
-The application will send post requests to the specified address.
-
-content_type => application/json
-
-example body:
-
-```json
-{
-  "peer": "this is public key of your client",
-  "event": "connected"
-}
-```
+If you update the data field, it will be updated by merging, but if you intentionally send an empty object, then the data will be completely overwritten.
 
 ## Development
 
