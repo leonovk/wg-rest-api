@@ -83,4 +83,315 @@ RSpec.describe Application do
       end
     end
   end
+
+  describe 'PATCH /api/clients/:id' do
+    subject(:make_request) do
+      patch("/api/clients/#{id}",
+            request_body.to_json,
+            { 'CONTENT_TYPE' => 'application/json' })
+    end
+
+    before do
+      allow(WireGuard::StatGenerator).to receive_messages(show: nil)
+      allow(WireGuard::ServerConfigUpdater).to receive(:update)
+
+      header('Authorization', 'Bearer 123-Ab')
+    end
+
+    let(:id) { '1' }
+
+    context 'when a normal request for config update' do
+      let(:request_body) do
+        {
+          address: '10.8.0.200',
+          private_key: 'a',
+          public_key: 'b',
+          enable: false,
+          data: {}
+        }
+      end
+
+      let(:expected_result) do
+        {
+          'server' => {
+            'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
+            'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
+            'address' => '10.8.0.1'
+          },
+          'configs' => {
+            'last_id' => 3,
+            'last_address' => '10.8.0.4',
+            '1' => {
+              'id' => 1,
+              'address' => '10.8.0.200',
+              'private_key' => 'a',
+              'public_key' => 'b',
+              'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
+              'enable' => false,
+              'data' => {}
+            },
+            '2' => {
+              'id' => 2,
+              'address' => '10.8.0.3',
+              'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
+              'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
+              'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
+              'enable' => false,
+              'data' => {
+                'cheburek' => 'hah'
+              }
+            },
+            '3' => {
+              'id' => 3,
+              'address' => '10.8.0.4',
+              'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
+              'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
+              'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
+              'enable' => true,
+              'data' => {
+                'key' => 'value'
+              }
+            }
+          }
+        }
+      end
+
+      it 'returns a successful response' do
+        make_request
+
+        expect(last_response.successful?).to be(true)
+      end
+
+      it 'updates the config from the server' do
+        make_request
+
+        config = File.read(wg_conf_path)
+
+        expect(config).to eq(JSON.pretty_generate(expected_result))
+      end
+    end
+
+    context 'when an update arrives with a data parameter that updates the attribute' do
+      let(:request_body) do
+        {
+          address: '10.8.0.200',
+          private_key: 'a',
+          public_key: 'b',
+          enable: false,
+          data: {
+            lol: 'ne kekai'
+          }
+        }
+      end
+
+      let(:expected_result) do
+        {
+          'server' => {
+            'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
+            'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
+            'address' => '10.8.0.1'
+          },
+          'configs' => {
+            'last_id' => 3,
+            'last_address' => '10.8.0.4',
+            '1' => {
+              'id' => 1,
+              'address' => '10.8.0.200',
+              'private_key' => 'a',
+              'public_key' => 'b',
+              'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
+              'enable' => false,
+              'data' => {
+                'lol' => 'ne kekai'
+              }
+            },
+            '2' => {
+              'id' => 2,
+              'address' => '10.8.0.3',
+              'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
+              'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
+              'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
+              'enable' => false,
+              'data' => {
+                'cheburek' => 'hah'
+              }
+            },
+            '3' => {
+              'id' => 3,
+              'address' => '10.8.0.4',
+              'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
+              'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
+              'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
+              'enable' => true,
+              'data' => {
+                'key' => 'value'
+              }
+            }
+          }
+        }
+      end
+
+      it 'returns a successful response' do
+        make_request
+
+        expect(last_response.successful?).to be(true)
+      end
+
+      it 'updates the config from the server' do
+        make_request
+
+        config = File.read(wg_conf_path)
+
+        expect(config).to eq(JSON.pretty_generate(expected_result))
+      end
+    end
+
+    context 'when there is no date parameter at all' do
+      let(:request_body) do
+        {
+          address: '10.8.0.200',
+          private_key: 'a',
+          public_key: 'b',
+          enable: false
+        }
+      end
+
+      let(:expected_result) do
+        {
+          'server' => {
+            'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
+            'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
+            'address' => '10.8.0.1'
+          },
+          'configs' => {
+            'last_id' => 3,
+            'last_address' => '10.8.0.4',
+            '1' => {
+              'id' => 1,
+              'address' => '10.8.0.200',
+              'private_key' => 'a',
+              'public_key' => 'b',
+              'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
+              'enable' => false,
+              'data' => {
+                'lol' => 'kek'
+              }
+            },
+            '2' => {
+              'id' => 2,
+              'address' => '10.8.0.3',
+              'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
+              'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
+              'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
+              'enable' => false,
+              'data' => {
+                'cheburek' => 'hah'
+              }
+            },
+            '3' => {
+              'id' => 3,
+              'address' => '10.8.0.4',
+              'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
+              'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
+              'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
+              'enable' => true,
+              'data' => {
+                'key' => 'value'
+              }
+            }
+          }
+        }
+      end
+
+      it 'returns a successful response' do
+        make_request
+
+        expect(last_response.successful?).to be(true)
+      end
+
+      it 'updates the config from the server' do
+        make_request
+
+        config = File.read(wg_conf_path)
+
+        expect(config).to eq(JSON.pretty_generate(expected_result))
+      end
+    end
+
+    context 'when the parameter with date expands it' do
+      let(:request_body) do
+        {
+          address: '10.8.0.200',
+          private_key: 'a',
+          public_key: 'b',
+          enable: false,
+          data: {
+            prikol: 'lol'
+          }
+        }
+      end
+
+      let(:expected_result) do
+        {
+          'server' => {
+            'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
+            'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
+            'address' => '10.8.0.1'
+          },
+          'configs' => {
+            'last_id' => 3,
+            'last_address' => '10.8.0.4',
+            '1' => {
+              'id' => 1,
+              'address' => '10.8.0.200',
+              'private_key' => 'a',
+              'public_key' => 'b',
+              'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
+              'enable' => false,
+              'data' => {
+                'lol' => 'kek',
+                'prikol' => 'lol'
+              }
+            },
+            '2' => {
+              'id' => 2,
+              'address' => '10.8.0.3',
+              'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
+              'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
+              'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
+              'enable' => false,
+              'data' => {
+                'cheburek' => 'hah'
+              }
+            },
+            '3' => {
+              'id' => 3,
+              'address' => '10.8.0.4',
+              'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
+              'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
+              'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
+              'enable' => true,
+              'data' => {
+                'key' => 'value'
+              }
+            }
+          }
+        }
+      end
+
+      it 'returns a successful response' do
+        make_request
+
+        expect(last_response.successful?).to be(true)
+      end
+
+      it 'updates the config from the server' do
+        make_request
+
+        config = File.read(wg_conf_path)
+
+        expect(config).to eq(JSON.pretty_generate(expected_result))
+      end
+    end
+  end
 end
