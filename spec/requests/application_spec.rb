@@ -394,4 +394,99 @@ RSpec.describe Application do
       end
     end
   end
+
+  describe 'POST /api/clients' do
+    subject(:make_request) do
+      post('/api/clients',
+           request_body.to_json,
+           { 'CONTENT_TYPE' => 'application/json' })
+    end
+
+    before do
+      allow(WireGuard::StatGenerator).to receive_messages(show: nil)
+      allow(WireGuard::ServerConfigUpdater).to receive(:update)
+      allow(WireGuard::KeyGenerator).to receive_messages(wg_genkey: 'wg_genkey', wg_pubkey: 'wg_pubkey',
+                                                         wg_genpsk: 'wg_genpsk')
+
+      header('Authorization', 'Bearer 123-Ab')
+    end
+
+    let(:request_body) do
+      {
+        hahaha: 'body'
+      }
+    end
+
+    let(:expected_result) do
+      {
+        'server' => {
+          'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
+          'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
+          'address' => '10.8.0.1'
+        },
+        'configs' => {
+          'last_id' => 4,
+          'last_address' => '10.8.0.5',
+          '1' => {
+            'id' => 1,
+            'address' => '10.8.0.2',
+            'private_key' => 'MJn6fwoyqG8S6wsrJzWrUow4leZuEM9O8s+G+kcXElU=',
+            'public_key' => 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
+            'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
+            'enable' => true,
+            'data' => {
+              'lol' => 'kek'
+            }
+          },
+          '2' => {
+            'id' => 2,
+            'address' => '10.8.0.3',
+            'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
+            'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
+            'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
+            'enable' => false,
+            'data' => {
+              'cheburek' => 'hah'
+            }
+          },
+          '3' => {
+            'id' => 3,
+            'address' => '10.8.0.4',
+            'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
+            'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
+            'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
+            'enable' => true,
+            'data' => {
+              'key' => 'value'
+            }
+          },
+          '4' => {
+            'id' => 4,
+            'address' => '10.8.0.5',
+            'private_key' => 'wg_genkey',
+            'public_key' => 'wg_pubkey',
+            'preshared_key' => 'wg_genpsk',
+            'enable' => true,
+            'data' => {
+              'hahaha' => 'body'
+            }
+          }
+        }
+      }
+    end
+
+    it 'returns a successful response' do
+      make_request
+
+      expect(last_response.successful?).to be(true)
+    end
+
+    it 'updates the config from the server' do
+      make_request
+
+      config = File.read(wg_conf_path)
+
+      expect(config).to eq(JSON.pretty_generate(expected_result))
+    end
+  end
 end
