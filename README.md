@@ -1,7 +1,7 @@
 # WireGuard Easy REST API
 
 ![Build Status](https://github.com/leonovk/wg-rest-api/actions/workflows/ruby.yml/badge.svg)
-![ds](https://img.shields.io/badge/coverage-94%25-brightgreen)
+![ds](https://img.shields.io/badge/coverage-95%25-brightgreen)
 
 ![wg-rest-api](https://github.com/leonovk/wg-rest-api/assets/71232234/f727aacf-a989-40f6-a156-db7e7a1283b6)
 
