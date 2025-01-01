@@ -31,7 +31,7 @@ group :development do
 end
 
 group :test do
-  gem 'rack-test', '~> 2.1'
+  gem 'rack-test', '~> 2.2'
   gem 'rspec', '~> 3.13'
   gem 'simplecov', require: false
   gem 'timecop', '~> 0.9.10'
