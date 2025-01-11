@@ -48,27 +48,7 @@ leonovk/wg-rest-api
 
 **If you can't start the container, try entering the command in one line**
 
-### Settings you can set
-
-By setting environment variables when starting a container, you can configure application settings. Here is a list of environment variables that you can set. It is important to note that you can override the values ​​of these variables as they already have default values.
-
-| Environment variable    | Description                                                                      | Note                                                                                                               |
-|-------------------------|----------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| WG_PATH                 | directory where the main configuration for your wireguard server will be located | I strongly advise you not to change it                                                                             |
-| WG_DEVICE               | name for network interface for wireguard                                         | I strongly advise you not to change it                                                                             |
-| WG_DEFAULT_ADDRESS      | default address for your clients                                                 | It should be specified in the format -> `10.8.0.x`                                                                 |
-| WG_ALLOWED_IPS          | allowed ip address                                                               |                                                                                                                    |
-| WG_HOST                 | IP address of your server                                                        | This environment variable must be specified when starting the application                                          |
-| WG_PORT                 | udp port for wireguard                                                           |                                                                                                                    |
-| WG_DEFAULT_DNS          | dns server                                                                       |                                                                                                                    |
-| WG_PRE_UP               | special setting is triggered before starting the wireguard server                |                                                                                                                    |
-| WG_PRE_DOWN             | special setting is triggered before stopping the wireguard server                |                                                                                                                    |
-| WG_POST_UP              | special setting is triggered after starting the wireguard server                 |                                                                                                                    |
-| WG_POST_DOWN            | special setting is triggered after stopping the wireguard server                 |                                                                                                                    |
-| WG_PERSISTENT_KEEPALIVE | node keepalive parameter                                                         |                                                                                                                    |
-| AUTH_TOKEN              | authorization token for API                                                      | You can specify absolutely any string that will be used to authenticate your requests                              |
-| AUTH_DIGEST_TOKEN       | password hash for request authorization                                          | You can set this variable to the hash of your password. In this case, your requests will be authorized through it. |
-| WEBHOOKS_URL            | url for webhooks                                                                 |                                                                                                                    |
+***You can see the full list of available environment variables for application configuration [here](https://github.com/leonovk/wg-rest-api/wiki/Settings-you-can-set)***
 
 ### Using a hash token for authorization
 
