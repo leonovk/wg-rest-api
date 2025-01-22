@@ -4,5 +4,4 @@ etc
 .rspec_status
 tmp
 .zed
-coverage
 .vscode
