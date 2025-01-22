@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'clients_serializer'
-require_relative 'clients_validator'
-
 # Main controller for managing client config files
 class ClientsController
   def initialize
