@@ -5,3 +5,4 @@ etc
 tmp
 .zed
 .vscode
+coverage
