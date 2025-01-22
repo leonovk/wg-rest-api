@@ -424,12 +424,24 @@ RSpec.describe Application do
           addressss: '10.8.0.200'
         }
       end
+      let(:expected_body) do
+        {
+          'error' => "The property '#/' contains additional properties [\"addressss\"] " \
+                     'outside of the schema when none are allowed in schema a0249e95-4430-5ba7-b316-385655e47c48'
+        }
+      end
 
       it 'returns error response' do
         make_request
 
         expect(last_response.successful?).to be(false)
         expect(last_response.status).to eq(400)
+      end
+
+      it 'returns error body' do
+        make_request
+
+        expect(JSON.parse(last_response.body)).to eq(expected_body)
       end
     end
   end

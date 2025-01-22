@@ -30,31 +30,28 @@ module WireGuard
     end
 
     def config(id)
-      return nil if configs_empty?
+      configs_empty_validation!
 
-      @configs[id]
+      @configs[id] or raise Errors::ConfigNotFoundError
     end
 
     def delete_config(id)
-      return nil if configs_empty?
+      configs_empty_validation!
 
       result = json_config['configs'].delete(id)
 
-      if result.nil?
-        false
-      else
-        dump_json_config(json_config)
-        dump_wireguard_config
-        true
-      end
+      raise Errors::ConfigNotFoundError if result.nil?
+
+      dump_json_config(json_config)
+      dump_wireguard_config
     end
 
     def update_config(id, config_params)
-      return nil if configs_empty?
+      configs_empty_validation!
 
       updated_config = json_config['configs'][id]
 
-      return nil if updated_config.nil?
+      raise Errors::ConfigNotFoundError if updated_config.nil?
 
       json_config['configs'][id] = merge_config(updated_config, config_params)
 
@@ -127,6 +124,10 @@ module WireGuard
 
     def generate_server_public_key
       @server_public_key = KeyGenerator.wg_pubkey(@server_private_key)
+    end
+
+    def configs_empty_validation!
+      raise Errors::ConfigNotFoundError if configs_empty?
     end
 
     def configs_empty?
