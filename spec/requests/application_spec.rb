@@ -114,6 +114,13 @@ RSpec.describe Application do
         expect(last_response.successful?).to be(false)
         expect(last_response.status).to eq(404)
       end
+
+      it 'returns error body' do
+        make_request
+
+        expect(JSON.parse(last_response.body)).to eq({ 'error' =>
+        'The requested config was not found on the server' })
+      end
     end
   end
 

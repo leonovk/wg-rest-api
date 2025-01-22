@@ -41,20 +41,20 @@ class Application < Sinatra::Base
       else
         config
       end
-    rescue Errors::ConfigNotFoundError
-      halt 404
+    rescue Errors::ConfigNotFoundError => e
+      halt 404, { error: e.message }.to_json
     end
 
     delete '/clients/:id' do
       controller.destroy(params['id'])
-    rescue Errors::ConfigNotFoundError
-      halt 404
+    rescue Errors::ConfigNotFoundError => e
+      halt 404, { error: e.message }.to_json
     end
 
     patch '/clients/:id' do
       controller.update(params['id'], request_body)
-    rescue Errors::ConfigNotFoundError
-      halt 404
+    rescue Errors::ConfigNotFoundError => e
+      halt 404, { error: e.message }.to_json
     rescue JSON::Schema::ValidationError => e
       halt 400, { error: e }.to_json
     end
