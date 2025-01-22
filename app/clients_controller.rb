@@ -17,8 +17,6 @@ class ClientsController
   def show(id)
     config = wire_guard.config(id)
 
-    raise Errors::ConfigNotFoundError if config.nil?
-
     ClientsSerializer.serialize(config, wire_guard.server_public_key)
   end
 
@@ -27,15 +25,11 @@ class ClientsController
 
     config = wire_guard.update_config(id, body)
 
-    raise Errors::ConfigNotFoundError if config.nil?
-
     ClientsSerializer.serialize(config, wire_guard.server_public_key)
   end
 
   def destroy(id)
-    result = wire_guard.delete_config(id)
-
-    raise Errors::ConfigNotFoundError if result == false
+    wire_guard.delete_config(id)
 
     {}.to_json
   end

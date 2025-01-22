@@ -206,8 +206,8 @@ RSpec.describe WireGuard::Server do
     context 'when the requested config is not on the server' do
       let(:id) { '13' }
 
-      it 'return nil' do
-        expect(config).to be_nil
+      it 'raises an error stating that this config is not on the server' do
+        expect { config }.to raise_error(Errors::ConfigNotFoundError)
       end
     end
 
@@ -287,10 +287,6 @@ RSpec.describe WireGuard::Server do
         expect(config).to eq(JSON.pretty_generate(expected_result))
       end
 
-      it 'return true' do
-        expect(delete_config).to be(true)
-      end
-
       it 'calls the configuration file update service WireGuard' do
         delete_config
 
@@ -301,14 +297,8 @@ RSpec.describe WireGuard::Server do
     context 'when the config to be deleted is not on the server' do
       let(:id) { '4' }
 
-      it 'return false' do
-        expect(delete_config).to be(false)
-      end
-
-      it 'no calls the configuration file update service WireGuard' do
-        delete_config
-
-        expect(WireGuard::ServerConfigUpdater).not_to have_received(:update)
+      it 'raises an error stating that this config is not on the server' do
+        expect { delete_config }.to raise_error(Errors::ConfigNotFoundError)
       end
     end
   end
@@ -418,14 +408,8 @@ RSpec.describe WireGuard::Server do
         }
       end
 
-      it 'return nil' do
-        expect(update_config).to be_nil
-      end
-
-      it 'no calls the configuration file update service WireGuard' do
-        update_config
-
-        expect(WireGuard::ServerConfigUpdater).not_to have_received(:update)
+      it 'raises an error stating that this config is not on the server' do
+        expect { update_config }.to raise_error(Errors::ConfigNotFoundError)
       end
     end
 
