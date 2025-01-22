@@ -84,6 +84,39 @@ RSpec.describe Application do
     end
   end
 
+  describe 'GET /api/clients:id' do
+    subject(:make_request) do
+      get("/api/clients/#{id}", { 'CONTENT_TYPE' => 'application/json' })
+    end
+
+    before do
+      allow(WireGuard::StatGenerator).to receive_messages(show: nil)
+
+      header('Authorization', 'Bearer 123-Ab')
+    end
+
+    context 'when the requested client exists' do
+      let(:id) { '1' }
+
+      it 'returns a successful response' do
+        make_request
+
+        expect(last_response.successful?).to be(true)
+      end
+    end
+
+    context 'when the requested client does not exist' do
+      let(:id) { '23' }
+
+      it 'returns a not_found response' do
+        make_request
+
+        expect(last_response.successful?).to be(false)
+        expect(last_response.status).to eq(404)
+      end
+    end
+  end
+
   describe 'PATCH /api/clients/:id' do
     subject(:make_request) do
       patch("/api/clients/#{id}",
@@ -99,6 +132,22 @@ RSpec.describe Application do
     end
 
     let(:id) { '1' }
+
+    shared_examples 'correctly updates the client config' do
+      it 'returns a successful response' do
+        make_request
+
+        expect(last_response.successful?).to be(true)
+      end
+
+      it 'updates the config from the server' do
+        make_request
+
+        config = File.read(wg_conf_path)
+
+        expect(config).to eq(JSON.pretty_generate(expected_result))
+      end
+    end
 
     context 'when a normal request for config update' do
       let(:request_body) do
@@ -156,19 +205,7 @@ RSpec.describe Application do
         }
       end
 
-      it 'returns a successful response' do
-        make_request
-
-        expect(last_response.successful?).to be(true)
-      end
-
-      it 'updates the config from the server' do
-        make_request
-
-        config = File.read(wg_conf_path)
-
-        expect(config).to eq(JSON.pretty_generate(expected_result))
-      end
+      include_examples 'correctly updates the client config'
     end
 
     context 'when an update arrives with a data parameter that updates the attribute' do
@@ -231,19 +268,7 @@ RSpec.describe Application do
         }
       end
 
-      it 'returns a successful response' do
-        make_request
-
-        expect(last_response.successful?).to be(true)
-      end
-
-      it 'updates the config from the server' do
-        make_request
-
-        config = File.read(wg_conf_path)
-
-        expect(config).to eq(JSON.pretty_generate(expected_result))
-      end
+      include_examples 'correctly updates the client config'
     end
 
     context 'when there is no date parameter at all' do
@@ -303,19 +328,7 @@ RSpec.describe Application do
         }
       end
 
-      it 'returns a successful response' do
-        make_request
-
-        expect(last_response.successful?).to be(true)
-      end
-
-      it 'updates the config from the server' do
-        make_request
-
-        config = File.read(wg_conf_path)
-
-        expect(config).to eq(JSON.pretty_generate(expected_result))
-      end
+      include_examples 'correctly updates the client config'
     end
 
     context 'when the parameter with date expands it' do
@@ -379,18 +392,44 @@ RSpec.describe Application do
         }
       end
 
-      it 'returns a successful response' do
-        make_request
+      include_examples 'correctly updates the client config'
+    end
 
-        expect(last_response.successful?).to be(true)
+    context 'when the config to be updated does not exist' do
+      let(:id) { '23' }
+      let(:request_body) do
+        {
+          address: '10.8.0.200',
+          private_key: 'a',
+          public_key: 'b',
+          enable: false,
+          data: {
+            prikol: 'lol'
+          }
+        }
       end
 
-      it 'updates the config from the server' do
+      it 'returns a not_found response' do
         make_request
 
-        config = File.read(wg_conf_path)
+        expect(last_response.successful?).to be(false)
+        expect(last_response.status).to eq(404)
+      end
+    end
 
-        expect(config).to eq(JSON.pretty_generate(expected_result))
+    context 'when invalid data was passed to the input' do
+      let(:id) { '1' }
+      let(:request_body) do
+        {
+          addressss: '10.8.0.200'
+        }
+      end
+
+      it 'returns error response' do
+        make_request
+
+        expect(last_response.successful?).to be(false)
+        expect(last_response.status).to eq(400)
       end
     end
   end
