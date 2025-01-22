@@ -17,12 +17,12 @@ RUN apk add --no-cache \
 
 # Use iptables-legacy
 RUN update-alternatives --install \
-    /sbin/iptables iptables \
-    /sbin/iptables-legacy 10 --slave \
-    /sbin/iptables-restore iptables-restore \
-    /sbin/iptables-legacy-restore --slave \
-    /sbin/iptables-save iptables-save \
-    /sbin/iptables-legacy-save
+    /usr/sbin/iptables iptables \
+    /usr/sbin/iptables-legacy 10 --slave \
+    /usr/sbin/iptables-restore iptables-restore \
+    /usr/sbin/iptables-legacy-restore --slave \
+    /usr/sbin/iptables-save iptables-save \
+    /usr/sbin/iptables-legacy-save
 
 RUN bundle config set without 'development rerun test'
 
