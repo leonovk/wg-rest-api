@@ -21,7 +21,7 @@ module WireGuard
 
     def build_config(params)
       {
-        id: new_last_id,
+        id: configs['last_id'] + 1,
         address: new_last_ip,
         private_key: wg_genkey,
         public_key: wg_pubkey,
@@ -29,10 +29,6 @@ module WireGuard
         enable: true,
         data: params
       }
-    end
-
-    def new_last_id
-      configs['last_id'] + 1
     end
 
     def new_last_ip
