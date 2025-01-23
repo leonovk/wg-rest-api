@@ -6,7 +6,6 @@
   },
   "configs": {
     "last_id": 3,
-    "last_address": "10.8.0.4",
     "1": {
       "id": 1,
       "address": "10.8.0.2",

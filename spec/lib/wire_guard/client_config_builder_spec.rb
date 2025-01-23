@@ -14,18 +14,43 @@ RSpec.describe WireGuard::ClientConfigBuilder do
     }
   end
 
+  context 'when are the server starting conditions' do
+    let(:configs) do
+      {
+        'last_id' => 0
+      }
+    end
+
+    let(:expected_result) do
+      {
+        id: 1,
+        address: '10.8.0.2',
+        private_key: 'wg_genkey',
+        public_key: 'wg_pubkey',
+        preshared_key: 'wg_genpsk',
+        enable: true,
+        data: {
+          lol: 'kek'
+        }
+      }
+    end
+
+    it 'creates the correct config' do
+      expect(build).to eq(expected_result)
+    end
+  end
+
   context 'when there are no clients on the server' do
     let(:configs) do
       {
-        'last_id' => 23,
-        'last_address' => '10.8.0.255'
+        'last_id' => 23
       }
     end
 
     let(:expected_result) do
       {
         id: 24,
-        address: '10.8.1.0',
+        address: '10.8.0.2',
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
@@ -45,7 +70,6 @@ RSpec.describe WireGuard::ClientConfigBuilder do
     let(:configs) do
       {
         'last_id' => 1,
-        'last_address' => '10.8.0.2',
         '1' => {
           'address' => '10.8.0.2'
         }
@@ -71,41 +95,10 @@ RSpec.describe WireGuard::ClientConfigBuilder do
     end
   end
 
-  context 'when there is 1 client on the server, but the last IP does not match it' do
-    let(:configs) do
-      {
-        'last_id' => 2,
-        'last_address' => '10.8.0.3',
-        '1' => {
-          'address' => '10.8.0.2'
-        }
-      }
-    end
-
-    let(:expected_result) do
-      {
-        id: 3,
-        address: '10.8.0.3',
-        private_key: 'wg_genkey',
-        public_key: 'wg_pubkey',
-        preshared_key: 'wg_genpsk',
-        enable: true,
-        data: {
-          lol: 'kek'
-        }
-      }
-    end
-
-    it 'creates the correct config' do
-      expect(build).to eq(expected_result)
-    end
-  end
-
   context 'when there are several clients on the server, but there are free IPs between them' do
     let(:configs) do
       {
         'last_id' => 3,
-        'last_address' => '10.8.0.4',
         '1' => {
           'address' => '10.8.0.2'
         },

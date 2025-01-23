@@ -3,6 +3,8 @@
 module WireGuard
   # The class generates a config file for the client
   class ClientConfigBuilder
+    WG_DEFAULT_ADDRESS = IPAddr.new(Settings.wg_default_address.gsub('x', '1'))
+
     attr_reader :config
 
     def initialize(configs, params)
@@ -34,27 +36,19 @@ module WireGuard
     end
 
     def new_last_ip
-      IPAddr.new(last_ip.to_i + 1, Socket::AF_INET).to_s
-    end
-
-    def last_ip
-      find_current_last_ip || IPAddr.new(configs['last_address'])
+      IPAddr.new(find_current_last_ip.to_i + 1, Socket::AF_INET).to_s
     end
 
     def find_current_last_ip
-      ips = configs.except('last_id', 'last_address').filter_map do |_id, config|
-        ip = config['address']
-        next if ip.nil?
+      ips = configs.except('last_id').map do |_id, config|
+        IPAddr.new(config['address'])
+      end << WG_DEFAULT_ADDRESS
 
-        IPAddr.new(ip)
-      end.sort
-
-      ips.each_with_index do |ip, i|
-        next_ip = ips[i + 1]
+      ips.sort!.each_with_index do |ip, index|
+        next_ip = ips[index + 1]
 
         return ip if next_ip.nil? || (next_ip.to_i - ip.to_i) > 1
       end
-      nil
     end
   end
 end
