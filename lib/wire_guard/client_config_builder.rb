@@ -34,8 +34,27 @@ module WireGuard
     end
 
     def new_last_ip
-      current_ip = IPAddr.new(configs['last_address'])
-      IPAddr.new(current_ip.to_i + 1, Socket::AF_INET).to_s
+      IPAddr.new(last_ip.to_i + 1, Socket::AF_INET).to_s
+    end
+
+    def last_ip
+      find_current_last_ip || IPAddr.new(configs['last_address'])
+    end
+
+    def find_current_last_ip
+      ips = configs.except('last_id', 'last_address').filter_map do |_id, config|
+        ip = config['address']
+        next if ip.nil?
+
+        IPAddr.new(ip)
+      end.sort
+
+      ips.each_with_index do |ip, i|
+        next_ip = ips[i + 1]
+
+        return ip if next_ip.nil? || (next_ip.to_i - ip.to_i) > 1
+      end
+      nil
     end
   end
 end
