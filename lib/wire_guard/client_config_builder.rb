@@ -9,23 +9,21 @@ module WireGuard
 
     def initialize(configs, params)
       @wg_genkey = KeyGenerator.wg_genkey
-      @wg_pubkey = KeyGenerator.wg_pubkey(@wg_genkey)
-      @wg_genpsk = KeyGenerator.wg_genpsk
       @configs = configs
       @config = build_config(params)
     end
 
     private
 
-    attr_reader :wg_genkey, :wg_pubkey, :wg_genpsk, :configs
+    attr_reader :wg_genkey, :configs
 
     def build_config(params)
       {
         id: configs['last_id'] + 1,
         address: new_last_ip,
         private_key: wg_genkey,
-        public_key: wg_pubkey,
-        preshared_key: wg_genpsk,
+        public_key: KeyGenerator.wg_pubkey(wg_genkey),
+        preshared_key: KeyGenerator.wg_genpsk,
         enable: true,
         data: params
       }
