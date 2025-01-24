@@ -126,4 +126,34 @@ RSpec.describe WireGuard::ClientConfigBuilder do
       expect(build).to eq(expected_result)
     end
   end
+
+  context 'when there is no space for a new IP address' do
+    let(:configs) do
+      {
+        'last_id' => 3,
+        '1' => {
+          'address' => '10.8.0.2'
+        },
+        '3' => {
+          'address' => '10.8.0.4'
+        },
+        '4' => {
+          'address' => '10.8.0.5'
+        },
+        '5' => {
+          'address' => '10.8.0.6'
+        },
+        '6' => {
+          'address' => '10.8.0.7'
+        },
+        '7' => {
+          'address' => '10.8.0.8'
+        }
+      }
+    end
+
+    it 'causes an error that all IP addresses are taken' do
+      expect { build }.to raise_error(Errors::ConnectionLimitExceededError)
+    end
+  end
 end
