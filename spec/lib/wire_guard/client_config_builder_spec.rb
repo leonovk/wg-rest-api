@@ -156,4 +156,37 @@ RSpec.describe WireGuard::ClientConfigBuilder do
       expect { build }.to raise_error(Errors::ConnectionLimitExceededError)
     end
   end
+
+  context 'when the user has an old config (edge ​​case that tests backward compatibility)' do
+    let(:configs) do
+      {
+        'last_id' => 3,
+        'last_address' => '10.8.0.4',
+        '1' => {
+          'address' => '10.8.0.2'
+        },
+        '3' => {
+          'address' => '10.8.0.4'
+        }
+      }
+    end
+
+    let(:expected_result) do
+      {
+        id: 4,
+        address: '10.8.0.3',
+        private_key: 'wg_genkey',
+        public_key: 'wg_pubkey',
+        preshared_key: 'wg_genpsk',
+        enable: true,
+        data: {
+          lol: 'kek'
+        }
+      }
+    end
+
+    it 'creates the correct config' do
+      expect(build).to eq(expected_result)
+    end
+  end
 end

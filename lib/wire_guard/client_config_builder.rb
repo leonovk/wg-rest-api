@@ -47,7 +47,12 @@ module WireGuard
 
     def all_ip_addresses
       @all_ip_addresses ||= begin
-        configs.except('last_id').map do |_id, config|
+        configs.except('last_id').filter_map do |_id, config|
+          # NOTE: This is necessary in order to maintain backward compatibility
+          # with those who still have the "last_address" field in the config.
+          # In the next versions this needs to be removed along with the `filter_map`.
+          next unless config.is_a?(Hash)
+
           IPAddr.new(config['address'])
         end << WG_DEFAULT_ADDRESS
       end.sort
