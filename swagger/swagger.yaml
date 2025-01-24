@@ -106,7 +106,7 @@ components:
       properties:
           address:
             type: string
-            example: 10.8.0.16/24
+            example: 10.8.0.16/29
           private_key:
             type: string
             example: private_key
@@ -134,7 +134,7 @@ components:
           example: server_public_key
         address:
           type: string
-          example: 10.8.0.16/24
+          example: 10.8.0.16/29
         private_key:
           type: string
           example: private_key

@@ -39,8 +39,7 @@ RSpec.describe WireGuard::Server do
             address: '10.8.0.1'
           },
           configs: {
-            last_id: 0,
-            last_address: '10.8.0.1'
+            last_id: 0
           }
         }
       end
@@ -99,7 +98,6 @@ RSpec.describe WireGuard::Server do
         },
         configs: {
           last_id: 1,
-          last_address: '10.8.0.2',
           '1' => {
             id: 1,
             address: '10.8.0.2',
@@ -252,7 +250,6 @@ RSpec.describe WireGuard::Server do
           },
           'configs' => {
             'last_id' => 3,
-            'last_address' => '10.8.0.4',
             '2' => {
               'id' => 2,
               'address' => '10.8.0.3',
@@ -341,7 +338,6 @@ RSpec.describe WireGuard::Server do
           },
           'configs' => {
             'last_id' => 3,
-            'last_address' => '10.8.0.4',
             '1' => {
               'id' => 1,
               'address' => '10.8.0.200',
@@ -449,7 +445,6 @@ RSpec.describe WireGuard::Server do
           },
           'configs' => {
             'last_id' => 3,
-            'last_address' => '10.8.0.4',
             '1' => {
               'id' => 1,
               'address' => '10.8.0.200',
@@ -539,7 +534,6 @@ RSpec.describe WireGuard::Server do
           },
           'configs' => {
             'last_id' => 3,
-            'last_address' => '10.8.0.4',
             '1' => {
               'id' => 1,
               'address' => '10.8.0.200',

@@ -176,7 +176,6 @@ RSpec.describe Application do
           },
           'configs' => {
             'last_id' => 3,
-            'last_address' => '10.8.0.4',
             '1' => {
               'id' => 1,
               'address' => '10.8.0.200',
@@ -237,7 +236,6 @@ RSpec.describe Application do
           },
           'configs' => {
             'last_id' => 3,
-            'last_address' => '10.8.0.4',
             '1' => {
               'id' => 1,
               'address' => '10.8.0.200',
@@ -297,7 +295,6 @@ RSpec.describe Application do
           },
           'configs' => {
             'last_id' => 3,
-            'last_address' => '10.8.0.4',
             '1' => {
               'id' => 1,
               'address' => '10.8.0.200',
@@ -360,7 +357,6 @@ RSpec.describe Application do
           },
           'configs' => {
             'last_id' => 3,
-            'last_address' => '10.8.0.4',
             '1' => {
               'id' => 1,
               'address' => '10.8.0.200',
@@ -484,7 +480,6 @@ RSpec.describe Application do
         },
         'configs' => {
           'last_id' => 4,
-          'last_address' => '10.8.0.5',
           '1' => {
             'id' => 1,
             'address' => '10.8.0.2',

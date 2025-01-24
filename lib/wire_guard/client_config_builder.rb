@@ -3,39 +3,67 @@
 module WireGuard
   # The class generates a config file for the client
   class ClientConfigBuilder
+    WG_DEFAULT_ADDRESS = IPAddr.new(Settings.wg_default_address.gsub('x', '1'))
+    CONNECTING_CLIENT_LIMIT = Settings.connecting_client_limit.to_i
+
     attr_reader :config
 
     def initialize(configs, params)
       @wg_genkey = KeyGenerator.wg_genkey
-      @wg_pubkey = KeyGenerator.wg_pubkey(@wg_genkey)
-      @wg_genpsk = KeyGenerator.wg_genpsk
       @configs = configs
+      check_availability_of_space!
       @config = build_config(params)
     end
 
     private
 
-    attr_reader :wg_genkey, :wg_pubkey, :wg_genpsk, :configs
+    attr_reader :wg_genkey, :configs
 
     def build_config(params)
       {
-        id: new_last_id,
+        id: configs['last_id'] + 1,
         address: new_last_ip,
         private_key: wg_genkey,
-        public_key: wg_pubkey,
-        preshared_key: wg_genpsk,
+        public_key: KeyGenerator.wg_pubkey(wg_genkey),
+        preshared_key: KeyGenerator.wg_genpsk,
         enable: true,
         data: params
       }
     end
 
-    def new_last_id
-      configs['last_id'] + 1
+    def new_last_ip
+      IPAddr.new(find_current_last_ip.to_i + 1, Socket::AF_INET).to_s
     end
 
-    def new_last_ip
-      current_ip = IPAddr.new(configs['last_address'])
-      IPAddr.new(current_ip.to_i + 1, Socket::AF_INET).to_s
+    def check_availability_of_space!
+      return unless all_ip_addresses.size >= available_addresses_count
+
+      raise Errors::ConnectionLimitExceededError
+    end
+
+    def available_addresses_count
+      (2**(32 - CONNECTING_CLIENT_LIMIT)) - 2
+    end
+
+    def all_ip_addresses
+      @all_ip_addresses ||= begin
+        configs.except('last_id').filter_map do |_id, config|
+          # NOTE: This is necessary in order to maintain backward compatibility
+          # with those who still have the "last_address" field in the config.
+          # In the next versions this needs to be removed along with the `filter_map`.
+          next unless config.is_a?(Hash)
+
+          IPAddr.new(config['address'])
+        end << WG_DEFAULT_ADDRESS
+      end.sort
+    end
+
+    def find_current_last_ip
+      all_ip_addresses.each_with_index do |ip, index|
+        next_ip = all_ip_addresses[index + 1]
+
+        return ip if next_ip.nil? || (next_ip.to_i - ip.to_i) > 1
+      end
     end
   end
 end

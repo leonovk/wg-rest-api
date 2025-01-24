@@ -5,7 +5,7 @@ module WireGuard
   # Allows you to manage configuration files on the server
   class Server
     WG_JSON_PATH = "#{Settings.wg_path}/wg0.json".freeze
-    WG_DEFAULT_ADDRESS = Settings.wg_default_address
+    WG_DEFAULT_ADDRESS = Settings.wg_default_address.gsub('x', '1')
 
     attr_reader :server_private_key, :server_public_key
 
@@ -26,7 +26,7 @@ module WireGuard
     def all_configs
       return {} if configs_empty?
 
-      @configs.except('last_id', 'last_address')
+      @configs.except('last_id')
     end
 
     def config(id)
@@ -89,11 +89,10 @@ module WireGuard
         server: {
           private_key: @server_private_key,
           public_key: @server_public_key,
-          address: WG_DEFAULT_ADDRESS.gsub('x', '1')
+          address: WG_DEFAULT_ADDRESS
         },
         configs: {
-          last_id: 0,
-          last_address: WG_DEFAULT_ADDRESS.gsub('x', '1')
+          last_id: 0
         }
       }
 
@@ -115,7 +114,6 @@ module WireGuard
     def update_json_config(config)
       json_config['configs'][config[:id].to_s] = config
       json_config['configs']['last_id'] = config[:id]
-      json_config['configs']['last_address'] = config[:address]
     end
 
     def generate_server_private_key
