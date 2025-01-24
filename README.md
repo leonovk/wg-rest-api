@@ -109,7 +109,7 @@ Example response:
   {
     "id": 15,
     "server_public_key": "server_public_key",
-    "address": "10.8.0.16/24",
+    "address": "10.8.0.16/29",
     "private_key": "private_key",
     "preshared_key": "preshared_key",
     "enable": true,
@@ -139,7 +139,7 @@ Example response:
 {
   "id": 15,
   "server_public_key": "server_public_key",
-  "address": "10.8.0.16/24",
+  "address": "10.8.0.16/29",
   "private_key": "private_key",
   "preshared_key": "preshared_key",
   "enable": true,

@@ -35,7 +35,7 @@ RSpec.describe ClientsSerializer do
       {
         id: 1,
         server_public_key: '4',
-        address: '10.8.0.2/24',
+        address: '10.8.0.2/29',
         private_key: '1',
         public_key: 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
         preshared_key: '3',
@@ -98,7 +98,7 @@ RSpec.describe ClientsSerializer do
         {
           id: 1,
           server_public_key: '4',
-          address: '10.8.0.2/24',
+          address: '10.8.0.2/29',
           private_key: '1',
           public_key: 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
           preshared_key: '3',
@@ -117,7 +117,7 @@ RSpec.describe ClientsSerializer do
         {
           id: 2,
           server_public_key: '4',
-          address: '10.8.0.3/24',
+          address: '10.8.0.3/29',
           private_key: '1',
           public_key: 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
           preshared_key: '3',
@@ -136,7 +136,7 @@ RSpec.describe ClientsSerializer do
         {
           id: 3,
           server_public_key: '4',
-          address: '10.8.0.4/24',
+          address: '10.8.0.4/29',
           private_key: '1',
           public_key: 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
           preshared_key: '3',

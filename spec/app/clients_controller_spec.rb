@@ -62,7 +62,7 @@ RSpec.describe ClientsController do
           {
             id: 1,
             server_public_key: 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-            address: '10.8.0.2/24',
+            address: '10.8.0.2/29',
             private_key: 'MJn6fwoyqG8S6wsrJzWrUow4leZuEM9O8s+G+kcXElU=',
             public_key: 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
             preshared_key: '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
@@ -80,7 +80,7 @@ RSpec.describe ClientsController do
           {
             id: 2,
             server_public_key: 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-            address: '10.8.0.3/24',
+            address: '10.8.0.3/29',
             private_key: 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
             public_key: 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
             preshared_key: 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
@@ -98,7 +98,7 @@ RSpec.describe ClientsController do
           {
             id: 3,
             server_public_key: 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-            address: '10.8.0.4/24',
+            address: '10.8.0.4/29',
             private_key: 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
             public_key: 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
             preshared_key: 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
@@ -134,7 +134,7 @@ RSpec.describe ClientsController do
         {
           id: 2,
           server_public_key: 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-          address: '10.8.0.3/24',
+          address: '10.8.0.3/29',
           private_key: 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
           public_key: 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
           preshared_key: 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
@@ -170,7 +170,7 @@ RSpec.describe ClientsController do
       {
         id: 1,
         server_public_key: 'wg_pubkey',
-        address: '10.8.0.2/24',
+        address: '10.8.0.2/29',
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
@@ -347,7 +347,7 @@ RSpec.describe ClientsController do
           {
             id: 1,
             server_public_key: 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-            address: '10.8.0.200/24',
+            address: '10.8.0.200/29',
             private_key: 'a',
             public_key: 'b',
             preshared_key: 'c',
