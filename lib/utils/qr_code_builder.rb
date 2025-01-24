@@ -12,12 +12,6 @@ module Utils
     end
 
     def build
-      create_qr_code_png_file
-    end
-
-    private
-
-    def create_qr_code_png_file
       qr = RQRCode::QRCode.new(text)
       png = qr.as_png(**qr_code_params)
       file = Tempfile.new
@@ -31,6 +25,8 @@ module Utils
       file
     end
 
+    private
+
     def qr_code_params # rubocop:disable Metrics/MethodLength
       {
         bit_depth: 1,
@@ -42,7 +38,7 @@ module Utils
         module_px_size: 6,
         resize_exactly_to: false,
         resize_gte_to: false,
-        size: 400
+        size: 800
       }
     end
 
