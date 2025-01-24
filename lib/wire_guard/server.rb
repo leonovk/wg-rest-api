@@ -26,7 +26,8 @@ module WireGuard
     def all_configs
       return {} if configs_empty?
 
-      @configs.except('last_id')
+      # TODO: Remove 'last_address' in future versions
+      @configs.except('last_id', 'last_address')
     end
 
     def config(id)
