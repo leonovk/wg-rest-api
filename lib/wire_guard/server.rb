@@ -47,8 +47,9 @@ module WireGuard
       dump_wireguard_config
     end
 
-    def update_config(id, config_params)
+    def update_config(id, config_params) # rubocop:disable Metrics/AbcSize
       configs_empty_validation!
+      config_address_validation!(id, config_params)
 
       updated_config = json_config['configs'][id]
 
@@ -64,7 +65,7 @@ module WireGuard
 
     private
 
-    attr_reader :json_config
+    attr_reader :json_config, :configs
 
     def initialize_json_config
       FileUtils.mkdir_p(Settings.wg_path)
@@ -127,6 +128,12 @@ module WireGuard
 
     def configs_empty_validation!
       raise Errors::ConfigNotFoundError if configs_empty?
+    end
+
+    def config_address_validation!(current_id, config_params)
+      configs.except('last_id', 'last_address').each do |id, config|
+        raise Errors::AddressAlreadyTakenError if id != current_id and config_params['address'] == config['address']
+      end
     end
 
     def configs_empty?
