@@ -27,7 +27,7 @@ group :development do
   gem 'rubocop', '~> 1.71'
   gem 'rubocop-rake', '~> 0.6.0'
   gem 'rubocop-rspec', '~> 3.4'
-  gem 'super_diff', '~> 0.13.0'
+  gem 'super_diff', '~> 0.15.0'
 end
 
 group :test do
