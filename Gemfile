@@ -19,7 +19,7 @@ gem 'sinatra', '~> 4.1'
 gem 'sinatra-contrib', '~> 4.1'
 
 # NOTE: These gems are here and not in dev mode, for access to the console
-gem 'byebug', '~> 11.1', '>= 11.1.3'
+gem 'byebug', '~> 12.0'
 gem 'pry-byebug', '~> 3.10', '>= 3.10.1'
 
 group :development do
