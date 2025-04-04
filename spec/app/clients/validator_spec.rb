@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ClientsValidator do
+RSpec.describe Clients::Validator do
   subject(:validate) { described_class.new(params).validate! }
 
   context 'when all parameters are valid' do

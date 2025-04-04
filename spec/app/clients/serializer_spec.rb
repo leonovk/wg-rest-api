@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ClientsSerializer do
+RSpec.describe Clients::Serializer do
   before do
     allow(WireGuard::StatGenerator).to receive_messages(show: wg_show_stub)
     create_conf_file('spec/fixtures/wg0_stat.json', wg_stat_path)

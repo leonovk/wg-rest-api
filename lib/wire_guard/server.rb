@@ -7,7 +7,7 @@ module WireGuard
     WG_JSON_PATH = "#{Settings.wg_path}/wg0.json".freeze
     WG_DEFAULT_ADDRESS = Settings.wg_default_address.gsub('x', '1')
 
-    attr_reader :server_private_key, :server_public_key
+    attr_reader :server_private_key, :server_public_key, :json_config
 
     def initialize
       initialize_json_config
@@ -65,7 +65,7 @@ module WireGuard
 
     private
 
-    attr_reader :json_config, :configs
+    attr_reader :configs
 
     def initialize_json_config
       FileUtils.mkdir_p(Settings.wg_path)
