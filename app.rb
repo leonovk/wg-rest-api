@@ -20,7 +20,7 @@ class Application < Sinatra::Base
 
       authorize_resource
 
-      @controller = ClientsController.new
+      @controller = Clients::Controller.new
     end
 
     get '/clients' do
@@ -63,6 +63,10 @@ class Application < Sinatra::Base
       status 201
 
       controller.create(request_body)
+    end
+
+    get '/server' do
+      Server::Controller.new.show
     end
   end
 
