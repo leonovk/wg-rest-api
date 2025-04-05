@@ -8,7 +8,7 @@ module Server
     end
 
     def show
-      Serializer.new.serialize(wire_guard.json_config)
+      Serializer.serialize(wire_guard.json_config)
     end
 
     private
