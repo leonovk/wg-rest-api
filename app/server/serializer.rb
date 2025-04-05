@@ -7,11 +7,17 @@ module Server
       new(config).serialize
     end
 
-    def serialize
+    def serialize # rubocop:disable Metrics/MethodLength
       {
         server: config['server'],
         clients_count: config['configs'].except('last_id', 'last_address').size,
-        available_clients_count: available_addresses_count
+        available_clients_count: available_addresses_count,
+        dns: Clients::Serializer::DNS,
+        host: Clients::Serializer::WG_HOST,
+        allowed_ips: Clients::Serializer::WG_ALLOWED_IPS,
+        persistent_keepalive: Clients::Serializer::WG_PERSISTENT_KEEPALIVE,
+        port: Clients::Serializer::WG_PORT,
+        connecting_client_limit: Clients::Serializer::CONNECTING_CLIENT_LIMIT
       }.to_json
     end
 
