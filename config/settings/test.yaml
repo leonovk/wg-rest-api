@@ -1,10 +1,12 @@
 wg_path: 'tmp/etc'
 wg_device: 'eth0'
 wg_default_address: '10.8.0.x'
+wg_default_address_6: 'fdcc:ad94:bacf:61a4::cafe:x'
 wg_allowed_ips: '0.0.0.0/0, ::/0'
 wg_host: '2.2.2.2'
 wg_port: '51820'
 wg_default_dns: '1.1.1.1'
+wg_default_dns_6: '2606:4700:4700::1111'
 wg_persistent_keepalive: 0
 auth_token: '123-Ab'
 webhooks_url: 'https://test.webhooks.com/event'
