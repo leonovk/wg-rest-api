@@ -83,7 +83,7 @@ class Application < Sinatra::Base
 
   def authorize_resource
     token = request.env['HTTP_AUTHORIZATION']
-    halt 403 unless token
+    halt 403 if token.nil? || token.size < 8
 
     if AUTH_DIGEST_TOKEN
       halt 403 unless Digest::SHA256.hexdigest(token[7..]) == AUTH_DIGEST_TOKEN

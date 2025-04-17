@@ -47,6 +47,20 @@ RSpec.describe Application do
       end
     end
 
+    context 'when the auth token is an empty string' do
+      before do
+        stub_const('Application::AUTH_TOKEN', '')
+
+        header('Authorization', 'Bearer ')
+        get '/api/clients'
+      end
+
+      it 'returns an unsuccessful response' do
+        expect(last_response.successful?).to be(false)
+        expect(last_response.status).to be(403)
+      end
+    end
+
     context 'when the request is authorized but an encrypted token is set' do
       before do
         allow(Settings).to receive(:auth_digest_token)
