@@ -225,7 +225,7 @@ RSpec.describe Application do
         }
       end
 
-      include_examples 'correctly updates the client config'
+      it_behaves_like 'correctly updates the client config'
     end
 
     context 'when an update arrives with a data parameter that updates the attribute' do
@@ -287,7 +287,7 @@ RSpec.describe Application do
         }
       end
 
-      include_examples 'correctly updates the client config'
+      it_behaves_like 'correctly updates the client config'
     end
 
     context 'when there is no date parameter at all' do
@@ -346,7 +346,7 @@ RSpec.describe Application do
         }
       end
 
-      include_examples 'correctly updates the client config'
+      it_behaves_like 'correctly updates the client config'
     end
 
     context 'when the parameter with date expands it' do
@@ -409,7 +409,7 @@ RSpec.describe Application do
         }
       end
 
-      include_examples 'correctly updates the client config'
+      it_behaves_like 'correctly updates the client config'
     end
 
     context 'when the config to be updated does not exist' do
