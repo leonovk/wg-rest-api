@@ -11,7 +11,7 @@ module Server
       {
         server: config['server'],
         clients_count: config['configs'].except('last_id', 'last_address').size,
-        available_clients_count: available_addresses_count,
+        available_clients_count: WireGuard::ClientConfigBuilder.available_addresses_count,
         dns: Clients::Serializer::DNS,
         host: Clients::Serializer::WG_HOST,
         allowed_ips: Clients::Serializer::WG_ALLOWED_IPS,
@@ -28,9 +28,5 @@ module Server
     private
 
     attr_reader :config
-
-    def available_addresses_count
-      (2**(32 - WireGuard::ClientConfigBuilder::CONNECTING_CLIENT_LIMIT)) - 2
-    end
   end
 end

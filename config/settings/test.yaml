@@ -11,3 +11,4 @@ wg_persistent_keepalive: 0
 auth_token: '123-Ab'
 webhooks_url: 'https://test.webhooks.com/event'
 connecting_client_limit: '29'
+connecting_client_limit_6: '120'

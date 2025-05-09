@@ -5,8 +5,13 @@ module WireGuard
   class ClientConfigBuilder
     WG_DEFAULT_ADDRESS = IPAddr.new(Settings.wg_default_address.gsub('x', '1'))
     CONNECTING_CLIENT_LIMIT = Settings.connecting_client_limit.to_i
+    CONNECTING_CLIENT_LIMIT_6 = Settings.connecting_client_limit_6.to_i
 
     attr_reader :config
+
+    def self.available_addresses_count
+      [(2**(32 - CONNECTING_CLIENT_LIMIT)) - 2, 2**(128 - CONNECTING_CLIENT_LIMIT_6)].min
+    end
 
     def initialize(configs, params)
       @wg_genkey = KeyGenerator.wg_genkey
@@ -36,13 +41,9 @@ module WireGuard
     end
 
     def check_availability_of_space!
-      return unless all_ip_addresses.size >= available_addresses_count
+      return unless all_ip_addresses.size >= self.class.available_addresses_count
 
       raise Errors::ConnectionLimitExceededError
-    end
-
-    def available_addresses_count
-      (2**(32 - CONNECTING_CLIENT_LIMIT)) - 2
     end
 
     def all_ip_addresses
