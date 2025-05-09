@@ -6,6 +6,7 @@ module WireGuard
   class Server
     WG_JSON_PATH = "#{Settings.wg_path}/wg0.json".freeze
     WG_DEFAULT_ADDRESS = Settings.wg_default_address.gsub('x', '1')
+    WG_DEFAULT_ADDRESS_6 = Settings.wg_default_address_6.gsub('x', '1')
 
     attr_reader :server_private_key, :server_public_key, :json_config
 
@@ -91,7 +92,8 @@ module WireGuard
         server: {
           private_key: @server_private_key,
           public_key: @server_public_key,
-          address: WG_DEFAULT_ADDRESS
+          address: WG_DEFAULT_ADDRESS,
+          address_ipv6: WG_DEFAULT_ADDRESS_6
         },
         configs: {
           last_id: 0
