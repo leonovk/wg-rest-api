@@ -77,7 +77,7 @@ module WireGuard
         "-o #{WG_DEVICE} -j MASQUERADE; " \
         "iptables -A INPUT -p udp -m udp --dport #{WG_PORT} -j ACCEPT; " \
         'iptables -A FORWARD -i wg0 -j ACCEPT; ' \
-        'iptables -A FORWARD -o wg0 -j ACCEPT;' \
+        'iptables -A FORWARD -o wg0 -j ACCEPT; ' \
         "ip6tables -t nat -A POSTROUTING -s #{WG_DEFAULT_ADDRESS_6.gsub('x', '0')}/#{CONNECTING_CLIENT_LIMIT_6} " \
         "-o #{WG_DEVICE} -j MASQUERADE; " \
         "ip6tables -A INPUT -p udp -m udp --dport #{WG_PORT} -j ACCEPT; " \
@@ -92,7 +92,7 @@ module WireGuard
         "-o #{WG_DEVICE} -j MASQUERADE; " \
         "iptables -D INPUT -p udp -m udp --dport #{WG_PORT} -j ACCEPT; " \
         'iptables -D FORWARD -i wg0 -j ACCEPT; ' \
-        'iptables -D FORWARD -o wg0 -j ACCEPT;' \
+        'iptables -D FORWARD -o wg0 -j ACCEPT; ' \
         "ip6tables -t nat -D POSTROUTING -s #{WG_DEFAULT_ADDRESS_6.gsub('x', '0')}/#{CONNECTING_CLIENT_LIMIT_6} " \
         "-o #{WG_DEVICE} -j MASQUERADE; " \
         "ip6tables -D INPUT -p udp -m udp --dport #{WG_PORT} -j ACCEPT; " \

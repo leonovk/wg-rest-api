@@ -25,6 +25,7 @@ RSpec.describe WireGuard::ClientConfigBuilder do
       {
         id: 1,
         address: '10.8.0.2',
+        address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:2',
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
@@ -51,6 +52,7 @@ RSpec.describe WireGuard::ClientConfigBuilder do
       {
         id: 24,
         address: '10.8.0.2',
+        address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:2',
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
@@ -71,7 +73,8 @@ RSpec.describe WireGuard::ClientConfigBuilder do
       {
         'last_id' => 1,
         '1' => {
-          'address' => '10.8.0.2'
+          'address' => '10.8.0.2',
+          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:2'
         }
       }
     end
@@ -80,6 +83,7 @@ RSpec.describe WireGuard::ClientConfigBuilder do
       {
         id: 2,
         address: '10.8.0.3',
+        address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:3',
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
@@ -100,10 +104,12 @@ RSpec.describe WireGuard::ClientConfigBuilder do
       {
         'last_id' => 3,
         '1' => {
-          'address' => '10.8.0.2'
+          'address' => '10.8.0.2',
+          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:2'
         },
         '3' => {
-          'address' => '10.8.0.4'
+          'address' => '10.8.0.4',
+          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:4'
         }
       }
     end
@@ -112,6 +118,7 @@ RSpec.describe WireGuard::ClientConfigBuilder do
       {
         id: 4,
         address: '10.8.0.3',
+        address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:3',
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
@@ -132,22 +139,28 @@ RSpec.describe WireGuard::ClientConfigBuilder do
       {
         'last_id' => 3,
         '1' => {
-          'address' => '10.8.0.2'
+          'address' => '10.8.0.2',
+          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:2'
         },
         '3' => {
-          'address' => '10.8.0.4'
+          'address' => '10.8.0.4',
+          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:4'
         },
         '4' => {
-          'address' => '10.8.0.5'
+          'address' => '10.8.0.5',
+          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:5'
         },
         '5' => {
-          'address' => '10.8.0.6'
+          'address' => '10.8.0.6',
+          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:6'
         },
         '6' => {
-          'address' => '10.8.0.7'
+          'address' => '10.8.0.7',
+          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:7'
         },
         '7' => {
-          'address' => '10.8.0.8'
+          'address' => '10.8.0.8',
+          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:8'
         }
       }
     end
@@ -163,10 +176,12 @@ RSpec.describe WireGuard::ClientConfigBuilder do
         'last_id' => 3,
         'last_address' => '10.8.0.4',
         '1' => {
-          'address' => '10.8.0.2'
+          'address' => '10.8.0.2',
+          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:2'
         },
         '3' => {
-          'address' => '10.8.0.4'
+          'address' => '10.8.0.4',
+          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:4'
         }
       }
     end
@@ -175,6 +190,7 @@ RSpec.describe WireGuard::ClientConfigBuilder do
       {
         id: 4,
         address: '10.8.0.3',
+        address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:3',
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',

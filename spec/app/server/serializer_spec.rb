@@ -8,7 +8,8 @@ RSpec.describe Server::Serializer do
       {
         'server' => { 'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
                       'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-                      'address' => '10.8.0.1' },
+                      'address' => '10.8.0.1',
+                      'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:1' },
         'clients_count' => 3,
         'available_clients_count' => 6,
         'dns' => '1.1.1.1',

@@ -8,8 +8,14 @@ module Clients
     SCHEMA = {
       'type' => 'object',
       'properties' => {
-        'address' => { 'type' => 'string' },
-        'address_ipv6' => { 'type' => 'string' },
+        'address' => {
+          'type' => 'string',
+          'format' => 'ipv4'
+        },
+        'address_ipv6' => {
+          'type' => 'string',
+          'format' => 'ipv6'
+        },
         'private_key' => { 'type' => 'string' },
         'public_key' => { 'type' => 'string' },
         'preshared_key' => { 'type' => 'string' },
