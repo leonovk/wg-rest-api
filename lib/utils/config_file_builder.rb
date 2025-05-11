@@ -21,7 +21,7 @@ module Utils
       result = <<~TEXT
         [Interface]
         PrivateKey = #{key['private_key']}
-        Address = #{key['address']}
+        Address = #{key['address']}, #{key['address_ipv6']}
       TEXT
       result << "DNS = #{key['dns']}\n" if key['dns']
       result

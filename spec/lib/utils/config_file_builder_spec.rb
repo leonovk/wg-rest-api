@@ -8,6 +8,7 @@ RSpec.describe Utils::ConfigFileBuilder do
       {
         private_key: '1',
         address: '23.23.23.23',
+        address_ipv6: 'a:sd:ds:de',
         dns: '1.1.1.1',
         server_public_key: '2',
         preshared_key: '3',
@@ -21,7 +22,7 @@ RSpec.describe Utils::ConfigFileBuilder do
       <<~TEXT
         [Interface]
         PrivateKey = 1
-        Address = 23.23.23.23
+        Address = 23.23.23.23, a:sd:ds:de
         DNS = 1.1.1.1
 
         [Peer]
@@ -43,6 +44,7 @@ RSpec.describe Utils::ConfigFileBuilder do
       {
         private_key: '1',
         address: '23.23.23.23',
+        address_ipv6: 'a:sd:ds:de',
         dns: nil,
         server_public_key: '2',
         preshared_key: '3',
@@ -56,7 +58,7 @@ RSpec.describe Utils::ConfigFileBuilder do
       <<~TEXT
         [Interface]
         PrivateKey = 1
-        Address = 23.23.23.23
+        Address = 23.23.23.23, a:sd:ds:de
 
         [Peer]
         PublicKey = 2
