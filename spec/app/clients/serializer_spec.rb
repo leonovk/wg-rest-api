@@ -23,6 +23,7 @@ RSpec.describe Clients::Serializer do
       {
         id: 1,
         address: '10.8.0.2',
+        address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:2',
         private_key: '1',
         public_key: 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
         preshared_key: '3',
@@ -36,6 +37,7 @@ RSpec.describe Clients::Serializer do
         id: 1,
         server_public_key: '4',
         address: '10.8.0.2/29',
+        address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:2/120',
         private_key: '1',
         public_key: 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
         preshared_key: '3',
@@ -66,6 +68,7 @@ RSpec.describe Clients::Serializer do
         '1' => {
           id: 1,
           address: '10.8.0.2',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:2',
           private_key: '1',
           public_key: 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
           preshared_key: '3',
@@ -75,6 +78,7 @@ RSpec.describe Clients::Serializer do
         '2' => {
           id: 2,
           address: '10.8.0.3',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:3',
           private_key: '1',
           public_key: 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
           preshared_key: '3',
@@ -84,6 +88,7 @@ RSpec.describe Clients::Serializer do
         '3' => {
           id: 3,
           address: '10.8.0.4',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:4',
           private_key: '1',
           public_key: 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
           preshared_key: '3',
@@ -99,6 +104,7 @@ RSpec.describe Clients::Serializer do
           id: 1,
           server_public_key: '4',
           address: '10.8.0.2/29',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:2/120',
           private_key: '1',
           public_key: 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
           preshared_key: '3',
@@ -118,6 +124,7 @@ RSpec.describe Clients::Serializer do
           id: 2,
           server_public_key: '4',
           address: '10.8.0.3/29',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:3/120',
           private_key: '1',
           public_key: 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
           preshared_key: '3',
@@ -137,6 +144,7 @@ RSpec.describe Clients::Serializer do
           id: 3,
           server_public_key: '4',
           address: '10.8.0.4/29',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:4/120',
           private_key: '1',
           public_key: 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
           preshared_key: '3',

@@ -174,6 +174,7 @@ RSpec.describe Application do
       let(:request_body) do
         {
           address: '10.8.0.200',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:17',
           private_key: 'a',
           public_key: 'b',
           enable: false,
@@ -186,13 +187,15 @@ RSpec.describe Application do
           'server' => {
             'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
             'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-            'address' => '10.8.0.1'
+            'address' => '10.8.0.1',
+            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:1'
           },
           'configs' => {
             'last_id' => 3,
             '1' => {
               'id' => 1,
               'address' => '10.8.0.200',
+              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:17',
               'private_key' => 'a',
               'public_key' => 'b',
               'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
@@ -202,6 +205,7 @@ RSpec.describe Application do
             '2' => {
               'id' => 2,
               'address' => '10.8.0.3',
+              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:3',
               'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
               'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
               'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
@@ -213,6 +217,7 @@ RSpec.describe Application do
             '3' => {
               'id' => 3,
               'address' => '10.8.0.4',
+              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:4',
               'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
               'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
               'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
@@ -232,6 +237,7 @@ RSpec.describe Application do
       let(:request_body) do
         {
           address: '10.8.0.200',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:17',
           private_key: 'a',
           public_key: 'b',
           enable: false,
@@ -246,13 +252,15 @@ RSpec.describe Application do
           'server' => {
             'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
             'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-            'address' => '10.8.0.1'
+            'address' => '10.8.0.1',
+            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:1'
           },
           'configs' => {
             'last_id' => 3,
             '1' => {
               'id' => 1,
               'address' => '10.8.0.200',
+              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:17',
               'private_key' => 'a',
               'public_key' => 'b',
               'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
@@ -264,6 +272,7 @@ RSpec.describe Application do
             '2' => {
               'id' => 2,
               'address' => '10.8.0.3',
+              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:3',
               'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
               'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
               'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
@@ -275,6 +284,7 @@ RSpec.describe Application do
             '3' => {
               'id' => 3,
               'address' => '10.8.0.4',
+              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:4',
               'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
               'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
               'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
@@ -294,6 +304,7 @@ RSpec.describe Application do
       let(:request_body) do
         {
           address: '10.8.0.200',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:17',
           private_key: 'a',
           public_key: 'b',
           enable: false
@@ -305,13 +316,15 @@ RSpec.describe Application do
           'server' => {
             'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
             'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-            'address' => '10.8.0.1'
+            'address' => '10.8.0.1',
+            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:1'
           },
           'configs' => {
             'last_id' => 3,
             '1' => {
               'id' => 1,
               'address' => '10.8.0.200',
+              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:17',
               'private_key' => 'a',
               'public_key' => 'b',
               'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
@@ -323,6 +336,7 @@ RSpec.describe Application do
             '2' => {
               'id' => 2,
               'address' => '10.8.0.3',
+              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:3',
               'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
               'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
               'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
@@ -334,6 +348,7 @@ RSpec.describe Application do
             '3' => {
               'id' => 3,
               'address' => '10.8.0.4',
+              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:4',
               'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
               'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
               'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
@@ -353,6 +368,7 @@ RSpec.describe Application do
       let(:request_body) do
         {
           address: '10.8.0.200',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:17',
           private_key: 'a',
           public_key: 'b',
           enable: false,
@@ -367,13 +383,15 @@ RSpec.describe Application do
           'server' => {
             'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
             'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-            'address' => '10.8.0.1'
+            'address' => '10.8.0.1',
+            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:1'
           },
           'configs' => {
             'last_id' => 3,
             '1' => {
               'id' => 1,
               'address' => '10.8.0.200',
+              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:17',
               'private_key' => 'a',
               'public_key' => 'b',
               'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
@@ -386,6 +404,7 @@ RSpec.describe Application do
             '2' => {
               'id' => 2,
               'address' => '10.8.0.3',
+              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:3',
               'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
               'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
               'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
@@ -397,6 +416,7 @@ RSpec.describe Application do
             '3' => {
               'id' => 3,
               'address' => '10.8.0.4',
+              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:4',
               'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
               'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
               'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
@@ -417,6 +437,7 @@ RSpec.describe Application do
       let(:request_body) do
         {
           address: '10.8.0.200',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:17',
           private_key: 'a',
           public_key: 'b',
           enable: false,
@@ -444,7 +465,7 @@ RSpec.describe Application do
       let(:expected_body) do
         {
           'error' => "The property '#/' contains additional properties [\"addressss\"] " \
-                     'outside of the schema when none are allowed in schema a0249e95-4430-5ba7-b316-385655e47c48'
+                     'outside of the schema when none are allowed in schema e8138a17-adc5-55b2-86e9-a14058dbfce3'
         }
       end
 
@@ -490,13 +511,15 @@ RSpec.describe Application do
         'server' => {
           'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
           'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-          'address' => '10.8.0.1'
+          'address' => '10.8.0.1',
+          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:1'
         },
         'configs' => {
           'last_id' => 4,
           '1' => {
             'id' => 1,
             'address' => '10.8.0.2',
+            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:2',
             'private_key' => 'MJn6fwoyqG8S6wsrJzWrUow4leZuEM9O8s+G+kcXElU=',
             'public_key' => 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
             'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
@@ -508,6 +531,7 @@ RSpec.describe Application do
           '2' => {
             'id' => 2,
             'address' => '10.8.0.3',
+            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:3',
             'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
             'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
             'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
@@ -519,6 +543,7 @@ RSpec.describe Application do
           '3' => {
             'id' => 3,
             'address' => '10.8.0.4',
+            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:4',
             'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
             'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
             'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
@@ -530,6 +555,7 @@ RSpec.describe Application do
           '4' => {
             'id' => 4,
             'address' => '10.8.0.5',
+            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:5',
             'private_key' => 'wg_genkey',
             'public_key' => 'wg_pubkey',
             'preshared_key' => 'wg_genpsk',

@@ -6,7 +6,7 @@ RSpec.describe Clients::Validator do
   context 'when all parameters are valid' do
     let(:params) do
       {
-        'address' => 's',
+        'address' => '1.2.3.4',
         'private_key' => 'a',
         'public_key' => 'b',
         'preshared_key' => 'c',
@@ -33,7 +33,7 @@ RSpec.describe Clients::Validator do
   context 'when all parameters are valid but there are extra ones' do
     let(:params) do
       {
-        'address' => 's',
+        'address' => '1.2.3.4',
         'private_key' => 'a',
         'public_key' => 'b',
         'preshared_key' => 'c',
