@@ -1,6 +1,7 @@
 require:
-  - rubocop-rspec
   - rubocop-rake
+
+plugins: rubocop-rspec
 
 AllCops:
   NewCops: enable
