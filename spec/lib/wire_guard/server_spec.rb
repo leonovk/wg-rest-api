@@ -36,7 +36,8 @@ RSpec.describe WireGuard::Server do
           server: {
             private_key: 'wg_genkey',
             public_key: 'wg_pubkey',
-            address: '10.8.0.1'
+            address: '10.8.0.1',
+            address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:1'
           },
           configs: {
             last_id: 0

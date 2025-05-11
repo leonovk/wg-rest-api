@@ -11,8 +11,10 @@ module WireGuard
     WG_PRE_UP = Settings.wg_pre_up
     WG_PRE_DOWN = Settings.wg_pre_down
     WG_DEFAULT_ADDRESS = Settings.wg_default_address
+    WG_DEFAULT_ADDRESS_6 = Settings.wg_default_address_6
     WG_DEVICE = Settings.wg_device
     CONNECTING_CLIENT_LIMIT = Settings.connecting_client_limit
+    CONNECTING_CLIENT_LIMIT_6 = Settings.connecting_client_limit_6
     WG_POST_UP = Settings.wg_post_up
     WG_POST_DOWN = Settings.wg_post_down
 
@@ -64,28 +66,38 @@ module WireGuard
         [Peer]
         PublicKey = #{config['public_key']}
         PresharedKey = #{config['preshared_key']}
-        AllowedIPs = #{config['address']}/32
+        AllowedIPs = #{config['address']}/32, #{config['address_ipv6']}/128
       TEXT
     end
 
-    def wg_post_up
+    def wg_post_up # rubocop:disable Metrics/MethodLength
       return WG_POST_UP unless WG_POST_UP.nil?
 
       "iptables -t nat -A POSTROUTING -s #{WG_DEFAULT_ADDRESS.gsub('x', '0')}/#{CONNECTING_CLIENT_LIMIT} " \
         "-o #{WG_DEVICE} -j MASQUERADE; " \
         "iptables -A INPUT -p udp -m udp --dport #{WG_PORT} -j ACCEPT; " \
         'iptables -A FORWARD -i wg0 -j ACCEPT; ' \
-        'iptables -A FORWARD -o wg0 -j ACCEPT;'
+        'iptables -A FORWARD -o wg0 -j ACCEPT;' \
+        "ip6tables -t nat -A POSTROUTING -s #{WG_DEFAULT_ADDRESS_6.gsub('x', '0')}/#{CONNECTING_CLIENT_LIMIT_6} " \
+        "-o #{WG_DEVICE} -j MASQUERADE; " \
+        "ip6tables -A INPUT -p udp -m udp --dport #{WG_PORT} -j ACCEPT; " \
+        'ip6tables -A FORWARD -i wg0 -j ACCEPT; ' \
+        'ip6tables -A FORWARD -o wg0 -j ACCEPT;' \
     end
 
-    def wg_post_down
+    def wg_post_down # rubocop:disable Metrics/MethodLength
       return WG_POST_DOWN unless WG_POST_DOWN.nil?
 
       "iptables -t nat -D POSTROUTING -s #{WG_DEFAULT_ADDRESS.gsub('x', '0')}/#{CONNECTING_CLIENT_LIMIT} " \
         "-o #{WG_DEVICE} -j MASQUERADE; " \
         "iptables -D INPUT -p udp -m udp --dport #{WG_PORT} -j ACCEPT; " \
         'iptables -D FORWARD -i wg0 -j ACCEPT; ' \
-        'iptables -D FORWARD -o wg0 -j ACCEPT;'
+        'iptables -D FORWARD -o wg0 -j ACCEPT;' \
+        "ip6tables -t nat -D POSTROUTING -s #{WG_DEFAULT_ADDRESS_6.gsub('x', '0')}/#{CONNECTING_CLIENT_LIMIT_6} " \
+        "-o #{WG_DEVICE} -j MASQUERADE; " \
+        "ip6tables -D INPUT -p udp -m udp --dport #{WG_PORT} -j ACCEPT; " \
+        'ip6tables -D FORWARD -i wg0 -j ACCEPT; ' \
+        'ip6tables -D FORWARD -o wg0 -j ACCEPT;'
     end
 
     def base_config
@@ -96,7 +108,7 @@ module WireGuard
         # Server
         [Interface]
         PrivateKey = #{json_config['server']['private_key']}
-        Address = #{json_config['server']['address']}/#{CONNECTING_CLIENT_LIMIT}
+        Address = #{json_config['server']['address']}/#{CONNECTING_CLIENT_LIMIT}, #{json_config['server']['address_ipv6']}/#{CONNECTING_CLIENT_LIMIT_6}
         ListenPort = #{WG_PORT}
         PreUp = #{WG_PRE_UP}
         PostUp = #{wg_post_up}
