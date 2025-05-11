@@ -9,6 +9,7 @@ module Clients
       'type' => 'object',
       'properties' => {
         'address' => { 'type' => 'string' },
+        'address_ipv6' => { 'type' => 'string' },
         'private_key' => { 'type' => 'string' },
         'public_key' => { 'type' => 'string' },
         'preshared_key' => { 'type' => 'string' },
