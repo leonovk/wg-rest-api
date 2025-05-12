@@ -17,4 +17,14 @@ elsif env == 'production'
   system('wg-quick up wg0') if File.exist?(conf)
 end
 
+if File.exist?("#{Settings.wg_path}/wg-rest-api-db.sqlite3")
+  require_relative 'db' # rubocop:disable Style/IdenticalConditionalBranches
+else
+  # NOTE: Very important: `require_relative 'db'` creates a file with an empty database if it does not exist
+  # Therefore, if the file did not exist initially and we have created it now,
+  # only in this case we roll out the data scheme.
+  require_relative 'db' # rubocop:disable Style/IdenticalConditionalBranches
+  require_relative 'schema'
+end
+
 require_relative 'application'
