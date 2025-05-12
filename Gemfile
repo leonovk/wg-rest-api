@@ -14,9 +14,11 @@ gem 'rake', '~> 13.2', '>= 13.2.1'
 gem 'rqrcode', '~> 3.1'
 gem 'ruby-units', '~> 4.1'
 gem 'rubyzip', '~> 2.4'
+gem 'sequel', '~> 5.92'
 gem 'simple_monads', '~> 1.0'
 gem 'sinatra', '~> 4.1'
 gem 'sinatra-contrib', '~> 4.1'
+gem 'sqlite3', '~> 2.6'
 
 # NOTE: These gems are here and not in dev mode, for access to the console
 gem 'byebug', '~> 12.0'
