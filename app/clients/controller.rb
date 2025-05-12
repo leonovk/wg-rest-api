@@ -8,7 +8,7 @@ module Clients
     end
 
     def index
-      Serializer.each_serialize(wire_guard.all_configs, wire_guard.server_public_key)
+      Serializer.each_serialize(wire_guard.configs, wire_guard.server_public_key)
     end
 
     def create(params)

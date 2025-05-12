@@ -4,120 +4,88 @@ module WireGuard
   # Main class for WireGuard server management
   # Allows you to manage configuration files on the server
   class Server
-    WG_JSON_PATH = "#{Settings.wg_path}/wg0.json".freeze
     WG_DEFAULT_ADDRESS = Settings.wg_default_address.gsub('x', '1')
     WG_DEFAULT_ADDRESS_6 = Settings.wg_default_address_6.gsub('x', '1')
 
-    attr_reader :server_private_key, :server_public_key, :json_config
+    attr_reader :server_private_key, :server_public_key, :server_config, :configs
 
     def initialize
-      initialize_json_config
+      initialize_server_config
     end
 
     def new_config(params)
-      config = build_new_config(json_config['configs'], params)
+      config = build_new_config(configs, params)
 
-      update_json_config(config)
-      dump_json_config(json_config)
+      config[:id] = DB::CONNECTOR[:client_configs].insert(config)
+
       dump_wireguard_config
 
       config
     end
 
-    def all_configs
-      return {} if configs_empty?
-
-      # TODO: Remove 'last_address' in future versions
-      @configs.except('last_id', 'last_address')
-    end
-
     def config(id)
       configs_empty_validation!
 
-      @configs[id] or raise Errors::ConfigNotFoundError
+      DB::CONNECTOR[:client_configs].where(id: id).first or raise Errors::ConfigNotFoundError
     end
 
     def delete_config(id)
       configs_empty_validation!
 
-      result = json_config['configs'].delete(id)
+      result = DB::CONNECTOR[:client_configs].where(id: id).delete
 
-      raise Errors::ConfigNotFoundError if result.nil?
+      raise Errors::ConfigNotFoundError if result.zero?
 
-      dump_json_config(json_config)
       dump_wireguard_config
     end
 
-    def update_config(id, config_params) # rubocop:disable Metrics/AbcSize
+    def update_config(id, config_params)
       configs_empty_validation!
-      config_address_validation!(id, config_params)
 
-      updated_config = json_config['configs'][id]
+      updatable_config = DB::CONNECTOR[:client_configs].where(id: id).first
 
-      raise Errors::ConfigNotFoundError if updated_config.nil?
+      raise Errors::ConfigNotFoundError if updatable_config.nil?
 
-      json_config['configs'][id] = merge_config(updated_config, config_params)
+      updated_config = merge_config(updatable_config, config_params.transform_keys(&:to_sym))
 
-      dump_json_config(json_config)
+      DB::CONNECTOR[:client_configs].where(id: id).update(updated_config)
       dump_wireguard_config
 
-      json_config['configs'][id]
+      updated_config
     end
 
     private
 
-    attr_reader :configs
-
-    def initialize_json_config
-      FileUtils.mkdir_p(Settings.wg_path)
-
-      if File.exist?(WG_JSON_PATH)
-        initialize_data
-      else
+    def initialize_server_config
+      if DB::CONNECTOR[:server_configs].order(Sequel.desc(:id)).first.nil?
         generate_server_private_key
         generate_server_public_key
         create_json_server_config
+      else
+        initialize_data
       end
     end
 
     def initialize_data
-      @json_config = JSON.parse(File.read(WG_JSON_PATH))
-      @server_private_key = @json_config['server']['private_key']
-      @server_public_key = @json_config['server']['public_key']
-      @configs = @json_config['configs']
+      @server_config = DB::CONNECTOR[:server_configs].order(Sequel.desc(:id)).first
+      @server_private_key = @server_config[:private_key]
+      @server_public_key = @server_config[:public_key]
+      @configs = DB::CONNECTOR[:client_configs].all
     end
 
-    def create_json_server_config # rubocop:disable Metrics/MethodLength
-      json_config = {
-        server: {
-          private_key: @server_private_key,
-          public_key: @server_public_key,
-          address: WG_DEFAULT_ADDRESS,
-          address_ipv6: WG_DEFAULT_ADDRESS_6
-        },
-        configs: {
-          last_id: 0
-        }
-      }
+    def create_json_server_config
+      DB::CONNECTOR[:server_configs].insert(
+        private_key: @server_private_key,
+        public_key: @server_public_key,
+        address: WG_DEFAULT_ADDRESS,
+        address_ipv6: WG_DEFAULT_ADDRESS_6
+      )
 
-      dump_json_config(json_config)
-      # NOTE: Сreate their hash above a new Jason file
-      # and read the result and write it to an instant variable.
-      # So as not to turn all the keys into strings.
-      @json_config = JSON.parse(File.read(WG_JSON_PATH))
-    end
-
-    def dump_json_config(config)
-      File.write(WG_JSON_PATH, JSON.pretty_generate(config))
+      @server_config = DB::CONNECTOR[:server_configs].order(Sequel.desc(:id)).first
     end
 
     def dump_wireguard_config
       ServerConfigUpdater.update
-    end
-
-    def update_json_config(config)
-      json_config['configs'][config[:id].to_s] = config
-      json_config['configs']['last_id'] = config[:id]
     end
 
     def generate_server_private_key
@@ -129,27 +97,19 @@ module WireGuard
     end
 
     def configs_empty_validation!
-      raise Errors::ConfigNotFoundError if configs_empty?
-    end
-
-    def config_address_validation!(current_id, config_params)
-      configs.except('last_id', 'last_address').each do |id, config|
-        raise Errors::AddressAlreadyTakenError if id != current_id and config_params['address'] == config['address']
-      end
-    end
-
-    def configs_empty?
-      @configs.nil? or json_config['configs']['last_id'].zero?
+      raise Errors::ConfigNotFoundError if configs.empty?
     end
 
     def build_new_config(configs, params)
       ClientConfigBuilder.new(configs, params).config
     end
 
-    def merge_config(updated_config, config_params)
-      config = updated_config.merge(config_params)
-      if !config_params['data'].nil? && config_params['data'].any?
-        config['data'] = updated_config['data'].merge(config_params['data'])
+    def merge_config(updatable_config, config_params)
+      updatable_config[:data] = JSON.parse(updatable_config[:data])
+      config = updatable_config.merge(config_params)
+
+      if !config_params[:data].nil? && config_params[:data].any?
+        config[:data] = updatable_config[:data].merge(config_params[:data]).to_json
       end
 
       config

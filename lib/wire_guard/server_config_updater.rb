@@ -19,7 +19,8 @@ module WireGuard
     WG_POST_DOWN = Settings.wg_post_down
 
     def initialize
-      @json_config = JSON.parse(File.read(WireGuard::Server::WG_JSON_PATH))
+      @server_config = DB::CONNECTOR[:server_configs].order(Sequel.desc(:id)).first
+      @client_configs = DB::CONNECTOR[:client_configs].all
       @first_start = !File.exist?(WG_CONF_PATH)
     end
 
@@ -31,11 +32,10 @@ module WireGuard
       new_config_build = []
       new_config_build << base_config
 
-      # TODO: Remove 'last_address' in future versions
-      json_config['configs'].except('last_id', 'last_address').each_value do |config|
+      client_configs.each do |config|
         # NOTE: We simply skip the config and do not add it to the initial configuration,
         # if the 'enable == false'
-        next if config['enable'] == false
+        next if config[:enable] == false
 
         new_config_build << build_client(config)
       end
@@ -46,7 +46,7 @@ module WireGuard
 
     private
 
-    attr_reader :json_config, :first_start
+    attr_reader :server_config, :first_start, :client_configs
 
     def start_server
       if first_start
@@ -62,11 +62,11 @@ module WireGuard
 
     def build_client(config)
       <<~TEXT
-        # Client ID: #{config['id']}
+        # Client ID: #{config[:id]}
         [Peer]
-        PublicKey = #{config['public_key']}
-        PresharedKey = #{config['preshared_key']}
-        AllowedIPs = #{config['address']}/32, #{config['address_ipv6']}/128
+        PublicKey = #{config[:public_key]}
+        PresharedKey = #{config[:preshared_key]}
+        AllowedIPs = #{config[:address]}/32, #{config[:address_ipv6]}/128
       TEXT
     end
 
@@ -107,8 +107,8 @@ module WireGuard
 
         # Server
         [Interface]
-        PrivateKey = #{json_config['server']['private_key']}
-        Address = #{json_config['server']['address']}/#{CONNECTING_CLIENT_LIMIT}, #{json_config['server']['address_ipv6']}/#{CONNECTING_CLIENT_LIMIT_6}
+        PrivateKey = #{server_config[:private_key]}
+        Address = #{server_config[:address]}/#{CONNECTING_CLIENT_LIMIT}, #{server_config[:address_ipv6]}/#{CONNECTING_CLIENT_LIMIT_6}
         ListenPort = #{WG_PORT}
         PreUp = #{WG_PRE_UP}
         PostUp = #{wg_post_up}
