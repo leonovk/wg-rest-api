@@ -19,14 +19,6 @@ end
 
 FileUtils.mkdir_p(Settings.wg_path)
 
-if File.exist?("#{Settings.wg_path}/#{Settings.db_name}.sqlite3")
-  require_relative 'db' # rubocop:disable Style/IdenticalConditionalBranches
-else
-  # NOTE: Very important: `require_relative 'db'` creates a file with an empty database if it does not exist
-  # Therefore, if the file did not exist initially and we have created it now,
-  # only in this case we roll out the data scheme.
-  require_relative 'db' # rubocop:disable Style/IdenticalConditionalBranches
-  require_relative 'schema'
-end
-
 require_relative 'application'
+
+require_relative 'schema' unless File.exist?("#{Settings.wg_path}/#{Settings.db_name}.sqlite3")

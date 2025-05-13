@@ -9,6 +9,16 @@ require 'simplecov'
 
 SimpleCov.start
 
+if File.exist?("#{Settings.wg_path}/#{Settings.db_name}.sqlite3")
+  require_relative '../config/db' # rubocop:disable Style/IdenticalConditionalBranches
+else
+  # NOTE: Very important: `require_relative 'db'` creates a file with an empty database if it does not exist
+  # Therefore, if the file did not exist initially and we have created it now,
+  # only in this case we roll out the data scheme.
+  require_relative '../config/db' # rubocop:disable Style/IdenticalConditionalBranches
+  require_relative '../config/schema'
+end
+
 require_relative '../config/application'
 
 def sentry?

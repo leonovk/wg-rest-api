@@ -3,51 +3,36 @@
 module WireGuard
   # Class for obtaining statistics on traffic and last online clients
   class ServerStat
-    WG_STAT_PATH = "#{Settings.wg_path}/wg0_stat.json".freeze
-
-    attr_reader :wg_stat
-
     def initialize
-      @last_stat_data = initialize_last_stat_data
+      @rep = WireGuard::Repository.new
+      @last_stat_data = rep.client_stats
       @new_stat_data = StatParser.new.parse
-      @wg_stat = aggregate_data
-      dump_stat(@wg_stat)
+      aggregate_data
     end
 
     def show(peer)
-      return {} if wg_stat.empty?
+      client_stat = find_client_stat_by_public_key(peer)
+      return {} if client_stat.nil?
 
-      wg_stat[peer]
+      client_stat
     end
 
     private
 
-    attr_reader :last_stat_data, :new_stat_data, :last_peer
+    attr_reader :last_stat_data, :new_stat_data, :last_peer, :rep
 
-    def initialize_last_stat_data
-      FileUtils.mkdir_p(Settings.wg_path)
-
-      if File.exist?(WG_STAT_PATH)
-        JSON.parse(File.read(WG_STAT_PATH))
-      else
-        {}
-      end
-    end
-
-    def aggregate_data
+    def aggregate_data # rubocop:disable Metrics/AbcSize
       new_stat_data.each do |peer, new_data|
-        last_data = last_stat_data[peer]
+        last_data = last_stat_data.find { |data| data[:public_key] == peer }
 
-        # NOTE: Write only if there is no latest data or if there is new data.
-        # New data will always have at least an empty hash.
-        last_stat_data[peer] = new_data if (last_data.nil? || last_data.empty?) || !new_data.empty?
+        next unless (last_data.nil? || last_data.empty?) || !new_data.empty?
+
+        rep.update_client_stat_by_public_key(peer, {
+                                               last_online: new_data[:last_online],
+                                               received: new_data[:traffic][:received],
+                                               sent: new_data[:traffic][:sent]
+                                             })
       end
-
-      last_stat_data
-    end
-
-    def dump_stat(wg_stat)
-      File.write(WG_STAT_PATH, JSON.pretty_generate(wg_stat))
     end
   end
 end
