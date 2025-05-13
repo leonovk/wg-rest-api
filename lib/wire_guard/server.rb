@@ -7,7 +7,7 @@ module WireGuard
     WG_DEFAULT_ADDRESS = Settings.wg_default_address.gsub('x', '1')
     WG_DEFAULT_ADDRESS_6 = Settings.wg_default_address_6.gsub('x', '1')
 
-    attr_reader :server_private_key, :server_public_key, :server_config, :configs
+    attr_reader :server_private_key, :server_public_key, :server_config
 
     def initialize
       @rep = WireGuard::Repository.new
@@ -56,6 +56,10 @@ module WireGuard
       updated_config
     end
 
+    def configs
+      rep.all_client_configs
+    end
+
     private
 
     attr_reader :rep
@@ -74,7 +78,6 @@ module WireGuard
       @server_config = rep.last_server_config
       @server_private_key = @server_config[:private_key]
       @server_public_key = @server_config[:public_key]
-      @configs = rep.all_client_configs
     end
 
     def create_server_config

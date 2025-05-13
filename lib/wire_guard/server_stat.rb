@@ -11,7 +11,7 @@ module WireGuard
     end
 
     def show(peer)
-      client_stat = find_client_stat_by_public_key(peer)
+      client_stat = rep.find_client_stat_by_public_key(peer)
       return {} if client_stat.nil?
 
       client_stat

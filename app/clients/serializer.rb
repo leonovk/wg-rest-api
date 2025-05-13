@@ -56,7 +56,7 @@ module Clients
     attr_reader :client_config, :server_public_key, :server_stat
 
     def find_stat_data(public_key)
-      server_stat.show[public_key]
+      server_stat.show(public_key)
     end
 
     def traffic(public_key)
