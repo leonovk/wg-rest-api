@@ -6,6 +6,8 @@ module WireGuard
   # This class updates the config file of the server itself and not the clients.
   # And it is needed mainly to reboot the server after adding new clients (or deleting them)
   class ServerConfigUpdater
+    include Repository
+
     WG_CONF_PATH = "#{Settings.wg_path}/wg0.conf".freeze
     WG_PORT = Settings.wg_port
     WG_PRE_UP = Settings.wg_pre_up
@@ -19,8 +21,7 @@ module WireGuard
     WG_POST_DOWN = Settings.wg_post_down
 
     def initialize
-      @server_config = DB.last_server_config
-      @client_configs = DB::CONNECTOR[:client_configs].all
+      @server_config = last_server_config
       @first_start = !File.exist?(WG_CONF_PATH)
     end
 
@@ -32,7 +33,7 @@ module WireGuard
       new_config_build = []
       new_config_build << base_config
 
-      client_configs.each do |config|
+      all_client_configs.each do |config|
         # NOTE: We simply skip the config and do not add it to the initial configuration,
         # if the 'enable == false'
         next if config[:enable] == false
@@ -46,7 +47,7 @@ module WireGuard
 
     private
 
-    attr_reader :server_config, :first_start, :client_configs
+    attr_reader :server_config, :first_start
 
     def start_server
       if first_start
