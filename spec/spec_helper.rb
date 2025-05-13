@@ -9,23 +9,18 @@ require 'simplecov'
 
 SimpleCov.start
 
-if File.exist?("#{Settings.wg_path}/#{Settings.db_name}.sqlite3")
-  require_relative '../config/db' # rubocop:disable Style/IdenticalConditionalBranches
-else
-  # NOTE: Very important: `require_relative 'db'` creates a file with an empty database if it does not exist
-  # Therefore, if the file did not exist initially and we have created it now,
-  # only in this case we roll out the data scheme.
-  require_relative '../config/db' # rubocop:disable Style/IdenticalConditionalBranches
-  require_relative '../config/schema'
-end
-
 require_relative '../config/application'
+
+require_relative '../config/schema' unless File.exist?("#{Settings.wg_path}/#{Settings.db_name}.sqlite3")
 
 def sentry?
   false
 end
 
 require_relative '../app'
+require_relative 'factories/base_factory'
+require_relative 'factories/server_config'
+require_relative 'factories/client_config'
 
 require 'super_diff/rspec'
 require 'rack/test'
@@ -43,11 +38,12 @@ RSpec.configure do |config|
   end
 end
 
-def create_conf_file(from, wg_conf_path = "#{Settings.wg_path}/wg0.json")
-  FileUtils.mkdir_p(Settings.wg_path)
-  FileUtils.cp(from, wg_conf_path)
+def clear_all_tables
+  rep = WireGuard::Repository.new
+
+  %i[server_configs client_configs client_stats client_events].each do |table|
+    rep.connection[table].delete
+  end
 end
 
-def stringify_keys(data)
-  data.is_a?(Hash) ? data.to_h { |k, v| [k.to_s, stringify_keys(v)] } : data
-end
+clear_all_tables

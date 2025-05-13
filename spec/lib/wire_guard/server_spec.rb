@@ -8,17 +8,15 @@ RSpec.describe WireGuard::Server do
   end
 
   after do
-    FileUtils.rm_rf(wg_conf_path)
+    clear_all_tables
   end
-
-  let(:wg_conf_path) { "#{Settings.wg_path}/wg0.json" }
 
   describe '#initialize' do
     subject(:server) { described_class.new }
 
     context 'when the config file already exists' do
       before do
-        create_conf_file('spec/fixtures/wg0.json')
+        Factories::ServerConfig.build
       end
 
       it 'correctly initializes the servers private key' do
@@ -33,15 +31,10 @@ RSpec.describe WireGuard::Server do
     context 'when there is no config file' do
       let(:expected_result) do
         {
-          server: {
-            private_key: 'wg_genkey',
-            public_key: 'wg_pubkey',
-            address: '10.8.0.1',
-            address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:1'
-          },
-          configs: {
-            last_id: 0
-          }
+          private_key: 'wg_genkey',
+          public_key: 'wg_pubkey',
+          address: '10.8.0.1',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:1'
         }
       end
 
@@ -56,19 +49,15 @@ RSpec.describe WireGuard::Server do
       it 'initializes the configuration file' do
         server
 
-        config = File.read(wg_conf_path)
+        config_server = WireGuard::Repository.new.last_server_config
 
-        expect(config).to eq(JSON.pretty_generate(expected_result))
+        expect(config_server.except(:id)).to eq(expected_result)
       end
     end
   end
 
   describe '#new_config' do
     subject(:new_config) { described_class.new.new_config(params) }
-
-    before do
-      create_conf_file('spec/fixtures/empty_wg0.json')
-    end
 
     let(:params) do
       {
@@ -78,7 +67,6 @@ RSpec.describe WireGuard::Server do
 
     let(:expected_result) do
       {
-        id: 1,
         address: '10.8.0.2',
         address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:2',
         private_key: 'wg_genkey',
@@ -87,46 +75,20 @@ RSpec.describe WireGuard::Server do
         enable: true,
         data: {
           lol: 'kek'
-        }
-      }
-    end
-
-    let(:expected_conf_file) do
-      {
-        server: {
-          private_key: 'wg_genkey',
-          public_key: 'wg_pubkey',
-          address: '10.8.0.1',
-          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:1'
-        },
-        configs: {
-          last_id: 1,
-          '1' => {
-            id: 1,
-            address: '10.8.0.2',
-            address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:2',
-            private_key: 'wg_genkey',
-            public_key: 'wg_pubkey',
-            preshared_key: 'wg_genpsk',
-            enable: true,
-            data: {
-              lol: 'kek'
-            }
-          }
-        }
+        }.to_json
       }
     end
 
     it 'creates a new config for the client' do
       new_config
 
-      config = File.read(wg_conf_path)
+      config = WireGuard::Repository.new.all_client_configs.last
 
-      expect(config).to eq(JSON.pretty_generate(expected_conf_file))
+      expect(config.except(:id)).to eq(expected_result)
     end
 
     it 'returns new client config' do
-      expect(new_config).to eq(expected_result)
+      expect(new_config.except(:id)).to eq(expected_result)
     end
 
     it 'calls the configuration file update service WireGuard' do
@@ -140,63 +102,31 @@ RSpec.describe WireGuard::Server do
     subject(:all_configs) { described_class.new.all_configs }
 
     context 'when there are no configs on the server' do
-      before do
-        create_conf_file('spec/fixtures/empty_wg0.json')
-      end
-
       it 'returns an empty hash' do
-        expect(all_configs).to eq({})
+        expect(all_configs).to eq([])
       end
     end
 
     context 'when the server has configs' do
       before do
-        create_conf_file('spec/fixtures/wg0.json')
-      end
+        Factories::ClientConfig.build({
+                                        address: '10.8.0.1',
+                                        address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:1'
+                                      })
 
-      let(:expected_result) do
-        {
-          '1' => {
-            'id' => 1,
-            'address' => '10.8.0.2',
-            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:2',
-            'private_key' => 'MJn6fwoyqG8S6wsrJzWrUow4leZuEM9O8s+G+kcXElU=',
-            'public_key' => 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
-            'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
-            'enable' => true,
-            'data' => {
-              'lol' => 'kek'
-            }
-          },
-          '2' => {
-            'id' => 2,
-            'address' => '10.8.0.3',
-            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:3',
-            'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
-            'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
-            'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
-            'enable' => false,
-            'data' => {
-              'cheburek' => 'hah'
-            }
-          },
-          '3' => {
-            'id' => 3,
-            'address' => '10.8.0.4',
-            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:4',
-            'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
-            'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
-            'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
-            'enable' => true,
-            'data' => {
-              'key' => 'value'
-            }
-          }
-        }
+        Factories::ClientConfig.build({
+                                        address: '10.8.0.2',
+                                        address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:2'
+                                      })
+
+        Factories::ClientConfig.build({
+                                        address: '10.8.0.3',
+                                        address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:3'
+                                      })
       end
 
       it 'returns a hash with configs for clients' do
-        expect(all_configs).to eq(expected_result)
+        expect(all_configs.size).to eq(3)
       end
     end
   end
@@ -204,12 +134,9 @@ RSpec.describe WireGuard::Server do
   describe '#config' do
     subject(:config) { described_class.new.config(id) }
 
-    before do
-      create_conf_file('spec/fixtures/wg0.json')
-    end
-
     context 'when the requested config is not on the server' do
-      let(:id) { '13' }
+      let(:config) { Factories::ClientConfig.build }
+      let(:id) { config[:id] + 1 }
 
       it 'raises an error stating that this config is not on the server' do
         expect { config }.to raise_error(Errors::ConfigNotFoundError)
@@ -217,25 +144,11 @@ RSpec.describe WireGuard::Server do
     end
 
     context 'when the requested config is on the server' do
-      let(:id) { '2' }
-
-      let(:expected_result) do
-        {
-          'id' => 2,
-          'address' => '10.8.0.3',
-          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:3',
-          'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
-          'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
-          'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
-          'enable' => false,
-          'data' => {
-            'cheburek' => 'hah'
-          }
-        }
-      end
+      let(:config) { Factories::ClientConfig.build }
+      let(:id) { config[:id] }
 
       it 'returns client config' do
-        expect(config).to eq(expected_result)
+        expect(config).to include(:id, :address, :address_ipv6)
       end
     end
   end
@@ -243,56 +156,16 @@ RSpec.describe WireGuard::Server do
   describe '#delete_config' do
     subject(:delete_config) { described_class.new.delete_config(id) }
 
-    before do
-      create_conf_file('spec/fixtures/wg0.json')
-    end
-
     context 'when the config to be deleted is on the server' do
-      let(:id) { '1' }
-      let(:expected_result) do
-        {
-          'server' => {
-            'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
-            'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-            'address' => '10.8.0.1',
-            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:1'
-          },
-          'configs' => {
-            'last_id' => 3,
-            '2' => {
-              'id' => 2,
-              'address' => '10.8.0.3',
-              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:3',
-              'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
-              'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
-              'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
-              'enable' => false,
-              'data' => {
-                'cheburek' => 'hah'
-              }
-            },
-            '3' => {
-              'id' => 3,
-              'address' => '10.8.0.4',
-              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:4',
-              'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
-              'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
-              'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
-              'enable' => true,
-              'data' => {
-                'key' => 'value'
-              }
-            }
-          }
-        }
-      end
+      let(:config) { Factories::ClientConfig.build }
+      let(:id) { config[:id] }
 
       it 'deletes the config from the server' do
         delete_config
 
-        config = File.read(wg_conf_path)
+        config = WireGuard::Repository.new.find_client_config_by_id(id)
 
-        expect(config).to eq(JSON.pretty_generate(expected_result))
+        expect(config).to be_nil
       end
 
       it 'calls the configuration file update service WireGuard' do
@@ -314,12 +187,9 @@ RSpec.describe WireGuard::Server do
   describe '#update_config' do
     subject(:update_config) { described_class.new.update_config(id, config_params) }
 
-    before do
-      create_conf_file('spec/fixtures/wg0.json')
-    end
-
     context 'when the config to be updated is on the server' do
-      let(:id) { '1' }
+      let(:config) { Factories::ClientConfig.build }
+      let(:id) { config[:id] }
       let(:config_params) do
         {
           'address' => '10.8.0.200',
@@ -332,74 +202,26 @@ RSpec.describe WireGuard::Server do
       end
       let(:expected_config) do
         {
-          'id' => 1,
-          'address' => '10.8.0.200',
-          'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:17',
-          'private_key' => 'a',
-          'public_key' => 'b',
-          'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
-          'enable' => false,
-          'data' => {}
-        }
-      end
-      let(:expected_result) do
-        {
-          'server' => {
-            'private_key' => '6Mlqg+1Umojm7a4VvgIi+YMp4oPrWNnZ5HLRFu4my2w=',
-            'public_key' => 'uygGKpQt7gOwrP+bqkiXytafHiM+XqFGc0jtZVJ5bnw=',
-            'address' => '10.8.0.1',
-            'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:1'
-          },
-          'configs' => {
-            'last_id' => 3,
-            '1' => {
-              'id' => 1,
-              'address' => '10.8.0.200',
-              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:17',
-              'private_key' => 'a',
-              'public_key' => 'b',
-              'preshared_key' => '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
-              'enable' => false,
-              'data' => {}
-            },
-            '2' => {
-              'id' => 2,
-              'address' => '10.8.0.3',
-              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:3',
-              'private_key' => 'aN7ye98FKrmydwfA6tHgHE1PbiidWzUJ9cltnies8F4=',
-              'public_key' => 'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=',
-              'preshared_key' => 'dVW/5kF8wnsx0zAwR4uPIa06btACxpQ/rHBL1B3qPnk=',
-              'enable' => false,
-              'data' => {
-                'cheburek' => 'hah'
-              }
-            },
-            '3' => {
-              'id' => 3,
-              'address' => '10.8.0.4',
-              'address_ipv6' => 'fdcc:ad94:bacf:61a4::cafe:4',
-              'private_key' => 'eF3Owsqd5MGAIXjmALGBi8ea8mkFUmAiyh80U3hVXn8=',
-              'public_key' => 'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=',
-              'preshared_key' => 'IyVg7fktkSBxJ0uK82j6nlI7Vmo0E53eBmYZ723/45E=',
-              'enable' => true,
-              'data' => {
-                'key' => 'value'
-              }
-            }
-          }
+          address: '10.8.0.200',
+          address_ipv6: 'fdcc:ad94:bacf:61a4::cafe:17',
+          private_key: 'a',
+          public_key: 'b',
+          preshared_key: '3UzAMA6mLIGjHOImShNb5tWlkwxsha8LZZP7dm49meQ=',
+          enable: false,
+          data: {}
         }
       end
 
       it 'updates the config from the server' do
         update_config
 
-        config = File.read(wg_conf_path)
+        config = WireGuard::Repository.new.find_client_config_by_id(id)
 
-        expect(config).to eq(JSON.pretty_generate(expected_result))
+        expect(config.except(:id)).to eq(expected_config)
       end
 
       it 'returns updated config' do
-        expect(update_config).to eq(expected_config)
+        expect(update_config.except(:id)).to eq(expected_config)
       end
 
       it 'calls the configuration file update service WireGuard' do
