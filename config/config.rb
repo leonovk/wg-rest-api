@@ -17,4 +17,8 @@ elsif env == 'production'
   system('wg-quick up wg0') if File.exist?(conf)
 end
 
+FileUtils.mkdir_p(Settings.wg_path)
+
 require_relative 'application'
+
+require_relative 'schema' unless File.exist?("#{Settings.wg_path}/#{Settings.db_name}.sqlite3")

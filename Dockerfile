@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . .
 
 RUN apk update \
-    && apk --no-cache --update add build-base 
+    && apk --no-cache --update add build-base sqlite-dev
 
 # Install Linux packages
 RUN apk add --no-cache \
