@@ -26,7 +26,7 @@ module WireGuard
     def config(id)
       configs_empty_validation!
 
-      DB::CONNECTOR[:client_configs].where(id: id).first or raise Errors::ConfigNotFoundError
+      DB.find_client_config_by_id(id) or raise Errors::ConfigNotFoundError
     end
 
     def delete_config(id)
@@ -42,7 +42,7 @@ module WireGuard
     def update_config(id, config_params)
       configs_empty_validation!
 
-      updatable_config = DB::CONNECTOR[:client_configs].where(id: id).first
+      updatable_config = DB.find_client_config_by_id(id)
 
       raise Errors::ConfigNotFoundError if updatable_config.nil?
 
@@ -57,23 +57,23 @@ module WireGuard
     private
 
     def initialize_server_config
-      if DB::CONNECTOR[:server_configs].order(Sequel.desc(:id)).first.nil?
+      if DB.last_server_config.nil?
         generate_server_private_key
         generate_server_public_key
-        create_json_server_config
+        create_server_config
       else
         initialize_data
       end
     end
 
     def initialize_data
-      @server_config = DB::CONNECTOR[:server_configs].order(Sequel.desc(:id)).first
+      @server_config = DB.last_server_config
       @server_private_key = @server_config[:private_key]
       @server_public_key = @server_config[:public_key]
       @configs = DB::CONNECTOR[:client_configs].all
     end
 
-    def create_json_server_config
+    def create_server_config
       DB::CONNECTOR[:server_configs].insert(
         private_key: @server_private_key,
         public_key: @server_public_key,
@@ -81,7 +81,7 @@ module WireGuard
         address_ipv6: WG_DEFAULT_ADDRESS_6
       )
 
-      @server_config = DB::CONNECTOR[:server_configs].order(Sequel.desc(:id)).first
+      @server_config = DB.last_server_config
     end
 
     def dump_wireguard_config

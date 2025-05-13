@@ -19,7 +19,7 @@ end
 
 FileUtils.mkdir_p(Settings.wg_path)
 
-if File.exist?("#{Settings.wg_path}/wg-rest-api-db.sqlite3")
+if File.exist?("#{Settings.wg_path}/#{Settings.db_name}.sqlite3")
   require_relative 'db' # rubocop:disable Style/IdenticalConditionalBranches
 else
   # NOTE: Very important: `require_relative 'db'` creates a file with an empty database if it does not exist

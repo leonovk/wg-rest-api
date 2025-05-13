@@ -1,3 +1,4 @@
+db_name: 'wg-rest-api-db'
 wg_path: <%= ENV['WG_PATH'] || 'etc' %>
 wg_device: <%= ENV['WG_DEVICE'] || 'eth0' %>
 wg_default_address: <%= ENV['WG_DEFAULT_ADDRESS'] || '10.8.0.x' %>

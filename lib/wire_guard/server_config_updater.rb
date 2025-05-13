@@ -19,7 +19,7 @@ module WireGuard
     WG_POST_DOWN = Settings.wg_post_down
 
     def initialize
-      @server_config = DB::CONNECTOR[:server_configs].order(Sequel.desc(:id)).first
+      @server_config = DB.last_server_config
       @client_configs = DB::CONNECTOR[:client_configs].all
       @first_start = !File.exist?(WG_CONF_PATH)
     end
