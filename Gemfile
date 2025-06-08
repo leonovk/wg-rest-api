@@ -10,7 +10,7 @@ gem 'ipaddr', '~> 1.2'
 gem 'json-schema', '~> 5.1'
 gem 'puma', '~> 6.6'
 gem 'rainbow', '~> 3.1', '>= 3.1.1'
-gem 'rake', '~> 13.2', '>= 13.2.1'
+gem 'rake', '~> 13.3'
 gem 'rqrcode', '~> 3.1'
 gem 'ruby-units', '~> 4.1'
 gem 'rubyzip', '~> 2.4'
@@ -27,7 +27,7 @@ gem 'pry-byebug', '~> 3.10', '>= 3.10.1'
 group :development do
   gem 'dotenv', '~> 3.1'
   gem 'rubocop', '~> 1.75'
-  gem 'rubocop-rake', '~> 0.6.0'
+  gem 'rubocop-rake', '~> 0.7.1'
   gem 'rubocop-rspec', '~> 3.6'
   gem 'super_diff', '~> 0.15.0'
 end
@@ -50,6 +50,6 @@ end
 # The average user does not need them.
 # And they start working only if there is a special setting
 group :production do
-  gem 'sentry-ruby', '~> 5.23'
+  gem 'sentry-ruby', '~> 5.24'
   gem 'stackprof', '~> 0.2.27'
 end

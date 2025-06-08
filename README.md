@@ -12,6 +12,7 @@
 * List, create, edit, delete, enable & disable clients.
 * Statistics for which clients are connected
 * Good test coverage
+* IPv6 support
 * Notifications about connections and disconnections via webhooks (beta)
 
 ## Requirements
