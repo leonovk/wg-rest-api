@@ -11,6 +11,8 @@ SimpleCov.start
 
 require_relative '../config/application'
 
+FileUtils.mkdir_p(Settings.wg_path)
+
 require_relative '../config/schema' unless File.exist?("#{Settings.wg_path}/#{Settings.db_name}.sqlite3")
 
 def sentry?
