@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Server::Serializer do
+RSpec.describe Api::Server::Serializer do
   describe '#serialize' do
     subject(:serialize) { described_class.serialize(JSON.parse(File.read('spec/fixtures/wg0.json'))) }
 

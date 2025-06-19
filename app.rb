@@ -20,7 +20,7 @@ class Application < Sinatra::Base
 
       authorize_resource
 
-      @controller = Clients::Controller.new
+      @controller = Api::Clients::Controller.new
     end
 
     get '/clients' do
@@ -66,7 +66,7 @@ class Application < Sinatra::Base
     end
 
     get '/server' do
-      Server::Controller.new.show
+      Api::Server::Controller.new.show
     end
   end
 

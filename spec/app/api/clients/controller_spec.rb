@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Clients::Controller do
+RSpec.describe Api::Clients::Controller do
   subject(:controller) { described_class.new }
 
   let(:wg_conf_path) { "#{Settings.wg_path}/wg0.json" }
