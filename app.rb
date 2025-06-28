@@ -10,6 +10,7 @@ class Application < Sinatra::Base
   use Sentry::Rack::CaptureExceptions if sentry?
   register Sinatra::Namespace
   set :host_authorization, { permitted_hosts: [] }
+  enable :sessions
 
   AUTH_TOKEN = Settings.auth_token
   AUTH_DIGEST_TOKEN = Settings.auth_digest_token
@@ -67,6 +68,22 @@ class Application < Sinatra::Base
 
     get '/server' do
       Api::Server::Controller.new.show
+    end
+  end
+
+  namespace '/admin' do
+    set :views, "#{settings.root}/app/admin/views"
+
+    before do
+      @controller = Admin::Clients::Controller.new
+    end
+
+    get '/' do
+      erb :login
+    end
+
+    get '/clients' do
+      erb :clients
     end
   end
 
