@@ -17,4 +17,3 @@ auth_digest_token: <%= ENV['AUTH_DIGEST_TOKEN'] %>
 webhooks_url: <%= ENV['WEBHOOKS_URL'] %>
 connecting_client_limit: <%= ENV['CONNECTING_CLIENT_LIMIT'] || '24' %>
 connecting_client_limit_6: <%= ENV['CONNECTING_CLIENT_LIMIT_6'] || '120' %>
-admin_panel_password: "<%= ENV['ADMIN_PANEL_PASSWORD'] %>"
