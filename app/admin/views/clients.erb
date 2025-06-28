@@ -9,27 +9,13 @@
                 </tr>
             </thead>
             <tbody>
+                <% clients[:clients].values.each do |client| %>
                 <tr>
-                    <td>Клиент 1</td>
-                    <td>10.0.0.1</td>
-                    <td class="status-active">Активен</td>
+                    <td><%= client['id'] %></td>
+                    <td><%= client['address'] %></td>
+                    <td class="status-active"><%= client['enable'] ? 'Активен' : 'Неактивен' %></td>
                 </tr>
-                <tr>
-                    <td>Клиент 2</td>
-                    <td>10.0.0.2</td>
-                    <td class="status-inactive">Неактивен</td>
-                </tr>
-                <tr>
-                    <td>Клиент 3</td>
-                    <td>10.0.0.3</td>
-                    <td class="status-active">Активен</td>
-                </tr>
-                <tr>
-                    <td>Клиент 4</td>
-                    <td>10.0.0.4</td>
-                    <td class="status-inactive">Неактивен</td>
-                </tr>
-                <!-- Добавьте дополнительные строки по мере необходимости -->
+                <% end %>
             </tbody>
         </table>
     </div>

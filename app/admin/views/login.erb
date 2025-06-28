@@ -1,9 +1,9 @@
 <div class="login-container">
     <h1>Вход</h1>
-    <form>
+    <form action="/admin/login" method="POST">
         <div class="form-group">
             <label for="password">Пароль</label>
-            <input type="password" class="form-control" id="password" placeholder="Введите пароль" required>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Введите пароль" required>
         </div>
         <button type="submit" class="btn btn-primary btn-block" style="margin-top: 10px;">Войти</button>
     </form>

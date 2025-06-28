@@ -11,9 +11,11 @@ class Application < Sinatra::Base
   register Sinatra::Namespace
   set :host_authorization, { permitted_hosts: [] }
   enable :sessions
+  set :session_secret, Settings.auth_digest_token
 
   AUTH_TOKEN = Settings.auth_token
   AUTH_DIGEST_TOKEN = Settings.auth_digest_token
+  ADMIN_PANEL_PASSWORD = Settings.admin_panel_password
 
   namespace '/api' do # rubocop:disable Metrics/BlockLength
     before do
@@ -75,7 +77,18 @@ class Application < Sinatra::Base
     set :views, "#{settings.root}/app/admin/views"
 
     before do
+      redirect to('/admin/') if !admin_authorized? and request.path != '/admin/' and request.path != '/admin/login'
+
       @controller = Admin::Clients::Controller.new
+    end
+
+    post '/login' do
+      if params['password'] == ADMIN_PANEL_PASSWORD
+        session[:admin_password] = params['password']
+        redirect to('/admin/clients')
+      else
+        redirect to('/admin/')
+      end
     end
 
     get '/' do
@@ -83,7 +96,7 @@ class Application < Sinatra::Base
     end
 
     get '/clients' do
-      erb :clients
+      erb :clients, locals: { clients: controller.clients }
     end
   end
 
@@ -97,6 +110,13 @@ class Application < Sinatra::Base
   private
 
   attr_reader :controller
+
+  def admin_authorized?
+    return false unless AUTH_DIGEST_TOKEN
+    return false if ADMIN_PANEL_PASSWORD.empty?
+
+    session[:admin_password] == ADMIN_PANEL_PASSWORD
+  end
 
   def authorize_resource
     token = request.env['HTTP_AUTHORIZATION']
