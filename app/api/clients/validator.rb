@@ -20,6 +20,7 @@ module Api
           'private_key' => { 'type' => 'string' },
           'public_key' => { 'type' => 'string' },
           'preshared_key' => { 'type' => 'string' },
+          'allowed_ips' => { 'type' => 'string' },
           'enable' => { 'type' => 'boolean' },
           'data' => { 'type' => 'object' }
         },

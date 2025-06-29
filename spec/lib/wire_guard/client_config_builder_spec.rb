@@ -29,6 +29,7 @@ RSpec.describe WireGuard::ClientConfigBuilder do
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
+        allowed_ips: '0.0.0.0/0, ::/0',
         enable: true,
         data: {
           lol: 'kek'
@@ -56,6 +57,7 @@ RSpec.describe WireGuard::ClientConfigBuilder do
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
+        allowed_ips: '0.0.0.0/0, ::/0',
         enable: true,
         data: {
           lol: 'kek'
@@ -87,6 +89,7 @@ RSpec.describe WireGuard::ClientConfigBuilder do
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
+        allowed_ips: '0.0.0.0/0, ::/0',
         enable: true,
         data: {
           lol: 'kek'
@@ -122,6 +125,7 @@ RSpec.describe WireGuard::ClientConfigBuilder do
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
+        allowed_ips: '0.0.0.0/0, ::/0',
         enable: true,
         data: {
           lol: 'kek'
@@ -194,6 +198,7 @@ RSpec.describe WireGuard::ClientConfigBuilder do
         private_key: 'wg_genkey',
         public_key: 'wg_pubkey',
         preshared_key: 'wg_genpsk',
+        allowed_ips: '0.0.0.0/0, ::/0',
         enable: true,
         data: {
           lol: 'kek'

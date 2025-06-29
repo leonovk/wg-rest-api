@@ -465,7 +465,7 @@ RSpec.describe Application do
       let(:expected_body) do
         {
           'error' => "The property '#/' contains additional properties [\"addressss\"] " \
-                     'outside of the schema when none are allowed in schema e8138a17-adc5-55b2-86e9-a14058dbfce3'
+                     'outside of the schema when none are allowed in schema dc771960-b30a-571a-8535-7b8cf133f96a'
         }
       end
 
@@ -559,6 +559,7 @@ RSpec.describe Application do
             'private_key' => 'wg_genkey',
             'public_key' => 'wg_pubkey',
             'preshared_key' => 'wg_genpsk',
+            'allowed_ips' => '0.0.0.0/0, ::/0',
             'enable' => true,
             'data' => {
               'hahaha' => 'body'
