@@ -10,6 +10,7 @@ module WireGuard
 
     CONNECTING_CLIENT_LIMIT = Settings.connecting_client_limit.to_i
     CONNECTING_CLIENT_LIMIT_6 = Settings.connecting_client_limit_6.to_i
+    WG_ALLOWED_IPS = Settings.wg_allowed_ips
 
     attr_reader :config
 
@@ -28,7 +29,7 @@ module WireGuard
 
     attr_reader :wg_genkey, :configs
 
-    def build_config(params)
+    def build_config(params) # rubocop:disable Metrics/MethodLength
       {
         id: configs['last_id'] + 1,
         address: new_last_ip,
@@ -36,6 +37,7 @@ module WireGuard
         private_key: wg_genkey,
         public_key: KeyGenerator.wg_pubkey(wg_genkey),
         preshared_key: KeyGenerator.wg_genpsk,
+        allowed_ips: WG_ALLOWED_IPS,
         enable: true,
         data: params
       }
