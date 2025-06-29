@@ -27,6 +27,7 @@ RSpec.describe Api::Clients::Serializer do
         private_key: '1',
         public_key: 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
         preshared_key: '3',
+        allowed_ips: '12',
         enable: true,
         data: {}
       }
@@ -42,7 +43,7 @@ RSpec.describe Api::Clients::Serializer do
         public_key: 'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=',
         preshared_key: '3',
         enable: true,
-        allowed_ips: '0.0.0.0/0, ::/0',
+        allowed_ips: '12',
         dns: '1.1.1.1',
         persistent_keepalive: 0,
         endpoint: '2.2.2.2:51820',

@@ -10,6 +10,7 @@ RSpec.describe Api::Clients::Validator do
         'private_key' => 'a',
         'public_key' => 'b',
         'preshared_key' => 'c',
+        'allowed_ips' => 'sda',
         'enable' => false,
         'data' => {}
       }
@@ -37,6 +38,7 @@ RSpec.describe Api::Clients::Validator do
         'private_key' => 'a',
         'public_key' => 'b',
         'preshared_key' => 'c',
+        'allowed_ips' => 'sda',
         'enable' => false,
         'data' => {},
         'extra' => 123

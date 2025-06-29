@@ -66,8 +66,16 @@ module WireGuard
         [Peer]
         PublicKey = #{config['public_key']}
         PresharedKey = #{config['preshared_key']}
-        AllowedIPs = #{config['address']}/32, #{config['address_ipv6']}/128
+        AllowedIPs = #{client_allowed_ips(config)}
       TEXT
+    end
+
+    def client_allowed_ips(config)
+      if config['allowed_ips'].nil?
+        "#{config['address']}/32, #{config['address_ipv6']}/128"
+      else
+        config['allowed_ips']
+      end
     end
 
     def wg_post_up # rubocop:disable Metrics/MethodLength

@@ -62,7 +62,7 @@ module Api
           public_key: config['public_key'],
           preshared_key: config['preshared_key'],
           enable: config['enable'],
-          allowed_ips: WG_ALLOWED_IPS,
+          allowed_ips: config['allowed_ips'] || WG_ALLOWED_IPS,
           dns: DNS,
           persistent_keepalive: WG_PERSISTENT_KEEPALIVE,
           endpoint: "#{WG_HOST}:#{WG_PORT}",
