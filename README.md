@@ -194,6 +194,38 @@ content_type => text/plain
 
 Deletes a specific one client. If the client is not found, a 404 error will be returned.
 
+### DELETE /api/clients/inactive
+
+Deletes all clients that have been inactive for more than the specified number of days.
+
+Query parameters:
+- `days` (optional): Number of days of inactivity. Default is 5.
+
+Example request:
+```bash
+curl -X DELETE http://YOUR_SERVER_IP:3000/api/clients/inactive?days=7 \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
+```
+
+Example response:
+```json
+{
+  "deleted_count": 2,
+  "deleted_clients": [
+    {
+      "id": "1",
+      "address": "10.8.0.2",
+      "last_online": "2024-10-10 19:16:50 +0000"
+    },
+    {
+      "id": "3",
+      "address": "10.8.0.4", 
+      "last_online": "2024-10-08 14:22:30 +0000"
+    }
+  ]
+}
+```
+
 ### PATCH /api/clients/:id
 
 Allows you to update specific clients by assigning them new fields. Returns the updated client in response.
