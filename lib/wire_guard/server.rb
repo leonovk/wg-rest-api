@@ -63,6 +63,35 @@ module WireGuard
       json_config['configs'][id]
     end
 
+    def delete_inactive_configs(days)
+      return [] if configs_empty?
+
+      stat = ServerStat.new
+      inactive_threshold = Time.now - (days * 24 * 60 * 60)
+      deleted_clients = []
+
+      all_configs.each do |id, config|
+        client_stat = stat.show(config['public_key'])
+        
+        if client_stat.empty? || client_stat[:last_online].nil?
+          next
+        end
+
+        last_online = Time.parse(client_stat[:last_online])
+        
+        if last_online < inactive_threshold
+          delete_config(id)
+          deleted_clients << {
+            id: id,
+            address: config['address'],
+            last_online: client_stat[:last_online]
+          }
+        end
+      end
+
+      deleted_clients
+    end
+
     private
 
     attr_reader :json_config, :configs

@@ -399,4 +399,95 @@ RSpec.describe ClientsController do
       end
     end
   end
+
+  describe '#destroy_inactive' do
+    before do
+      create_conf_file('spec/fixtures/wg0.json')
+    end
+
+    context 'when there are inactive clients' do
+      let(:stat_data) do
+        {
+          'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
+            last_online: (Time.now - 7 * 24 * 60 * 60).to_s,
+            traffic: { received: 1000, sent: 2000 }
+          },
+          'ntPabgW5p0gqPx41S+66btR4FS4vJp7AcKUhC7wOyn0=' => {
+            last_online: (Time.now - 2 * 24 * 60 * 60).to_s,
+            traffic: { received: 5000, sent: 6000 }
+          },
+          'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
+            last_online: (Time.now - 10 * 24 * 60 * 60).to_s,
+            traffic: { received: 3000, sent: 4000 }
+          }
+        }
+      end
+
+      before do
+        allow(WireGuard::StatGenerator).to receive(:show).and_return('')
+        allow_any_instance_of(WireGuard::ServerStat).to receive(:wg_stat).and_return(stat_data)
+        allow_any_instance_of(WireGuard::ServerStat).to receive(:show) do |_instance, public_key|
+          stat_data[public_key] || {}
+        end
+      end
+
+      it 'deletes clients inactive for more than 5 days' do
+        result = JSON.parse(controller.destroy_inactive(5))
+
+        expect(result['deleted_count']).to eq(2)
+        expect(result['deleted_clients'].map { |c| c['id'] }).to contain_exactly('1', '3')
+      end
+
+      it 'removes inactive clients from the configuration file' do
+        controller.destroy_inactive(5)
+        
+        json_config = JSON.parse(File.read(wg_conf_path))
+        
+        expect(json_config['configs'].keys).to include('2')
+        expect(json_config['configs'].keys).not_to include('1', '3')
+      end
+
+      it 'respects custom days parameter' do
+        result = JSON.parse(controller.destroy_inactive(8))
+
+        expect(result['deleted_count']).to eq(1)
+        expect(result['deleted_clients'].first['id']).to eq('3')
+      end
+
+      it 'returns correct information about deleted clients' do
+        result = JSON.parse(controller.destroy_inactive(5))
+        deleted_client = result['deleted_clients'].find { |c| c['id'] == '1' }
+
+        expect(deleted_client['address']).to eq('10.8.0.2')
+        expect(deleted_client['last_online']).to eq(stat_data['LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg='][:last_online])
+      end
+    end
+
+    context 'when there are no inactive clients' do
+      before do
+        allow(WireGuard::StatGenerator).to receive(:show).and_return('')
+        allow_any_instance_of(WireGuard::ServerStat).to receive(:wg_stat).and_return({})
+      end
+
+      it 'returns empty result when no clients have statistics' do
+        result = JSON.parse(controller.destroy_inactive(5))
+
+        expect(result['deleted_count']).to eq(0)
+        expect(result['deleted_clients']).to be_empty
+      end
+    end
+
+    context 'when there is no configuration file' do
+      before do
+        FileUtils.rm_rf(wg_conf_path)
+      end
+
+      it 'returns empty result' do
+        result = JSON.parse(controller.destroy_inactive(5))
+
+        expect(result['deleted_count']).to eq(0)
+        expect(result['deleted_clients']).to be_empty
+      end
+    end
+  end
 end

@@ -99,6 +99,48 @@ paths:
         '404':
           description: client not found
 
+  /clients/inactive:
+    delete:
+      tags:
+        - client
+      summary: delete inactive clients
+      description: delete all clients that have been inactive for more than the specified number of days
+      parameters:
+        - name: days
+          in: query
+          description: Number of days of inactivity (default is 5)
+          required: false
+          schema:
+            type: integer
+            default: 5
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deleted_count:
+                    type: integer
+                    example: 3
+                  deleted_clients:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "1"
+                        address:
+                          type: string
+                          example: "10.8.0.2"
+                        last_online:
+                          type: string
+                          example: "2024-10-10 19:16:50 +0000"
+        '403':
+          description: authorization error
+
 components:
   schemas:
     ClientUpdate:

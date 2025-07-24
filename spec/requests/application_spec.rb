@@ -542,4 +542,92 @@ RSpec.describe Application do
       expect(config).to eq(JSON.pretty_generate(expected_result))
     end
   end
+
+  describe 'DELETE /api/clients/inactive' do
+    subject(:make_request) do
+      delete('/api/clients/inactive', params)
+    end
+
+    before do
+      allow(WireGuard::ServerConfigUpdater).to receive(:update)
+      header('Authorization', 'Bearer 123-Ab')
+    end
+
+    let(:params) { {} }
+
+    context 'when there are inactive clients' do
+      let(:stat_data) do
+        {
+          'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
+            last_online: (Time.now - 7 * 24 * 60 * 60).to_s,
+            traffic: { received: 1000, sent: 2000 }
+          },
+          'ntPabgW5p0gqPx41S+66btR4FS4vJp7AcKUhC7wOyn0=' => {
+            last_online: (Time.now - 2 * 24 * 60 * 60).to_s,
+            traffic: { received: 5000, sent: 6000 }
+          },
+          'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
+            last_online: (Time.now - 10 * 24 * 60 * 60).to_s,
+            traffic: { received: 3000, sent: 4000 }
+          }
+        }
+      end
+
+      before do
+        allow(WireGuard::StatGenerator).to receive(:show).and_return('')
+        allow_any_instance_of(WireGuard::ServerStat).to receive(:wg_stat).and_return(stat_data)
+        allow_any_instance_of(WireGuard::ServerStat).to receive(:show) do |_instance, public_key|
+          stat_data[public_key] || {}
+        end
+      end
+
+      it 'returns a successful response' do
+        make_request
+
+        expect(last_response.successful?).to be(true)
+      end
+
+      it 'deletes clients inactive for more than 5 days by default' do
+        make_request
+
+        result = JSON.parse(last_response.body)
+        expect(result['deleted_count']).to eq(2)
+        expect(result['deleted_clients'].map { |c| c['id'] }).to contain_exactly('1', '3')
+      end
+
+      context 'with custom days parameter' do
+        let(:params) { { days: 8 } }
+
+        it 'respects the custom days parameter' do
+          make_request
+
+          result = JSON.parse(last_response.body)
+          expect(result['deleted_count']).to eq(1)
+          expect(result['deleted_clients'].first['id']).to eq('3')
+        end
+      end
+
+      it 'returns correct information about deleted clients' do
+        make_request
+
+        result = JSON.parse(last_response.body)
+        deleted_client = result['deleted_clients'].find { |c| c['id'] == '1' }
+
+        expect(deleted_client['address']).to eq('10.8.0.2')
+        expect(deleted_client['last_online']).to be_a(String)
+      end
+    end
+
+    context 'when the request is not authorized' do
+      before do
+        header('Authorization', nil)
+      end
+
+      it 'returns a forbidden response' do
+        make_request
+
+        expect(last_response.status).to eq(403)
+      end
+    end
+  end
 end

@@ -64,6 +64,10 @@ class Application < Sinatra::Base
 
       controller.create(request_body)
     end
+
+    delete '/clients/inactive' do
+      controller.destroy_inactive(params['days'] || 5)
+    end
   end
 
   get '/healthz' do

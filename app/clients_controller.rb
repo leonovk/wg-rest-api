@@ -34,6 +34,15 @@ class ClientsController
     {}.to_json
   end
 
+  def destroy_inactive(days)
+    deleted_clients = wire_guard.delete_inactive_configs(days.to_i)
+
+    {
+      deleted_count: deleted_clients.size,
+      deleted_clients: deleted_clients
+    }.to_json
+  end
+
   private
 
   attr_reader :wire_guard
