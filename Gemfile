@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'chunky_png', '~> 1.3', '>= 1.3.5'
-gem 'config', '~> 5.5'
+gem 'config', '~> 5.6'
 gem 'digest', '~> 3.2'
 gem 'faraday', '~> 2.13'
 gem 'ipaddr', '~> 1.2'
