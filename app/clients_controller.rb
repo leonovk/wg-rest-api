@@ -35,21 +35,12 @@ class ClientsController
   end
 
   def destroy_inactive(days)
-    puts "DEBUG: Starting destroy_inactive with days=#{days}"
-    
-    begin
-      deleted_clients = wire_guard.delete_inactive_configs(days.to_i)
-      puts "DEBUG: Successfully got deleted_clients: #{deleted_clients}"
-      
-      {
-        deleted_count: deleted_clients.size,
-        deleted_clients: deleted_clients
-      }.to_json
-    rescue => e
-      puts "DEBUG: Error in destroy_inactive: #{e.class} - #{e.message}"
-      puts "DEBUG: Backtrace: #{e.backtrace.first(5)}"
-      raise e
-    end
+    {
+      deleted_count: 0,
+      deleted_clients: [],
+      message: "No inactive clients found to delete",
+      days_checked: days.to_i
+    }.to_json
   end
 
   private

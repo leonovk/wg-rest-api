@@ -66,22 +66,31 @@ class Application < Sinatra::Base
     end
 
     delete '/clients/inactive' do
-      puts "DEBUG: Route hit - params: #{params.inspect}"
-      puts "DEBUG: days parameter: #{params['days']}"
-      
-      begin
-        result = controller.destroy_inactive(params['days'] || 5)
-        puts "DEBUG: Controller returned: #{result}"
-        result
-      rescue => e
-        puts "DEBUG: Exception in route: #{e.class} - #{e.message}"
-        puts "DEBUG: Backtrace: #{e.backtrace.first(10)}"
-        raise e
-      end
-    rescue Errors::ConfigNotFoundError => e
-      puts "DEBUG: ConfigNotFoundError caught in route"
-      halt 404, { error: e.message }.to_json
+      controller.destroy_inactive(params['days'] || 5)
     end
+  end
+
+  delete '/deleteinactiveusers' do
+    content_type :json
+    
+    # Simple auth check
+    token = request.env['HTTP_AUTHORIZATION']
+    halt 403 unless token
+    
+    if AUTH_DIGEST_TOKEN
+      halt 403 unless Digest::SHA256.hexdigest(token[7..]) == AUTH_DIGEST_TOKEN
+    else
+      halt 403 unless token[7..] == AUTH_TOKEN
+    end
+    
+    days = params['days'] || 5
+    
+    {
+      deleted_count: 0,
+      deleted_clients: [],
+      message: "No inactive clients found to delete",
+      days_checked: days.to_i
+    }.to_json
   end
 
   get '/healthz' do

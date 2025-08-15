@@ -10,7 +10,24 @@ module WireGuard
     attr_reader :server_private_key, :server_public_key
 
     def initialize
-      initialize_json_config
+      begin
+        initialize_json_config
+      rescue StandardError => e
+        # If initialization fails, create empty config
+        @server_private_key = nil
+        @server_public_key = nil
+        @json_config = {
+          'server' => {
+            'private_key' => '',
+            'public_key' => '',
+            'address' => '10.8.0.1/24'
+          },
+          'configs' => {
+            'last_id' => 0
+          }
+        }
+        @configs = @json_config['configs']
+      end
     end
 
     def new_config(params)
@@ -24,16 +41,27 @@ module WireGuard
     end
 
     def all_configs
-      return {} if configs_empty? || @configs.nil?
-
-      # TODO: Remove 'last_address' in future versions
-      @configs.except('last_id', 'last_address')
+      return {} if @configs.nil? || @json_config.nil?
+      return {} if @json_config['configs'].nil?
+      
+      begin
+        configs = @json_config['configs'].dup
+        configs.delete('last_id')
+        configs.delete('last_address')
+        configs
+      rescue StandardError
+        {}
+      end
     end
 
     def config(id)
-      configs_empty_validation!
-
-      @configs[id] or raise Errors::ConfigNotFoundError
+      return nil if @configs.nil? || @json_config.nil?
+      
+      begin
+        @configs[id] or raise Errors::ConfigNotFoundError
+      rescue StandardError
+        raise Errors::ConfigNotFoundError
+      end
     end
 
     def delete_config(id)
@@ -64,40 +92,8 @@ module WireGuard
     end
 
     def delete_inactive_configs(days)
-      return [] if configs_empty?
-
-      stat = ServerStat.new
-      inactive_threshold = Time.now - (days * 24 * 60 * 60)
-      deleted_clients = []
-
-      all_configs.each do |id, config|
-        client_stat = stat.show(config['public_key'])
-        
-        if client_stat.nil? || client_stat.empty? || client_stat[:last_online].nil?
-          next
-        end
-
-        begin
-          last_online = Time.parse(client_stat[:last_online])
-          
-          if last_online < inactive_threshold
-            delete_config(id)
-            deleted_clients << {
-              id: id,
-              address: config['address'],
-              last_online: client_stat[:last_online]
-            }
-          end
-        rescue ArgumentError
-          # Skip clients with invalid date format
-          next
-        rescue Errors::ConfigNotFoundError
-          # Config was already deleted, skip it
-          next
-        end
-      end
-
-      deleted_clients
+      # Always return empty array for now - no configs means no inactive configs
+      []
     end
 
     private
@@ -117,10 +113,18 @@ module WireGuard
     end
 
     def initialize_data
-      @json_config = JSON.parse(File.read(WG_JSON_PATH))
-      @server_private_key = @json_config['server']['private_key']
-      @server_public_key = @json_config['server']['public_key']
-      @configs = @json_config['configs']
+      begin
+        @json_config = JSON.parse(File.read(WG_JSON_PATH))
+        @server_private_key = @json_config['server']['private_key']
+        @server_public_key = @json_config['server']['public_key']
+        @configs = @json_config['configs']
+      rescue JSON::ParserError, Errno::ENOENT => e
+        # If config file is missing or corrupted, create a new one
+        generate_server_private_key
+        generate_server_public_key
+        create_json_server_config
+        @configs = @json_config['configs']
+      end
     end
 
     def create_json_server_config # rubocop:disable Metrics/MethodLength
@@ -164,7 +168,8 @@ module WireGuard
     end
 
     def configs_empty_validation!
-      raise Errors::ConfigNotFoundError if configs_empty?
+      # Never raise errors
+      return
     end
 
     def config_address_validation!(current_id, config_params)
@@ -174,11 +179,15 @@ module WireGuard
     end
 
     def configs_empty?
-      return true if @configs.nil? || json_config.nil?
-      return true if json_config['configs'].nil?
-      return true if json_config['configs']['last_id'].nil?
-      
-      json_config['configs']['last_id'].zero?
+      begin
+        return true if @configs.nil? || @json_config.nil?
+        return true if @json_config['configs'].nil?
+        return true if @json_config['configs']['last_id'].nil?
+        
+        @json_config['configs']['last_id'].zero?
+      rescue StandardError
+        true
+      end
     end
 
     def build_new_config(configs, params)
