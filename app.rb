@@ -66,8 +66,20 @@ class Application < Sinatra::Base
     end
 
     delete '/clients/inactive' do
-      controller.destroy_inactive(params['days'] || 5)
+      puts "DEBUG: Route hit - params: #{params.inspect}"
+      puts "DEBUG: days parameter: #{params['days']}"
+      
+      begin
+        result = controller.destroy_inactive(params['days'] || 5)
+        puts "DEBUG: Controller returned: #{result}"
+        result
+      rescue => e
+        puts "DEBUG: Exception in route: #{e.class} - #{e.message}"
+        puts "DEBUG: Backtrace: #{e.backtrace.first(10)}"
+        raise e
+      end
     rescue Errors::ConfigNotFoundError => e
+      puts "DEBUG: ConfigNotFoundError caught in route"
       halt 404, { error: e.message }.to_json
     end
   end
