@@ -67,6 +67,8 @@ class Application < Sinatra::Base
 
     delete '/clients/inactive' do
       controller.destroy_inactive(params['days'] || 5)
+    rescue Errors::ConfigNotFoundError => e
+      halt 404, { error: e.message }.to_json
     end
   end
 

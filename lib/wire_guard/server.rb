@@ -73,19 +73,27 @@ module WireGuard
       all_configs.each do |id, config|
         client_stat = stat.show(config['public_key'])
         
-        if client_stat.empty? || client_stat[:last_online].nil?
+        if client_stat.nil? || client_stat.empty? || client_stat[:last_online].nil?
           next
         end
 
-        last_online = Time.parse(client_stat[:last_online])
-        
-        if last_online < inactive_threshold
-          delete_config(id)
-          deleted_clients << {
-            id: id,
-            address: config['address'],
-            last_online: client_stat[:last_online]
-          }
+        begin
+          last_online = Time.parse(client_stat[:last_online])
+          
+          if last_online < inactive_threshold
+            delete_config(id)
+            deleted_clients << {
+              id: id,
+              address: config['address'],
+              last_online: client_stat[:last_online]
+            }
+          end
+        rescue ArgumentError
+          # Skip clients with invalid date format
+          next
+        rescue Errors::ConfigNotFoundError
+          # Config was already deleted, skip it
+          next
         end
       end
 
