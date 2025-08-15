@@ -83,14 +83,60 @@ class Application < Sinatra::Base
       halt 403 unless token[7..] == AUTH_TOKEN
     end
     
-    days = params['days'] || 5
+    days = (params['days'] || 5).to_i
     
-    {
-      deleted_count: 0,
-      deleted_clients: [],
-      message: "No inactive clients found to delete",
-      days_checked: days.to_i
-    }.to_json
+    begin
+      # Create a controller instance to access WireGuard functionality
+      controller = ClientsController.new
+      
+      # Get all clients
+      all_clients = JSON.parse(controller.index)
+      deleted_clients = []
+      
+      # Calculate threshold date
+      inactive_threshold = Time.now - (days * 24 * 60 * 60)
+      
+      all_clients.each do |client|
+        next unless client['last_online']
+        
+        begin
+          last_online = Time.parse(client['last_online'])
+          
+          if last_online < inactive_threshold
+            # Delete this client
+            begin
+              controller.destroy(client['id'].to_s)
+              deleted_clients << {
+                id: client['id'],
+                address: client['address'],
+                last_online: client['last_online']
+              }
+            rescue StandardError => e
+              # Skip if deletion fails
+              next
+            end
+          end
+        rescue ArgumentError
+          # Skip clients with invalid date format
+          next
+        end
+      end
+      
+      {
+        deleted_count: deleted_clients.size,
+        deleted_clients: deleted_clients,
+        days_checked: days,
+        threshold_date: inactive_threshold.strftime('%Y-%m-%d %H:%M:%S UTC')
+      }.to_json
+      
+    rescue StandardError => e
+      {
+        deleted_count: 0,
+        deleted_clients: [],
+        error: "Unable to process inactive clients: #{e.message}",
+        days_checked: days
+      }.to_json
+    end
   end
 
   get '/healthz' do
