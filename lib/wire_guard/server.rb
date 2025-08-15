@@ -24,7 +24,7 @@ module WireGuard
     end
 
     def all_configs
-      return {} if configs_empty?
+      return {} if configs_empty? || @configs.nil?
 
       # TODO: Remove 'last_address' in future versions
       @configs.except('last_id', 'last_address')
@@ -174,7 +174,11 @@ module WireGuard
     end
 
     def configs_empty?
-      @configs.nil? or json_config['configs']['last_id'].zero?
+      return true if @configs.nil? || json_config.nil?
+      return true if json_config['configs'].nil?
+      return true if json_config['configs']['last_id'].nil?
+      
+      json_config['configs']['last_id'].zero?
     end
 
     def build_new_config(configs, params)
