@@ -1,0 +1,40 @@
+FROM golang:1.21-alpine AS builder
+
+RUN apk update && apk add --no-cache git make bash build-base linux-headers
+RUN git clone https://github.com/amnezia-vpn/amneziawg-tools.git
+RUN cd amneziawg-tools/src && \
+    make
+
+FROM ruby:3.4.4-alpine
+
+WORKDIR /app
+
+COPY . .
+
+RUN apk update \
+    && apk --no-cache --update add build-base
+
+# Install Linux packages
+RUN apk add --no-cache \
+    dpkg \
+    dumb-init \
+    iptables \
+    iptables-legacy
+
+COPY --from=builder /go/amneziawg-tools/src/wg /usr/bin/wg
+COPY --from=builder /go/amneziawg-tools/src/wg-quick/linux.bash /usr/bin/wg-quick
+
+# Use iptables-legacy
+RUN update-alternatives --install \
+    /usr/sbin/iptables iptables \
+    /usr/sbin/iptables-legacy 10 --slave \
+    /usr/sbin/iptables-restore iptables-restore \
+    /usr/sbin/iptables-legacy-restore --slave \
+    /usr/sbin/iptables-save iptables-save \
+    /usr/sbin/iptables-legacy-save
+
+RUN bundle config set without 'development rerun test'
+
+RUN bundle install
+
+CMD ["puma", "-C", "config/puma.rb"]
