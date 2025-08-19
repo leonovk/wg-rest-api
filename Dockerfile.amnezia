@@ -33,6 +33,8 @@ RUN update-alternatives --install \
     /usr/sbin/iptables-save iptables-save \
     /usr/sbin/iptables-legacy-save
 
+ENV WIREGUARD_MODE=amnezia
+
 RUN bundle config set without 'development rerun test'
 
 RUN bundle install
