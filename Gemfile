@@ -16,7 +16,7 @@ gem 'ruby-units', '~> 4.1'
 gem 'rubyzip', '~> 3.1'
 gem 'simple_monads', '~> 1.0'
 gem 'sinatra', '~> 4.1'
-gem 'sinatra-contrib', '~> 4.1'
+gem 'sinatra-contrib', '~> 4.2'
 
 # NOTE: These gems are here and not in dev mode, for access to the console
 gem 'byebug', '~> 12.0'
