@@ -5,17 +5,17 @@ source 'https://rubygems.org'
 gem 'chunky_png', '~> 1.3', '>= 1.3.5'
 gem 'config', '~> 5.6'
 gem 'digest', '~> 3.2'
-gem 'faraday', '~> 2.13'
+gem 'faraday', '~> 2.14'
 gem 'ipaddr', '~> 1.2'
-gem 'json-schema', '~> 5.2'
-gem 'puma', '~> 6.6'
+gem 'json-schema', '~> 6.0'
+gem 'puma', '~> 7.0'
 gem 'rainbow', '~> 3.1', '>= 3.1.1'
 gem 'rake', '~> 13.3'
 gem 'rqrcode', '~> 3.1'
 gem 'ruby-units', '~> 4.1'
-gem 'rubyzip', '~> 2.4'
+gem 'rubyzip', '~> 3.1'
 gem 'simple_monads', '~> 1.0'
-gem 'sinatra', '~> 4.1'
+gem 'sinatra', '~> 4.2'
 gem 'sinatra-contrib', '~> 4.1'
 
 # NOTE: These gems are here and not in dev mode, for access to the console
@@ -24,10 +24,10 @@ gem 'pry-byebug', '~> 3.10', '>= 3.10.1'
 
 group :development do
   gem 'dotenv', '~> 3.1'
-  gem 'rubocop', '~> 1.79'
+  gem 'rubocop', '~> 1.81'
   gem 'rubocop-rake', '~> 0.7.1'
-  gem 'rubocop-rspec', '~> 3.6'
-  gem 'super_diff', '~> 0.16.0'
+  gem 'rubocop-rspec', '~> 3.7'
+  gem 'super_diff', '~> 0.17.0'
 end
 
 group :test do
@@ -48,6 +48,6 @@ end
 # The average user does not need them.
 # And they start working only if there is a special setting
 group :production do
-  gem 'sentry-ruby', '~> 5.26'
+  gem 'sentry-ruby', '~> 6.0'
   gem 'stackprof', '~> 0.2.27'
 end
