@@ -52,7 +52,7 @@ module WireGuard
     end
 
     def check_availability_of_space!
-      return unless all_ip_addresses.size >= self.class.available_addresses_count
+      return if all_ip_addresses.size <= self.class.available_addresses_count
 
       raise Errors::ConnectionLimitExceededError
     end
