@@ -38,9 +38,8 @@ module WireGuard
       new_stat_data.each do |peer, new_data|
         last_data = last_stat_data[peer]
 
-        # NOTE: Write only if there is no latest data or if there is new data.
-        # New data will always have at least an empty hash.
-        last_stat_data[peer] = new_data if (last_data.nil? || last_data.empty?) || !new_data.empty?
+        # NOTE: The new data will always contain the latest IP address, so we ignore it when checking.
+        last_stat_data[peer] = new_data if (last_data.nil? || last_data.empty?) || !new_data.except(:last_ip).empty?
       end
 
       last_stat_data

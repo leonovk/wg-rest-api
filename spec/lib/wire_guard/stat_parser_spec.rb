@@ -57,7 +57,7 @@ RSpec.describe WireGuard::StatParser do
           last_ip: '217.66.152.172'
         },
         'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-          last_ip: '137.244.47.79',
+          last_ip: '212.13.11.203',
           last_online: '2024-10-09 23:58:47 +0000',
           traffic: {
             received: 65_473_085,
