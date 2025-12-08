@@ -157,6 +157,9 @@ components:
         endpoint:
           type: string
           example: 0.0.0.0:51820
+        last_ip:
+          type: string
+          example: 137.244.47.77
         last_online:
           type: string
           example: 2024-10-15 19:16:50 +0000

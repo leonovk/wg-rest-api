@@ -73,6 +73,7 @@ RSpec.describe Api::Clients::Controller do
             dns: '1.1.1.1',
             persistent_keepalive: 0,
             endpoint: '2.2.2.2:51820',
+            last_ip: nil,
             last_online: nil,
             traffic: nil,
             data: {
@@ -92,6 +93,7 @@ RSpec.describe Api::Clients::Controller do
             dns: '1.1.1.1',
             persistent_keepalive: 0,
             endpoint: '2.2.2.2:51820',
+            last_ip: nil,
             last_online: nil,
             traffic: nil,
             data: {
@@ -111,6 +113,7 @@ RSpec.describe Api::Clients::Controller do
             dns: '1.1.1.1',
             persistent_keepalive: 0,
             endpoint: '2.2.2.2:51820',
+            last_ip: nil,
             last_online: nil,
             traffic: nil,
             data: {
@@ -148,6 +151,7 @@ RSpec.describe Api::Clients::Controller do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
+          last_ip: nil,
           last_online: nil,
           traffic: nil,
           data: {
@@ -185,6 +189,7 @@ RSpec.describe Api::Clients::Controller do
         dns: '1.1.1.1',
         persistent_keepalive: 0,
         endpoint: '2.2.2.2:51820',
+        last_ip: nil,
         last_online: nil,
         traffic: nil,
         data: nil
@@ -374,6 +379,7 @@ RSpec.describe Api::Clients::Controller do
             dns: '1.1.1.1',
             persistent_keepalive: 0,
             endpoint: '2.2.2.2:51820',
+            last_ip: nil,
             last_online: nil,
             traffic: nil,
             data: {}

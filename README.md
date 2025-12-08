@@ -118,6 +118,7 @@ Example response:
     "dns": "1.1.1.1",
     "persistent_keepalive": 0,
     "endpoint": "0.0.0.0:51820",
+    "last_ip": "192.168.1.100",
     "last_online": "2024-12-04 11:01:52 +0000",
     "traffic": {
       "received": 123, // bytes
@@ -148,6 +149,7 @@ Example response:
   "dns": "1.1.1.1",
   "persistent_keepalive": 0,
   "endpoint": "0.0.0.0:51820",
+  "last_ip": "192.168.1.100",
   "last_online": "2024-12-04 11:01:52 +0000",
   "traffic": {
     "received": 123, // bytes
