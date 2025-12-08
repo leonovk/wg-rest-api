@@ -21,7 +21,7 @@ RSpec.describe WireGuard::ServerStat do
       let(:expected_result) do
         {
           'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
-            last_ip: '137.244.47.77',
+            last_ip: '109.252.46.192',
             last_online: '2024-10-09 21:49:40 +0000',
             traffic: {
               received: 59_013_857,
@@ -29,7 +29,7 @@ RSpec.describe WireGuard::ServerStat do
             }
           },
           'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {
-            last_ip: '137.244.47.78',
+            last_ip: '217.66.152.172',
             last_online: '2024-10-09 23:59:30 +0000',
             traffic: {
               received: 208_970_711,
@@ -37,7 +37,7 @@ RSpec.describe WireGuard::ServerStat do
             }
           },
           'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-            last_ip: '137.244.47.79',
+            last_ip: '212.13.11.203',
             last_online: '2024-10-09 23:58:47 +0000',
             traffic: {
               received: 65_473_085,
@@ -68,7 +68,7 @@ RSpec.describe WireGuard::ServerStat do
       let(:expected_result) do
         {
           'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
-            last_ip: '137.244.47.77',
+            last_ip: '109.252.46.192',
             last_online: '2024-10-09 21:49:40 +0000',
             traffic: {
               received: 59_013_857,
@@ -76,7 +76,7 @@ RSpec.describe WireGuard::ServerStat do
             }
           },
           'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {
-            last_ip: '137.244.47.78',
+            last_ip: '217.66.152.172',
             last_online: '2024-10-09 23:59:30 +0000',
             traffic: {
               received: 208_970_711,
@@ -84,7 +84,7 @@ RSpec.describe WireGuard::ServerStat do
             }
           },
           'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-            last_ip: '137.244.47.79',
+            last_ip: '212.13.11.203',
             last_online: '2024-10-09 23:58:47 +0000',
             traffic: {
               received: 65_473_085,
@@ -113,10 +113,14 @@ RSpec.describe WireGuard::ServerStat do
       context 'when there is no file with statistics' do
         let(:expected_result) do
           {
-            'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {},
-            'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {},
+            'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
+              last_ip: '109.252.46.192'
+            },
+            'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {
+              last_ip: '217.66.152.172'
+            },
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-              last_ip: '137.244.47.79',
+              last_ip: '212.13.11.203',
               last_online: '2024-10-09 23:58:47 +0000',
               traffic: {
                 received: 65_473_085,
@@ -144,12 +148,10 @@ RSpec.describe WireGuard::ServerStat do
           create_conf_file('spec/fixtures/wg0_stat.json', wg_stat_path)
         end
 
-        # NOTE: Look here:
-        # lib/wire_guard/server_stat.rb:48
         let(:expected_result) do
           {
             'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
-              'last_ip' => '137.244.47.77',
+              'last_ip' => '109.252.46.192',
               'last_online' => '2024-10-15 19:34:41 +0000',
               'traffic' => {
                 'received' => 59_013_857,
@@ -157,7 +159,7 @@ RSpec.describe WireGuard::ServerStat do
               }
             },
             'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {
-              'last_ip' => '137.244.47.78',
+              'last_ip' => '217.66.152.172',
               'last_online' => '2024-10-15 18:34:41 +0000',
               'traffic' => {
                 'received' => 208_970_711,
@@ -165,7 +167,7 @@ RSpec.describe WireGuard::ServerStat do
               }
             },
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-              last_ip: '137.244.47.79',
+              last_ip: '212.13.11.203',
               last_online: '2024-10-09 23:58:47 +0000',
               traffic: {
                 received: 65_473_085,
@@ -198,7 +200,7 @@ RSpec.describe WireGuard::ServerStat do
         let(:expected_result) do
           {
             'LiXk4UOfnScgf4UnkcYNcz4wWeqTOW1UrHKRVhZ1OXg=' => {
-              last_ip: '137.244.47.77',
+              last_ip: '109.252.46.192',
               last_online: '2024-10-09 21:49:40 +0000',
               traffic: {
                 received: 59_013_857,
@@ -206,7 +208,7 @@ RSpec.describe WireGuard::ServerStat do
               }
             },
             'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {
-              last_ip: '137.244.47.78',
+              last_ip: '217.66.152.172',
               last_online: '2024-10-09 23:59:30 +0000',
               traffic: {
                 received: 208_970_711,
@@ -214,7 +216,7 @@ RSpec.describe WireGuard::ServerStat do
               }
             },
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-              last_ip: '137.244.47.79',
+              last_ip: '212.13.11.203',
               last_online: '2024-10-09 23:58:47 +0000',
               traffic: {
                 received: 65_473_085,
@@ -250,9 +252,11 @@ RSpec.describe WireGuard::ServerStat do
                 'sent' => 1_449_551_462
               }
             },
-            'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {},
+            'hvIyIW2o8JROVKuY2yYFdUn0oA+43aLuT8KCy0YbORE=' => {
+              last_ip: '217.66.152.172'
+            },
             'bPKBg66uC1J2hlkE31Of5wnkg+IjowVXgoLcjcLn0js=' => {
-              last_ip: '137.244.47.79',
+              last_ip: '212.13.11.203',
               last_online: '2024-10-09 23:58:47 +0000',
               traffic: {
                 received: 65_473_085,
@@ -285,7 +289,7 @@ RSpec.describe WireGuard::ServerStat do
 
       let(:expected_result) do
         {
-          last_ip: '137.244.47.78',
+          last_ip: '217.66.152.172',
           last_online: '2024-10-09 23:59:30 +0000',
           traffic: {
             received: 208_970_711,

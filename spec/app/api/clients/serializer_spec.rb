@@ -12,12 +12,12 @@ RSpec.describe Api::Clients::Serializer do
     Timecop.return
   end
 
-  let(:key) { '4' }
+  let(:server_public_key) { '4' }
   let(:wg_stat_path) { "#{Settings.wg_path}/wg0_stat.json" }
   let(:wg_show_stub) { File.read('spec/fixtures/stat_with_empty.txt') }
 
   describe '#serialize' do
-    subject(:serialize) { described_class.serialize(config, key) }
+    subject(:serialize) { described_class.serialize(config, server_public_key) }
 
     let(:config) do
       {
@@ -47,7 +47,7 @@ RSpec.describe Api::Clients::Serializer do
         dns: '1.1.1.1',
         persistent_keepalive: 0,
         endpoint: '2.2.2.2:51820',
-        last_ip: '137.244.47.77',
+        last_ip: '109.252.46.192',
         last_online: '2024-10-15 19:34:41 +0000',
         traffic: {
           received: 59_013_857,
@@ -63,7 +63,7 @@ RSpec.describe Api::Clients::Serializer do
   end
 
   describe '#each_serialize' do
-    subject(:serialize) { described_class.each_serialize(config, key) }
+    subject(:serialize) { described_class.each_serialize(config, server_public_key) }
 
     let(:config) do
       {
@@ -115,7 +115,7 @@ RSpec.describe Api::Clients::Serializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_ip: '137.244.47.77',
+          last_ip: '109.252.46.192',
           last_online: '2024-10-15 19:34:41 +0000',
           traffic: {
             received: 59_013_857,
@@ -136,7 +136,7 @@ RSpec.describe Api::Clients::Serializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_ip: '137.244.47.77',
+          last_ip: '217.66.152.172',
           last_online: '2024-10-15 18:34:41 +0000',
           traffic: {
             received: 208_970_711,
@@ -157,7 +157,7 @@ RSpec.describe Api::Clients::Serializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_ip: '137.244.47.77',
+          last_ip: '212.13.11.203',
           last_online: '2024-10-09 23:58:47 +0000',
           traffic: {
             received: 65_473_085,
