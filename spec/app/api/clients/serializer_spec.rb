@@ -47,7 +47,7 @@ RSpec.describe Api::Clients::Serializer do
         dns: '1.1.1.1',
         persistent_keepalive: 0,
         endpoint: '2.2.2.2:51820',
-        last_ip: "137.244.47.77",
+        last_ip: '137.244.47.77',
         last_online: '2024-10-15 19:34:41 +0000',
         traffic: {
           received: 59_013_857,
@@ -115,7 +115,7 @@ RSpec.describe Api::Clients::Serializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_ip: "137.244.47.77",
+          last_ip: '137.244.47.77',
           last_online: '2024-10-15 19:34:41 +0000',
           traffic: {
             received: 59_013_857,
@@ -136,7 +136,7 @@ RSpec.describe Api::Clients::Serializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_ip: "137.244.47.77",
+          last_ip: '137.244.47.77',
           last_online: '2024-10-15 18:34:41 +0000',
           traffic: {
             received: 208_970_711,
@@ -157,7 +157,7 @@ RSpec.describe Api::Clients::Serializer do
           dns: '1.1.1.1',
           persistent_keepalive: 0,
           endpoint: '2.2.2.2:51820',
-          last_ip: "137.244.47.77",
+          last_ip: '137.244.47.77',
           last_online: '2024-10-09 23:58:47 +0000',
           traffic: {
             received: 65_473_085,

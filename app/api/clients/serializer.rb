@@ -52,7 +52,7 @@ module Api
         end
       end
 
-      def client(config = client_config) # rubocop:disable Metrics/MethodLength
+      def client(config = client_config) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
         {
           id: config['id'],
           server_public_key:,
