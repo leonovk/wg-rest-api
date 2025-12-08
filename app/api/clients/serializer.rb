@@ -66,6 +66,7 @@ module Api
           dns: DNS,
           persistent_keepalive: WG_PERSISTENT_KEEPALIVE,
           endpoint: "#{WG_HOST}:#{WG_PORT}",
+          last_ip: find_stat_data(config['public_key'])['last_ip'],
           last_online: find_stat_data(config['public_key'])['last_online'],
           traffic: find_stat_data(config['public_key'])['traffic'],
           data: config['data']
