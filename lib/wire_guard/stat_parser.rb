@@ -34,7 +34,7 @@ module WireGuard
       end
     end
 
-    def parse_wg_line(peer_data) # rubocop:disable Metrics/MethodLength
+    def parse_wg_line(peer_data) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       case peer_data.first
       when 'peer:'
         result[peer_data.last] = {}
