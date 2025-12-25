@@ -223,7 +223,7 @@ If you update the data field, it will be updated by merging, but if you intentio
 ### Requirements fo standalone app
 
 1. wireguard + wireguard-tools
-2. ruby 3.4.5
+2. ruby 4.0.0
 
 ```bash
 $ bundle install
