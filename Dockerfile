@@ -1,11 +1,11 @@
-FROM ruby:4.0.0-preview3-alpine3.23
+FROM ruby:4.0.1-alpine
 
 WORKDIR /app
 
 COPY . .
 
 RUN apk update \
-    && apk --no-cache --update add build-base 
+    && apk --no-cache --update add build-base
 
 # Install Linux packages
 RUN apk add --no-cache \
