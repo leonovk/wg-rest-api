@@ -26,7 +26,7 @@ group :development do
   gem 'dotenv', '~> 3.1'
   gem 'rubocop', '~> 1.82', '>= 1.82.1'
   gem 'rubocop-rake', '~> 0.7.1'
-  gem 'rubocop-rspec', '~> 3.8'
+  gem 'rubocop-rspec', '~> 3.9'
   gem 'super_diff', '~> 0.18.0'
 end
 
