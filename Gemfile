@@ -49,5 +49,5 @@ end
 # And they start working only if there is a special setting
 group :production do
   gem 'sentry-ruby', '~> 6.4'
-  gem 'stackprof', '~> 0.2.27'
+  gem 'stackprof', '~> 0.2.28'
 end
