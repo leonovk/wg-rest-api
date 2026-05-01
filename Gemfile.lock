@@ -161,7 +161,7 @@ GEM
       diff-lcs
       patience_diff
     tilt (2.6.1)
-    timecop (0.9.10)
+    timecop (0.9.11)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.2.0)
@@ -204,7 +204,7 @@ DEPENDENCIES
   sinatra-contrib (~> 4.1)
   stackprof (~> 0.2.28)
   super_diff (~> 0.18.0)
-  timecop (~> 0.9.10)
+  timecop (~> 0.9.11)
   webmock (~> 3.26)
 
 BUNDLED WITH
