@@ -24,7 +24,7 @@ gem 'pry-byebug', '~> 3.10', '>= 3.10.1'
 
 group :development do
   gem 'dotenv', '~> 3.2'
-  gem 'rubocop', '~> 1.87'
+  gem 'rubocop', '~> 1.88'
   gem 'rubocop-rake', '~> 0.7.1'
   gem 'rubocop-rspec', '~> 3.9'
   gem 'super_diff', '~> 0.19.0'
