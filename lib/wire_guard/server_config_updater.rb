@@ -82,7 +82,7 @@ module WireGuard
         "-o #{WG_DEVICE} -j MASQUERADE; " \
         "ip6tables -A INPUT -p udp -m udp --dport #{WG_PORT} -j ACCEPT; " \
         'ip6tables -A FORWARD -i wg0 -j ACCEPT; ' \
-        'ip6tables -A FORWARD -o wg0 -j ACCEPT;' \
+        'ip6tables -A FORWARD -o wg0 -j ACCEPT;'
     end
 
     def wg_post_down # rubocop:disable Metrics/MethodLength
