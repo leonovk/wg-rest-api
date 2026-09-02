@@ -21,7 +21,7 @@ module Webhooks
 
     attr_reader :new_stat_data, :last_stat_data, :last_events_data
 
-    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def aggregate_events
       new_stat_data.each do |peer, new_data|
         last_data = last_stat_data[peer]
@@ -36,7 +36,6 @@ module Webhooks
         end
       end
     end
-    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     def calculate_event(last_data, new_data, last_event)
       new_data_sum = new_data[:traffic][:received] + new_data[:traffic][:sent]
