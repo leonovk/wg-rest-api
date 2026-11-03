@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 gem 'chunky_png', '~> 1.3', '>= 1.3.5'
 gem 'config', '~> 5.6'
-gem 'digest', '~> 3.2'
+gem 'digest', '~> 3.3'
 gem 'faraday', '~> 2.14'
 gem 'ipaddr', '~> 1.3'
 gem 'json-schema', '~> 6.2'
